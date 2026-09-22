@@ -68,7 +68,7 @@ export default function Navigation() {
             >
               CHETTUNGAL
             </span>
-            <span className="text-[9px] sm:text-[10px] tracking-[0.25em] uppercase font-medium text-[#E5C158]">
+            <span className="text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] uppercase font-medium text-[#E5C158] whitespace-nowrap">
               NEW TOWN HOTEL · ANGAMALY
             </span>
           </div>

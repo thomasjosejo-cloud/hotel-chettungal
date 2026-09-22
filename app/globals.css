@@ -96,3 +96,13 @@
   background-image: radial-gradient(rgba(229, 193, 88, 0.16) 1px, transparent 1px);
   background-size: 28px 28px;
 }
+
+/* Hide scrollbar for clean horizontal tab rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
