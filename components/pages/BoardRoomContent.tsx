@@ -50,7 +50,7 @@ export default function BoardRoomContent() {
   };
 
   return (
-    <div className="bg-[#0A0D14] text-slate-100 min-h-screen">
+    <div className="bg-[#0C101B] text-slate-100 min-h-screen">
       {/* 1. HERO SECTION WITH REAL BOARDROOM PHOTO */}
       <section className="relative min-h-[88vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
@@ -58,16 +58,16 @@ export default function BoardRoomContent() {
             src="/images/board-room/boardroom-hero.webp"
             alt="The Boardroom at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-[0.45] contrast-110"
+            className="object-cover brightness-90 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/60 to-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-slate-600 backdrop-blur-md mb-6">
-            <Briefcase className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#D4AF37]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#111726]/80 border border-[#E5C158]/40 backdrop-blur-md mb-6">
+            <Briefcase className="w-3.5 h-3.5 text-[#E5C158]" />
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               Dedicated Meeting Suite · For 12 · NH 544, Angamaly
             </span>
           </div>
@@ -76,7 +76,7 @@ export default function BoardRoomContent() {
             The Boardroom
           </h1>
 
-          <p className="font-serif text-2xl sm:text-3xl text-[#D4AF37] italic mb-6">
+          <p className="font-serif text-2xl sm:text-3xl text-[#E5C158] italic mb-6">
             &ldquo;A room built for focus.&rdquo;
           </p>
 
@@ -87,7 +87,7 @@ export default function BoardRoomContent() {
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <a
               href="#corporate-enquiry"
-              className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12] hover:brightness-110 transition-colors shadow-lg"
+              className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-lg"
             >
               Book Corporate Suite
             </a>
@@ -95,7 +95,7 @@ export default function BoardRoomContent() {
               intent="The Boardroom Availability Check"
               label={`Corporate Desk (${SITE_CONFIG.phone})`}
               variant="dark"
-              className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest"
+              className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest border border-white/20"
             />
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function BoardRoomContent() {
       </section>
 
       {/* 3. REAL BOARDROOM GALLERY */}
-      <section className="py-20 bg-[#0E131C] border-y border-white/10">
+      <section className="py-20 bg-[#111726] border-y border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Corporate Ambiance"
@@ -201,9 +201,9 @@ export default function BoardRoomContent() {
 
       {/* 4. CORPORATE ENQUIRY FORM */}
       <section id="corporate-enquiry" className="py-24 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-        <div className="p-8 sm:p-10 rounded-sm bg-[#121824] border border-white/15 shadow-2xl">
+        <div className="p-8 sm:p-10 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-2xl">
           <div className="text-center mb-8">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold">
               Corporate Reservation
             </span>
             <h2 className="text-3xl font-serif text-white mt-2">
@@ -223,7 +223,7 @@ export default function BoardRoomContent() {
                 <select
                   value={formData.purpose}
                   onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                  className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D14] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                 >
                   <option value="Executive Board Meeting">Executive Board Meeting</option>
                   <option value="Client Pitch / Presentation">Client Pitch / Presentation</option>
@@ -239,7 +239,7 @@ export default function BoardRoomContent() {
                 <select
                   value={formData.duration}
                   onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                  className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D14] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                 >
                   <option value="Half-Day (Up to 4 Hours)">Half-Day (Up to 4 Hours)</option>
                   <option value="Full-Day Summit (Up to 8 Hours)">Full-Day Summit (Up to 8 Hours)</option>
@@ -256,7 +256,7 @@ export default function BoardRoomContent() {
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D14] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                   required
                 />
               </div>
@@ -270,7 +270,7 @@ export default function BoardRoomContent() {
                   placeholder="Your Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D14] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                   required
                 />
               </div>
@@ -286,7 +286,7 @@ export default function BoardRoomContent() {
                   placeholder="Company Name"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D14] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                 />
               </div>
 
@@ -299,7 +299,7 @@ export default function BoardRoomContent() {
                   placeholder="+91 99611 00000"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D14] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                   required
                 />
               </div>
@@ -307,7 +307,7 @@ export default function BoardRoomContent() {
 
             <button
               type="submit"
-              className="w-full py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12] hover:brightness-110 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+              className="w-full py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
             >
               <MessageSquare className="w-4 h-4" />
               <span>Connect on WhatsApp with Corporate Desk</span>

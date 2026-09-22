@@ -62,7 +62,7 @@ export default function FishTownPage() {
             src="/images/fishtown/restaurant-hero.webp"
             alt="Fish Town Restaurant Interior at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-[0.75] contrast-105"
+            className="object-cover brightness-90 contrast-105"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#FAF9F6] via-[#FAF9F6]/60 to-black/40" />
@@ -236,9 +236,9 @@ export default function FishTownPage() {
       </section>
 
       {/* 5. CATERING CROSSOVER BANNER */}
-      <section className="py-16 bg-[#111724] text-white">
+      <section className="py-16 bg-[#111726] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold">
             Banquets & Celebrations
           </span>
           <h3 className="text-2xl sm:text-3xl font-serif mt-2 mb-4">
@@ -249,7 +249,7 @@ export default function FishTownPage() {
           </p>
           <Link
             href="/town-hall"
-            className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12] hover:brightness-110 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors"
           >
             <span>Explore Town Hall Banquet Spaces</span>
             <ArrowRight className="w-4 h-4" />

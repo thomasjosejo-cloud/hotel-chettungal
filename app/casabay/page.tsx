@@ -45,7 +45,7 @@ export default function CasaBayPage() {
   const bestFor = ["Rooftop evenings", "Cocktails & bites", "Private gatherings", "Live music nights"];
 
   return (
-    <div className="bg-[#0A0D14] text-slate-100 min-h-screen">
+    <div className="bg-[#0C101B] text-slate-100 min-h-screen">
       {/* 1. CASABAY HERO WITH REAL PHOTO & MASTER LOGO */}
       <section className="relative min-h-[94vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
@@ -53,18 +53,18 @@ export default function CasaBayPage() {
             src="/images/casabay/casa-hero.webp"
             alt="CasaBay Rooftop Restobar at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-[0.38] contrast-110"
+            className="object-cover brightness-90 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/50 to-black/80" />
-          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:28px_28px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#E5C158_1px,transparent_1px)] [background-size:28px_28px]" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[#D4AF37]/40 backdrop-blur-md mb-6">
-            <Wine className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#D4AF37]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#111726]/80 border border-[#E5C158]/40 backdrop-blur-md mb-6">
+            <Wine className="w-3.5 h-3.5 text-[#E5C158]" />
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               Rooftop Resto-Bar · NH 544, Angamaly
             </span>
           </div>
@@ -121,12 +121,12 @@ export default function CasaBayPage() {
       </section>
 
       {/* 2. BROCHURE SPECS STRIP */}
-      <section className="py-12 bg-[#0E131C] border-y border-[#D4AF37]/20">
+      <section className="py-12 bg-[#111726] border-y border-[#E5C158]/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {highlights.map((h, i) => (
               <div key={i} className="p-4 border-b last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 border-white/10">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold block mb-1">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold block mb-1">
                   {h.label}
                 </span>
                 <p className="text-base sm:text-lg font-serif text-white">
@@ -151,13 +151,13 @@ export default function CasaBayPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {signatureCocktails.map((drink) => (
             <TiltCard3D key={drink.id} maxTilt={10} className="rounded-sm">
-              <div className="flex flex-col justify-between h-full p-6 rounded-sm bg-[#121824] border border-[#D4AF37]/25 hover:border-[#D4AF37] transition-colors shadow-lg">
+              <div className="flex flex-col justify-between h-full p-6 rounded-sm bg-[#131A2B] border border-[#E5C158]/25 hover:border-[#E5C158] transition-colors shadow-lg">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-mono">
+                    <span className="text-[10px] uppercase tracking-widest text-[#E5C158] font-mono">
                       {drink.category}
                     </span>
-                    <span className="font-serif text-lg text-[#D4AF37] font-semibold">
+                    <span className="font-serif text-lg text-[#E5C158] font-semibold">
                       {drink.price}
                     </span>
                   </div>
@@ -190,7 +190,7 @@ export default function CasaBayPage() {
       </section>
 
       {/* 4. ROOFTOP AMBIENCE GALLERY WITH REAL SHOTS */}
-      <section className="py-20 bg-[#0E131C] border-y border-[#D4AF37]/20">
+      <section className="py-20 bg-[#111726] border-y border-[#E5C158]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Atmosphere"
@@ -284,8 +284,8 @@ export default function CasaBayPage() {
 
       {/* 5. CASABAY WHATSAPP-FIRST CTA */}
       <section className="py-24 px-4 text-center">
-        <div className="max-w-2xl mx-auto p-10 rounded-sm bg-gradient-to-b from-[#141B26] to-[#0A0D14] border border-[#D4AF37]/30 shadow-2xl">
-          <Wine className="w-8 h-8 text-[#D4AF37] mx-auto mb-4" />
+        <div className="max-w-2xl mx-auto p-10 rounded-sm bg-gradient-to-b from-[#131A2B] to-[#0C101B] border border-[#E5C158]/30 shadow-2xl">
+          <Wine className="w-8 h-8 text-[#E5C158] mx-auto mb-4" />
           <h2 className="text-3xl sm:text-4xl font-serif text-white mb-2">
             Take the Evening Upstairs
           </h2>

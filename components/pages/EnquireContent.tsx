@@ -46,7 +46,7 @@ export default function EnquireContent() {
   };
 
   return (
-    <div className="bg-[#0A0D12] text-slate-100 min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#0C101B] text-slate-100 min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <SectionHeader
           eyebrow="Direct Host Enquiries"
@@ -59,7 +59,7 @@ export default function EnquireContent() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Left Column: Direct Contact & Location Summary */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-            <div className="p-8 rounded-sm bg-[#0E131C] border border-[#D4AF37]/30 shadow-xl space-y-6">
+            <div className="p-8 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-xl space-y-6">
               <div className="flex items-center gap-3.5">
                 <Image
                   src="/branding/chettungal-logo-light.webp"
@@ -70,7 +70,7 @@ export default function EnquireContent() {
                 />
                 <div>
                   <h3 className="font-serif text-2xl text-white">CHETTUNGAL</h3>
-                  <span className="text-xs uppercase tracking-widest text-[#D4AF37]">
+                  <span className="text-xs uppercase tracking-widest text-[#E5C158]">
                     NEW TOWN HOTEL · ANGAMALY
                   </span>
                 </div>
@@ -85,7 +85,7 @@ export default function EnquireContent() {
                   href={`tel:${SITE_CONFIG.phoneRaw}`}
                   className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors"
                 >
-                  <div className="w-9 h-9 rounded-sm bg-[#141B26] border border-white/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-9 h-9 rounded-sm bg-[#0C101B] border border-white/10 flex items-center justify-center text-[#E5C158]">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
@@ -102,7 +102,7 @@ export default function EnquireContent() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors"
                 >
-                  <div className="w-9 h-9 rounded-sm bg-[#141B26] border border-white/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-9 h-9 rounded-sm bg-[#0C101B] border border-white/10 flex items-center justify-center text-[#E5C158]">
                     <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
@@ -114,7 +114,7 @@ export default function EnquireContent() {
                 </a>
 
                 <div className="flex items-center gap-3 text-slate-200">
-                  <div className="w-9 h-9 rounded-sm bg-[#141B26] border border-white/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-9 h-9 rounded-sm bg-[#0C101B] border border-white/10 flex items-center justify-center text-[#E5C158]">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
@@ -126,7 +126,7 @@ export default function EnquireContent() {
                 </div>
 
                 <div className="flex items-start gap-3 text-slate-200 pt-1">
-                  <div className="w-9 h-9 rounded-sm bg-[#141B26] border border-white/10 flex items-center justify-center text-[#D4AF37] shrink-0 mt-0.5">
+                  <div className="w-9 h-9 rounded-sm bg-[#0C101B] border border-white/10 flex items-center justify-center text-[#E5C158] shrink-0 mt-0.5">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
@@ -142,20 +142,20 @@ export default function EnquireContent() {
             </div>
 
             {/* Proximity Card */}
-            <div className="p-6 rounded-sm bg-[#0E131C] border border-white/10 text-xs text-slate-300 space-y-2">
-              <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-semibold block mb-2">
+            <div className="p-6 rounded-sm bg-[#131A2B] border border-white/10 text-xs text-slate-300 space-y-2">
+              <span className="text-[10px] uppercase tracking-widest text-[#E5C158] font-semibold block mb-2">
                 Location & Transit Proximity
               </span>
               <div className="flex items-center gap-2 py-1 border-b border-white/5">
-                <Plane className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <Plane className="w-3.5 h-3.5 text-[#E5C158]" />
                 <span>{SITE_CONFIG.proximity.airport}</span>
               </div>
               <div className="flex items-center gap-2 py-1 border-b border-white/5">
-                <Train className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <Train className="w-3.5 h-3.5 text-[#E5C158]" />
                 <span>{SITE_CONFIG.proximity.railway}</span>
               </div>
               <div className="flex items-center gap-2 py-1">
-                <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <Clock className="w-3.5 h-3.5 text-[#E5C158]" />
                 <span>CasaBay: 5 PM – 11:30 PM · Fish Town: 7:30 AM – 11 PM</span>
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function EnquireContent() {
 
           {/* Right Column: Multi-Purpose Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-sm bg-[#0E131C] border border-[#D4AF37]/30 shadow-2xl">
+            <div className="p-8 sm:p-10 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-2xl">
               <h3 className="text-2xl font-serif text-white mb-2">
                 Reserve or Enquire Online
               </h3>
@@ -188,7 +188,7 @@ export default function EnquireContent() {
                     }}
                     className={`py-2.5 sm:py-3 px-1 sm:px-2 text-[11px] sm:text-xs uppercase tracking-wider font-bold rounded-sm border transition-all text-center ${
                       purpose === item.id
-                        ? "bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12] border-[#D4AF37] shadow-md"
+                        ? "bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] border-[#E5C158] shadow-md"
                         : "bg-black/40 text-slate-300 border-white/10 hover:border-white/20"
                     }`}
                   >
@@ -207,7 +207,7 @@ export default function EnquireContent() {
                     <select
                       value={venue}
                       onChange={(e) => setVenue(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                     >
                       <option value="CasaBay Rooftop Restobar">CasaBay Rooftop Restobar (Open 5 PM · Live Music)</option>
                       <option value="Fish Town Multi-Cuisine">Fish Town Multi-Cuisine Restaurant (Breakfast, Lunch & Dinner)</option>
@@ -225,7 +225,7 @@ export default function EnquireContent() {
                       placeholder="e.g. Thomas"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                       required
                     />
                   </div>
@@ -239,7 +239,7 @@ export default function EnquireContent() {
                       placeholder="+91 99611 00000"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                       required
                     />
                   </div>
@@ -254,7 +254,7 @@ export default function EnquireContent() {
                       type="date"
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                       required
                     />
                   </div>
@@ -267,7 +267,7 @@ export default function EnquireContent() {
                       type="time"
                       value={time}
                       onChange={(e) => setTime(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                     />
                   </div>
 
@@ -278,7 +278,7 @@ export default function EnquireContent() {
                     <select
                       value={headcount}
                       onChange={(e) => setHeadcount(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                     >
                       {purpose === "dining" && (
                         <>
@@ -321,13 +321,13 @@ export default function EnquireContent() {
                     placeholder="Mention table preference, buffet requirements, arrival time..."
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full px-3.5 py-3 rounded-sm bg-[#0A0D12] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full px-3.5 py-3 rounded-sm bg-[#0C101B] border border-white/15 text-slate-100 text-sm focus:outline-none focus:border-[#E5C158]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12] hover:brightness-110 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Submit & Connect on WhatsApp</span>

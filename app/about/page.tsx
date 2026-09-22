@@ -42,7 +42,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="bg-[#0A0D12] text-slate-100 min-h-screen">
+    <div className="bg-[#0C101B] text-slate-100 min-h-screen">
       {/* 1. ABOUT HERO WITH REAL FACADE */}
       <section className="relative min-h-[65vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
@@ -50,16 +50,16 @@ export default function AboutPage() {
             src="/images/location/facade.webp"
             alt="Chettungal Hotel New Town Facade on NH 544 Angamaly"
             fill
-            className="object-cover brightness-[0.4] contrast-110"
+            className="object-cover brightness-95 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-[#0A0D12]/60 to-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/50 to-black/60" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[#D4AF37]/40 backdrop-blur-md mb-6">
-            <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#D4AF37]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[#E5C158]/40 backdrop-blur-md mb-6">
+            <MapPin className="w-3.5 h-3.5 text-[#E5C158]" />
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               NH 544, Angamaly, Kerala · 683572
             </span>
           </div>
@@ -68,7 +68,7 @@ export default function AboutPage() {
             One Address, Every Occasion
           </h1>
 
-          <p className="text-base sm:text-xl text-[#D4AF37] font-light max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-xl text-[#E5C158] font-light max-w-2xl leading-relaxed">
             Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold mb-2 block">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2 block">
               The Chettungal Ethos
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif text-white mb-6">
@@ -94,11 +94,11 @@ export default function AboutPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 text-xs text-[#D4AF37]">
+              <div className="flex items-center gap-2 text-xs text-[#E5C158]">
                 <ShieldCheck className="w-4 h-4" />
                 <span>24/7 Front Desk Concierge</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-[#D4AF37]">
+              <div className="flex items-center gap-2 text-xs text-[#E5C158]">
                 <ShieldCheck className="w-4 h-4" />
                 <span>On-Site 100% DG Power Backup</span>
               </div>
@@ -107,14 +107,14 @@ export default function AboutPage() {
 
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <TiltCard3D maxTilt={6} className="rounded-sm">
-              <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 shadow-lg">
+              <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-[#E5C158]/20 shadow-lg">
                 <Image
                   src="/images/location/reception-1.webp"
                   alt="Hotel New Town Reception"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 text-xs font-serif text-white">
                   Ground Floor Reception
                 </div>
@@ -122,14 +122,14 @@ export default function AboutPage() {
             </TiltCard3D>
 
             <TiltCard3D maxTilt={6} className="rounded-sm">
-              <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 shadow-lg">
+              <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-[#E5C158]/20 shadow-lg">
                 <Image
                   src="/images/location/reception-2.webp"
                   alt="Hotel New Town Lobby Area"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 text-xs font-serif text-white">
                   Lobby Lounge & Concierge
                 </div>
@@ -140,7 +140,7 @@ export default function AboutPage() {
       </section>
 
       {/* 3. TRANSIT PROXIMITY & LOCATION MAP */}
-      <section className="py-20 bg-[#0E131C] border-y border-white/10">
+      <section className="py-20 bg-[#111726] border-y border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Connectivity"
@@ -156,9 +156,9 @@ export default function AboutPage() {
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-sm bg-[#121824] border border-white/5 flex flex-col"
+                  className="p-6 rounded-sm bg-[#131A2B] border border-[#E5C158]/15 flex flex-col hover:border-[#E5C158]/40 transition-colors"
                 >
-                  <Icon className="w-5 h-5 text-[#D4AF37] mb-3" />
+                  <Icon className="w-5 h-5 text-[#E5C158] mb-3" />
                   <span className="text-xs text-slate-400 uppercase tracking-wider mb-1">
                     {tp.label}
                   </span>
@@ -171,7 +171,7 @@ export default function AboutPage() {
           </div>
 
           {/* Map display */}
-          <div className="rounded-sm overflow-hidden border border-[#D4AF37]/30 shadow-2xl bg-[#121824]">
+          <div className="rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl bg-[#131A2B]">
             <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10">
               <div>
                 <h3 className="text-xl font-serif text-white">{SITE_CONFIG.address}</h3>
@@ -181,13 +181,13 @@ export default function AboutPage() {
                 href={SITE_CONFIG.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12] hover:brightness-110 transition-colors shadow"
+                className="px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow"
               >
                 Open in Google Maps Navigation
               </a>
             </div>
 
-            <div className="relative w-full h-[300px] sm:h-[420px] bg-[#0A0D12]">
+            <div className="relative w-full h-[300px] sm:h-[420px] bg-[#0C101B]">
               <iframe
                 src={SITE_CONFIG.googleMapsEmbed}
                 width="100%"

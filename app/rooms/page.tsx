@@ -61,7 +61,7 @@ export default function RoomsPage() {
   ];
 
   return (
-    <div className="bg-[#0A0D12] text-slate-100 min-h-screen">
+    <div className="bg-[#0C101B] text-slate-100 min-h-screen">
       {/* 1. HERO SECTION WITH REAL ROOM PHOTO */}
       <section className="relative min-h-[88vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
@@ -69,16 +69,16 @@ export default function RoomsPage() {
             src="/images/rooms/room-hero.webp"
             alt="Chettungal New Town Hotel Boutique Room"
             fill
-            className="object-cover brightness-[0.45] contrast-105"
+            className="object-cover brightness-90 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D12] via-[#0A0D12]/60 to-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[#D4AF37]/40 backdrop-blur-md mb-6">
-            <Bed className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#D4AF37]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#111726]/80 border border-[#E5C158]/40 backdrop-blur-md mb-6">
+            <Bed className="w-3.5 h-3.5 text-[#E5C158]" />
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               10 AC Rooms · NH 544, Angamaly
             </span>
           </div>
@@ -87,7 +87,7 @@ export default function RoomsPage() {
             Rooms & Suites
           </h1>
 
-          <p className="font-serif text-2xl sm:text-3xl text-[#D4AF37] italic mb-6">
+          <p className="font-serif text-2xl sm:text-3xl text-[#E5C158] italic mb-6">
             &ldquo;Each built for a proper night’s rest.&rdquo;
           </p>
 
@@ -104,9 +104,9 @@ export default function RoomsPage() {
             />
             <a
               href={`tel:${SITE_CONFIG.phoneRaw}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 text-xs uppercase tracking-widest font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-[#D4AF37] rounded-sm transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 text-xs uppercase tracking-widest font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-[#E5C158] rounded-sm transition-colors"
             >
-              <Phone className="w-4 h-4 text-[#D4AF37]" />
+              <Phone className="w-4 h-4 text-[#E5C158]" />
               <span>Call Front Desk: {SITE_CONFIG.phone}</span>
             </a>
           </div>
@@ -114,23 +114,23 @@ export default function RoomsPage() {
       </section>
 
       {/* 2. BROCHURE INCLUSIONS STRIP */}
-      <section className="py-10 bg-[#0E131C] border-y border-white/10">
+      <section className="py-10 bg-[#111726] border-y border-[#E5C158]/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center text-xs text-slate-200">
             <div className="flex items-center justify-center gap-2">
-              <Coffee className="w-4 h-4 text-[#D4AF37]" />
+              <Coffee className="w-4 h-4 text-[#E5C158]" />
               <span>Complimentary Breakfast</span>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <Wifi className="w-4 h-4 text-[#D4AF37]" />
+              <Wifi className="w-4 h-4 text-[#E5C158]" />
               <span>High-Speed WiFi Included</span>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <Plane className="w-4 h-4 text-[#D4AF37]" />
+              <Plane className="w-4 h-4 text-[#E5C158]" />
               <span>~5 km from Kochi Airport</span>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <Wine className="w-4 h-4 text-[#D4AF37]" />
+              <Wine className="w-4 h-4 text-[#E5C158]" />
               <span>Resident Executive Bar</span>
             </div>
           </div>
@@ -168,8 +168,8 @@ export default function RoomsPage() {
       </section>
 
       {/* 4. ROOM AMENITIES & DIRECT-RESERVATION PHILOSOPHY */}
-      <section className="py-20 bg-[#0C1017] border-t border-white/10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto p-8 sm:p-12 rounded-sm bg-[#121824] border border-[#D4AF37]/30 shadow-2xl">
+      <section className="py-20 bg-[#111726] border-t border-white/10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto p-8 sm:p-12 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-2xl">
           <SectionHeader
             eyebrow="Appointments"
             title="In-Room Amenities"
@@ -182,14 +182,14 @@ export default function RoomsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             {amenities.map((item, idx) => (
               <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200">
-                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0 mt-0.5" />
                 <span>{item}</span>
               </div>
             ))}
           </div>
 
-          <div className="p-6 rounded-sm bg-[#0A0D12] border border-white/10 text-center">
-            <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold block mb-2">
+          <div className="p-6 rounded-sm bg-[#0C101B] border border-white/10 text-center">
+            <span className="text-xs uppercase tracking-widest text-[#E5C158] font-semibold block mb-2">
               Direct Host Booking Only
             </span>
             <p className="text-xs sm:text-sm font-light text-slate-300 max-w-xl mx-auto mb-6">
@@ -204,7 +204,7 @@ export default function RoomsPage() {
               />
               <a
                 href={`tel:${SITE_CONFIG.phoneRaw}`}
-                className="w-full sm:w-auto px-6 py-3 text-xs uppercase tracking-widest font-semibold text-white border border-white/20 hover:border-white rounded-sm transition-colors"
+                className="w-full sm:w-auto px-6 py-3 text-xs uppercase tracking-widest font-semibold text-white border border-white/20 hover:border-[#E5C158] rounded-sm transition-colors"
               >
                 Call {SITE_CONFIG.phone}
               </a>
