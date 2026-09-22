@@ -6,7 +6,7 @@ import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#060810] text-slate-300 border-t border-[#D4AF37]/20 pt-16 pb-12">
+    <footer className="bg-[#0A0E18] text-slate-300 border-t border-[#E5C158]/25 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-white/10">
           {/* Col 1 & 2: Brand Heritage & Perception */}

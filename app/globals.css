@@ -8,15 +8,15 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #FAF8F5;
-    color: #17191E;
+    background-color: #0C101B;
+    color: #F1F5F9;
   }
 
   body {
     font-family: var(--font-sans);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    background-color: #FAF8F5;
+    background-color: #0C101B;
   }
 
   h1, h2, h3, h4, .font-serif {
@@ -29,14 +29,14 @@
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #0C101B;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8D2C6;
+  background: #1E293B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C8A962;
+  background: #E5C158;
 }
 
 /* 3D Perspective & Transform containers */
@@ -50,51 +50,49 @@
   transform-style: preserve-3d;
 }
 
-/* 3D Depth Card with soft warm elevation */
+/* 3D Depth Card with hover elevation & sapphire glow */
 .card-3d {
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
   transform-style: preserve-3d;
 }
 .card-3d:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12), 0 0 20px rgba(200, 169, 98, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(12, 16, 27, 0.9), 0 0 25px rgba(229, 193, 88, 0.22);
 }
 
-/* Luxury champagne gold gradients */
+/* Radiant amber-gold luxury gradients */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #DFBE74 0%, #C8A962 50%, #9B7830 100%);
+  background: linear-gradient(135deg, #FFF1CA 0%, #E5C158 50%, #B28F2A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-gradient-bg {
-  background: linear-gradient(135deg, #E6C87C 0%, #C8A962 50%, #B28F42 100%);
+  background: linear-gradient(135deg, #F5D77F 0%, #E5C158 50%, #C49E32 100%);
 }
 
-/* Glass panel effects */
-.glass-panel-dark {
-  background: rgba(13, 17, 26, 0.85);
+.sapphire-gradient-bg {
+  background: linear-gradient(180deg, #0C101B 0%, #111726 50%, #0C101B 100%);
+}
+
+/* 3D Glass panel effects with subtle sapphire/amber borders */
+.glass-panel-sapphire {
+  background: rgba(17, 23, 38, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(200, 169, 98, 0.2);
+  border: 1px solid rgba(229, 193, 88, 0.25);
 }
 
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(200, 169, 98, 0.2);
+  border: 1px solid rgba(229, 193, 88, 0.2);
 }
 
-/* Soft dot texture */
-.luxury-dots-dark {
-  background-color: #0D111A;
-  background-image: radial-gradient(rgba(200, 169, 98, 0.15) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.luxury-dots-light {
-  background-color: #FAF8F5;
-  background-image: radial-gradient(rgba(200, 169, 98, 0.2) 1px, transparent 1px);
+/* Subtle dot texture */
+.luxury-dots-sapphire {
+  background-color: #0C101B;
+  background-image: radial-gradient(rgba(229, 193, 88, 0.16) 1px, transparent 1px);
   background-size: 28px 28px;
 }

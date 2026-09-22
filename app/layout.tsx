@@ -85,7 +85,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0A0D12",
+  themeColor: "#0C101B",
 };
 
 export default function RootLayout({
@@ -95,25 +95,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#FAF8F5] text-stone-900 antialiased selection:bg-[#C8A962] selection:text-[#0E131C]">
+      <body className="min-h-screen flex flex-col bg-[#0C101B] text-slate-100 antialiased selection:bg-[#E5C158] selection:text-[#0C101B]">
         <Navigation />
         <main className="flex-grow pt-0 pb-16 md:pb-0">{children}</main>
         <Footer />
 
         {/* Mobile Floating Direct Action Dock */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#121622]/95 backdrop-blur-lg border-t border-[#C8A962]/30 px-3 py-2.5 flex items-center justify-around gap-2 shadow-2xl">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E1524]/95 backdrop-blur-lg border-t border-[#E5C158]/30 px-3 py-2.5 flex items-center justify-around gap-2 shadow-2xl">
           <a
             href={`tel:${SITE_CONFIG.phoneRaw}`}
             className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 text-xs font-medium rounded-sm bg-white/10 text-slate-200 border border-white/10"
           >
-            <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <Phone className="w-3.5 h-3.5 text-[#E5C158]" />
             <span>Call</span>
           </a>
           <a
             href={buildWhatsAppLink("Mobile Floating Dock")}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 text-xs font-semibold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12]"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 text-xs font-semibold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B]"
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>WhatsApp</span>
@@ -122,7 +122,7 @@ export default function RootLayout({
             href="/enquire"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 text-xs font-semibold rounded-sm bg-white/15 text-white border border-white/20"
           >
-            <CalendarDays className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <CalendarDays className="w-3.5 h-3.5 text-[#E5C158]" />
             <span>Enquire</span>
           </Link>
         </div>
