@@ -53,23 +53,26 @@ export default function AboutPage() {
             className="object-cover object-bottom brightness-95 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-[#0C101B]/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/65 to-black/75" />
+          {/* Natural Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.45)_0%,transparent_75%)]" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[#E5C158]/40 backdrop-blur-md mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-lg">
             <MapPin className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               NH 544, Angamaly, Kerala · 683572
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-serif text-white tracking-tight mb-4">
-            One Address, Every Occasion
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+            One Address, <br className="sm:hidden" />
+            <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
           </h1>
 
-          <p className="text-base sm:text-xl text-[#E5C158] font-light max-w-2xl leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-slate-100 font-light max-w-2xl leading-relaxed px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
             Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.
           </p>
         </div>

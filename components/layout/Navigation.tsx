@@ -35,15 +35,11 @@ export default function Navigation() {
     setIsOpen(false);
   }, [pathname]);
 
-  const isLightPage = pathname === "/fishtown";
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? isLightPage
-            ? "bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5C158]/30 shadow-sm py-3"
-            : "bg-[#0C101B]/95 backdrop-blur-md border-b border-[#E5C158]/25 shadow-2xl py-3"
+          ? "bg-[#0C101B]/95 backdrop-blur-md border-b border-[#E5C158]/25 shadow-2xl py-3"
           : "bg-gradient-to-b from-black/85 via-black/40 to-transparent py-5"
       }`}
     >
@@ -61,11 +57,7 @@ export default function Navigation() {
             />
           </div>
           <div className="flex flex-col">
-            <span
-              className={`font-serif text-lg sm:text-xl tracking-wider leading-tight ${
-                isLightPage && scrolled ? "text-[#0B0E14]" : "text-white"
-              }`}
-            >
+            <span className="font-serif text-lg sm:text-xl tracking-wider leading-tight text-white">
               CHETTUNGAL
             </span>
             <span className="text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] uppercase font-medium text-[#E5C158] whitespace-nowrap">
@@ -98,8 +90,6 @@ export default function Navigation() {
                 className={`relative text-xs sm:text-sm tracking-widest uppercase transition-colors duration-200 py-1 ${
                   isActive
                     ? "text-[#E5C158] font-semibold"
-                    : isLightPage && scrolled
-                    ? "text-stone-800 hover:text-black font-medium"
                     : "text-slate-200 hover:text-[#E5C158]"
                 }`}
               >

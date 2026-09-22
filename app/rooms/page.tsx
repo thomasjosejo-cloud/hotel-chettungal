@@ -72,27 +72,29 @@ export default function RoomsPage() {
             className="object-cover brightness-90 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-[#0C101B]/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/70 to-black/75" />
+          {/* Natural Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.45)_0%,transparent_75%)]" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#111726]/90 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-md">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-lg">
             <Bed className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               10 AC Rooms · NH 544, Angamaly
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-3 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             Rooms & Suites
           </h1>
 
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-md">
+          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             &ldquo;Each built for a proper night’s rest.&rdquo;
           </p>
 
-          <p className="max-w-2xl text-base sm:text-lg text-slate-100 font-normal leading-relaxed mb-8 drop-shadow-sm">
+          <p className="max-w-2xl text-sm sm:text-base md:text-lg text-slate-100 font-light leading-relaxed mb-8 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
             10 air-conditioned rooms, each built for a proper night’s rest — complimentary breakfast and high-speed WiFi included, so business stays and leisure stays get the same standard.
           </p>
 
