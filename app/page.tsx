@@ -24,10 +24,10 @@ import { SITE_CONFIG } from "@/content/site-config";
 export const metadata: Metadata = {
   title: "Hotel New Town by Chettungal | Stay · Dine · Meet · Celebrate",
   description:
-    "Four Floors. One Destination. CasaBay Rooftop Restobar, Fish Town Multi-Cuisine Kitchen, Town Hall 120-Pax Banquets, and 10 Boutique Rooms on NH 544, Angamaly, Kerala.",
+    "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly. Hotel New Town by Chettungal.",
   openGraph: {
     title: "Hotel New Town by Chettungal — Angamaly",
-    description: "Four Floors. One Destination. Rooftop Restobar, Multi-Cuisine Dining, Banquets, and Boutique Rooms on NH 544.",
+    description: "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.",
     url: "https://hotelchettungal.com",
     siteName: "Hotel New Town by Chettungal",
     images: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Hotel New Town by Chettungal — Angamaly",
-    description: "Four Floors. One Destination. Rooftop Restobar, Dining, Banquets on NH 544.",
+    description: "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544.",
     images: ["/images/casabay/casa-night-view.webp"],
   },
 };
@@ -102,35 +102,34 @@ export default function HomePage() {
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-lg">
             <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#E5C158]">
-              NH 544, Angamaly · Hotel New Town by Chettungal
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+              Stay · Dine · Meet · Celebrate
             </span>
           </div>
 
           {/* Clean, Punchy Headline with High Contrast Text Shadows */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-white tracking-tight leading-[1.08] mb-4 sm:mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-            Four Floors of <br />
-            <span className="italic font-light text-[#F5D061] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">Elevated Living.</span>
+            One Address, <br />
+            <span className="italic font-light text-[#F5D061] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">Every Occasion.</span>
           </h1>
 
           {/* Subtitle - high contrast, readable */}
           <p className="max-w-2xl text-sm sm:text-base md:text-lg font-light text-slate-100 leading-relaxed mb-8 sm:mb-10 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-            An open-sky rooftop restobar, coastal multi-cuisine dining, celebration banquets for 120, and 10 boutique rooms —{" "}
-            <span className="text-[#E5C158] font-normal">all under one roof.</span>
+            Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.
           </p>
 
           {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
             <a
-              href="#floor-navigator"
+              href="#hotel-venues"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-2xl hover:scale-102 duration-300"
             >
               <Compass className="w-4 h-4" />
-              <span>Explore The Four Floors</span>
+              <span>Explore The Hotel</span>
             </a>
 
             <WhatsAppCta
-              intent="General Destination Enquiry"
+              intent="General Hotel Enquiry"
               label={`WhatsApp: ${SITE_CONFIG.phone}`}
               variant="dark"
               className="w-full sm:w-auto px-6 py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-[#E5C158]/40 bg-black/60 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-xl"
@@ -139,7 +138,7 @@ export default function HomePage() {
 
           {/* Smooth Scroll Cue */}
           <a
-            href="#floor-navigator"
+            href="#hotel-venues"
             aria-label="Scroll down"
             className="mt-12 sm:mt-16 text-slate-300 hover:text-[#E5C158] transition-colors flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100 drop-shadow-md"
           >
@@ -149,7 +148,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. THE INTERACTIVE 3D MULTI-FLOOR NAVIGATOR */}
+      {/* 2. THE PROPERTY & VENUES EXPLORER */}
       <section className="bg-gradient-to-b from-[#0C101B] via-[#111726] to-[#0C101B] border-y border-[#E5C158]/20">
         <Property3DNavigator />
       </section>
@@ -190,7 +189,7 @@ export default function HomePage() {
                 <div>
                   <div className="flex items-center gap-2 mb-2 text-[#E5C158]">
                     <Wine className="w-4 h-4" />
-                    <span className="text-xs uppercase tracking-widest font-semibold">Level 4 Rooftop</span>
+                    <span className="text-xs uppercase tracking-widest font-semibold">Rooftop Resto-Bar</span>
                   </div>
                   <h3 className="font-serif text-2xl text-white mb-2 group-hover:text-[#E5C158] transition-colors">
                     Twilight Skies & Acoustic Music
@@ -231,7 +230,7 @@ export default function HomePage() {
                 <div>
                   <div className="flex items-center gap-2 mb-2 text-[#E5C158]">
                     <Utensils className="w-4 h-4" />
-                    <span className="text-xs uppercase tracking-widest font-semibold">Level 1 Dining</span>
+                    <span className="text-xs uppercase tracking-widest font-semibold">Multi-Cuisine Restaurant</span>
                   </div>
                   <h3 className="font-serif text-2xl text-white mb-2 group-hover:text-[#E5C158] transition-colors">
                     Fresh Catch & Family Tables
@@ -272,7 +271,7 @@ export default function HomePage() {
                 <div>
                   <div className="flex items-center gap-2 mb-2 text-[#E5C158]">
                     <PartyPopper className="w-4 h-4" />
-                    <span className="text-xs uppercase tracking-widest font-semibold">Ground Floor</span>
+                    <span className="text-xs uppercase tracking-widest font-semibold">Banquets & Celebrations</span>
                   </div>
                   <h3 className="font-serif text-2xl text-white mb-2 group-hover:text-[#E5C158] transition-colors">
                     Weddings & Banquets
@@ -294,7 +293,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. BOUTIQUE ACCOMMODATION SPOTLIGHT (LEVEL 2) */}
+      {/* 4. BOUTIQUE ACCOMMODATIONS */}
       <section className="py-20 bg-[#111726] border-y border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -307,14 +306,14 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-xs text-slate-300 flex items-center justify-between">
-                <span>10 AC Boutique Rooms</span>
-                <span className="text-[#E5C158] font-medium">Resident Executive Bar</span>
+                <span>10 AC Rooms</span>
+                <span className="text-[#E5C158] font-medium">Breakfast & WiFi Included</span>
               </div>
             </div>
 
             <div className="lg:col-span-7 flex flex-col justify-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2">
-                BOUTIQUE ROOMS · LEVEL 2
+                10 AIR-CONDITIONED ROOMS
               </span>
               <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight mb-4">
                 Built for Rest. Connected to the Highway.
@@ -334,7 +333,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Resident Executive Bar</span>
+                  <span>Airport Transfer</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />

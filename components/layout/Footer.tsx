@@ -126,7 +126,7 @@ export default function Footer() {
                   href="/rooms"
                   className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
                 >
-                  <span>Resident Executive Bar</span>
+                  <span>Breakfast & WiFi Included</span>
                 </Link>
               </li>
             </ul>

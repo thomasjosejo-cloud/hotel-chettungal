@@ -2,8 +2,8 @@ export const ROOMS_CONTENT = {
   hero: {
     headline: "The Rooms & Suites",
     subheading: "Boutique Comfort for Discerning Stays",
-    lead: "10 thoughtfully appointed rooms offering quiet elegance, personalized hospitality, and exclusive access to the resident Executive Bar.",
-    description: "Hotel New Town maintains an intimate scale of just ten rooms. We deliberately avoid volume to ensure absolute attention to every resident. Designed for wedding guests, banquet hosts, visiting executives, and travellers seeking sanctuary in the city.",
+    lead: "10 air-conditioned rooms, each built for a proper night’s rest — complimentary breakfast and high-speed WiFi included, so business stays and leisure stays get the same standard.",
+    description: "Hotel New Town maintains an intimate scale of just ten rooms. We deliberately avoid volume to ensure absolute attention to every resident. Designed for wedding guests, banquet hosts, visiting executives, and travellers seeking sanctuary on NH 544.",
   },
   highlights: [
     {
@@ -11,8 +11,8 @@ export const ROOMS_CONTENT = {
       description: "Quiet, acoustic-insulated rooms designed for restorative sleep after late banquets or demanding work days.",
     },
     {
-      title: "The Executive Bar",
-      description: "A private, relaxed lounge reserved exclusively for in-house residents and their invited guests.",
+      title: "Complimentary Breakfast",
+      description: "Fresh morning breakfast included with every stay, prepared daily by Fish Town.",
     },
     {
       title: "In-Room Dining by Fish Town",

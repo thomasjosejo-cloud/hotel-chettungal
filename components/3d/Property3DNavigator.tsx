@@ -3,112 +3,109 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Wine, Utensils, Users, Bed, ArrowRight, Sparkles, Clock, Check } from "lucide-react";
+import { Wine, Utensils, Users, Bed, Briefcase, ArrowRight, Sparkles, Check } from "lucide-react";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 
 export default function Property3DNavigator() {
-  const [activeFloor, setActiveFloor] = useState<"casabay" | "rooms" | "fishtown" | "townhall">("casabay");
+  const [activeVenue, setActiveVenue] = useState<"casabay" | "fishtown" | "townhall" | "boardroom" | "rooms">("casabay");
 
-  const floors = [
+  const venues = [
     {
       id: "casabay",
-      floorBadge: "L4",
-      shortName: "CasaBay",
-      level: "LEVEL 4 · ROOFTOP RESTOBAR",
-      name: "CasaBay Restobar",
+      category: "ROOFTOP RESTO-BAR",
+      name: "CasaBay",
       tagline: "Take the evening upstairs.",
-      badge: "Open 5 PM · Live Music",
+      badge: "Open-Air Rooftop · Full Bar",
       image: "/images/casabay/casa-cocktail-deck.webp",
       icon: Wine,
-      accentBorder: "border-[#E5C158]",
-      activeBg: "bg-[#182136]",
-      desc: "Angamaly's premier open-air rooftop destination. Handcrafted cocktails, charcoal grills, and twilight skyline energy accompanied by acoustic live music sessions.",
-      features: ["Full Bar & Craft Mixology", "Charcoal Grills & Tapas", "Live Music Acoustic Sessions", "Skyline Twilight Views"],
+      desc: "CASABAY is our rooftop resto-bar for conversations, cocktails, and unhurried evenings — an elevated setting where the night moves effortlessly from after-work drinks to late-evening gatherings. Come for the view, stay for the food, raise a glass to the evening.",
+      features: ["Open-air rooftop, full bar", "Cocktails, grills, small plates", "Live music nights", "Private gatherings"],
       href: "/casabay",
       waIntent: "CasaBay Rooftop Reservation",
     },
     {
-      id: "rooms",
-      floorBadge: "L2",
-      shortName: "10 Rooms",
-      level: "LEVEL 2 · BOUTIQUE ACCOMMODATIONS",
-      name: "10 Boutique Rooms",
-      tagline: "Built for a proper night's rest.",
-      badge: "10 Air-Conditioned Rooms",
-      image: "/images/rooms/room-hero.webp",
-      icon: Bed,
-      accentBorder: "border-[#E5C158]",
-      activeBg: "bg-[#182136]",
-      desc: "10 quiet air-conditioned rooms each built for a proper night’s rest — complimentary breakfast and high-speed WiFi included. Exclusive access to the resident Executive Bar.",
-      features: ["Complimentary Breakfast", "High-Speed WiFi Included", "Resident Executive Bar", "~5 km to Airport"],
-      href: "/rooms",
-      waIntent: "Boutique Room Reservation",
-    },
-    {
       id: "fishtown",
-      floorBadge: "L1",
-      shortName: "Fish Town",
-      level: "LEVEL 1 · ALL-DAY DINING",
-      name: "Fish Town Multi-Cuisine",
+      category: "MULTI-CUISINE RESTAURANT",
+      name: "Fish Town",
       tagline: "Fresh catch. Local soul.",
       badge: "Breakfast · Lunch · Dinner",
       image: "/images/fishtown/restaurant-hero.webp",
       icon: Utensils,
-      accentBorder: "border-[#E5C158]",
-      activeBg: "bg-[#182136]",
-      desc: "Celebrates the food Kerala knows best — fresh fish, generous portions, and familiar spices. From a quick local meal to a table full of family and friends.",
-      features: ["Fresh Daily Coastal Catch", "Kerala, North Indian, Chinese", "Continental Delicacies", "Spacious Family Tables"],
+      desc: "FISH TOWN celebrates the food Kerala knows best — fresh fish, generous portions, and familiar spices, brought together with a contemporary restaurant experience. From a quick local meal to a table full of family and friends, this is food made to satisfy.",
+      features: ["Fresh, daily catch", "Kerala, North Indian, Chinese", "Continental Delicacies", "Spacious family tables"],
       href: "/fishtown",
       waIntent: "Fish Town Table Reservation",
     },
     {
       id: "townhall",
-      floorBadge: "G",
-      shortName: "Town Hall",
-      level: "GROUND · BANQUETS & EVENTS",
-      name: "Town Hall & Boardroom",
+      category: "BANQUETS & CELEBRATIONS",
+      name: "Town Hall",
       tagline: "Where the whole guest list fits.",
       badge: "Up to 120 Guests",
       image: "/images/town-hall/hall-lighting.webp",
       icon: Users,
-      accentBorder: "border-[#E5C158]",
-      activeBg: "bg-[#182136]",
-      desc: "The hotel’s premier indoor venue — conferences, weddings, and family celebrations, laid out to suit the occasion and catered in-house by Fish Town from start to finish.",
-      features: ["Theatre & Banquet Setups", "Up to 120 Guests", "Executive Boardroom for 12", "In-House Live Catering"],
+      desc: "The hotel’s largest indoor venue — conferences, weddings, and family celebrations, laid out to suit the occasion and catered in-house from start to finish.",
+      features: ["Up to 120 guests capacity", "Theatre, banquet & floor setups", "In-house catering by Fish Town", "Weddings & Conferences"],
       href: "/town-hall",
       waIntent: "Town Hall Banquet Enquiry",
     },
+    {
+      id: "boardroom",
+      category: "EXECUTIVE MEETING SUITE",
+      name: "The Boardroom",
+      tagline: "A room built for focus.",
+      badge: "For 12 Guests",
+      image: "/images/board-room/boardroom-hero.webp",
+      icon: Briefcase,
+      desc: "Quiet, well-equipped, and ready for presentations, interviews, or closed-door discussions — a dedicated meeting room, not a converted corner.",
+      features: ["Up to 12 guests capacity", "Boardroom-style seating", "Quiet & acoustically private", "Presentation-ready setup"],
+      href: "/board-room",
+      waIntent: "Boardroom Meeting Enquiry",
+    },
+    {
+      id: "rooms",
+      category: "BOUTIQUE ACCOMMODATIONS",
+      name: "10 AC Rooms",
+      tagline: "Each built for a proper night’s rest.",
+      badge: "10 Air-Conditioned Rooms",
+      image: "/images/rooms/room-hero.webp",
+      icon: Bed,
+      desc: "10 air-conditioned rooms, each built for a proper night’s rest — complimentary breakfast and high-speed WiFi included, so business stays and leisure stays get the same standard.",
+      features: ["Complimentary breakfast included", "High-speed WiFi included", "~5 km from Kochi Airport", "~1 km from Railway Station"],
+      href: "/rooms",
+      waIntent: "Room Stay Direct Enquiry",
+    },
   ];
 
-  const current = floors.find((f) => f.id === activeFloor) || floors[0];
+  const current = venues.find((v) => v.id === activeVenue) || venues[0];
 
   return (
-    <div id="floor-navigator" className="w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div id="hotel-venues" className="w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="text-center mb-10 sm:mb-14">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-[#E5C158]/40 backdrop-blur-md mb-3 shadow-[0_0_15px_rgba(229,193,88,0.15)]">
           <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
           <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-            Interactive 3D Floor Explorer
+            One Address · Every Occasion
           </span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-serif text-white tracking-tight leading-tight">
-          Four Floors. One Destination.
+          Explore Our Venues & Stays
         </h2>
         <p className="text-sm sm:text-base text-slate-300 font-light max-w-2xl mx-auto mt-3 leading-relaxed">
-          Select a level to explore the rooftop restobar, boutique guest rooms, coastal kitchen, and grand banquet hall.
+          Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.
         </p>
 
-        {/* Mobile Horizontal Floor Selector (shows on mobile, hidden on lg desktop) */}
+        {/* Mobile Horizontal Selector */}
         <div className="mt-6 flex lg:hidden items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar pb-2">
-          {floors.map((fl) => {
-            const Icon = fl.icon;
-            const isSelected = activeFloor === fl.id;
+          {venues.map((v) => {
+            const Icon = v.icon;
+            const isSelected = activeVenue === v.id;
             return (
               <button
-                key={fl.id}
-                onClick={() => setActiveFloor(fl.id as any)}
+                key={v.id}
+                onClick={() => setActiveVenue(v.id as any)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 shrink-0 ${
                   isSelected
                     ? "bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] shadow-lg scale-102"
@@ -116,8 +113,7 @@ export default function Property3DNavigator() {
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
-                <span className="font-mono opacity-80">{fl.floorBadge}</span>
-                <span className="whitespace-nowrap">{fl.shortName}</span>
+                <span className="whitespace-nowrap">{v.name}</span>
               </button>
             );
           })}
@@ -126,25 +122,25 @@ export default function Property3DNavigator() {
 
       {/* 3D Interactive Stage */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        {/* Left: Building Floor Navigator Tabs (Desktop) */}
-        <div className="hidden lg:flex lg:col-span-5 flex-col justify-between gap-3.5">
-          {floors.map((fl) => {
-            const Icon = fl.icon;
-            const isSelected = activeFloor === fl.id;
+        {/* Left: Venue Navigator Directory (Desktop) */}
+        <div className="hidden lg:flex lg:col-span-5 flex-col justify-between gap-3">
+          {venues.map((v) => {
+            const Icon = v.icon;
+            const isSelected = activeVenue === v.id;
             return (
               <button
-                key={fl.id}
-                onClick={() => setActiveFloor(fl.id as any)}
-                className={`group relative p-5 rounded-sm text-left transition-all duration-300 border ${
+                key={v.id}
+                onClick={() => setActiveVenue(v.id as any)}
+                className={`group relative p-4 xl:p-5 rounded-sm text-left transition-all duration-300 border ${
                   isSelected
-                    ? `${fl.activeBg} border-[#E5C158] shadow-[0_10px_30px_rgba(12,16,27,0.8),0_0_20px_rgba(229,193,88,0.2)] translate-x-2`
+                    ? "bg-[#182136] border-[#E5C158] shadow-[0_10px_30px_rgba(12,16,27,0.8),0_0_20px_rgba(229,193,88,0.2)] translate-x-2"
                     : "bg-[#111726]/80 border-white/10 hover:border-white/25 hover:bg-[#162033]"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3.5">
                     <div
-                      className={`w-11 h-11 shrink-0 rounded-sm flex items-center justify-center transition-colors ${
+                      className={`w-10 h-10 shrink-0 rounded-sm flex items-center justify-center transition-colors ${
                         isSelected
                           ? "bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] shadow-md"
                           : "bg-white/5 text-slate-300 group-hover:text-white"
@@ -154,20 +150,20 @@ export default function Property3DNavigator() {
                     </div>
                     <div>
                       <span className="text-[10px] uppercase tracking-widest text-[#E5C158] font-semibold block">
-                        {fl.level}
+                        {v.category}
                       </span>
-                      <h3 className="text-xl font-serif text-white font-medium group-hover:text-[#E5C158] transition-colors">
-                        {fl.name}
+                      <h3 className="text-lg font-serif text-white font-medium group-hover:text-[#E5C158] transition-colors">
+                        {v.name}
                       </h3>
                     </div>
                   </div>
                   <span className="text-[11px] font-mono text-slate-300 px-2.5 py-1 rounded-sm bg-black/40 border border-white/10">
-                    {fl.badge}
+                    {v.badge}
                   </span>
                 </div>
 
-                <p className="mt-2.5 text-xs text-slate-300 font-light line-clamp-1 italic">
-                  &ldquo;{fl.tagline}&rdquo;
+                <p className="mt-2 text-xs text-slate-300 font-light line-clamp-1 italic">
+                  &ldquo;{v.tagline}&rdquo;
                 </p>
 
                 {isSelected && (
@@ -195,7 +191,7 @@ export default function Property3DNavigator() {
 
                 <div className="absolute top-4 left-4">
                   <span className="px-3.5 py-1.5 text-xs uppercase tracking-widest font-semibold bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/40 rounded-sm backdrop-blur-md shadow-lg">
-                    {current.level}
+                    {current.category}
                   </span>
                 </div>
               </div>
@@ -215,7 +211,7 @@ export default function Property3DNavigator() {
                     {current.desc}
                   </p>
 
-                  <div className="grid grid-cols-2 gap-2.5 mb-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
                     {current.features.map((feat, i) => (
                       <div
                         key={i}
@@ -233,7 +229,7 @@ export default function Property3DNavigator() {
                     href={current.href}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-md"
                   >
-                    <span>Experience {current.name.split(" ")[0]}</span>
+                    <span>Experience {current.name}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <WhatsAppCta

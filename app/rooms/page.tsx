@@ -24,11 +24,11 @@ import { ROOMS_CONTENT } from "@/content/rooms";
 import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
 
 export const metadata: Metadata = {
-  title: "Boutique AC Rooms & Executive Bar | Chettungal",
+  title: "10 Boutique AC Rooms | Chettungal",
   description:
-    "10 quiet air-conditioned rooms built for a proper night's rest on NH 544, Angamaly. Complimentary breakfast, high-speed WiFi, and resident Executive Bar.",
+    "10 air-conditioned rooms, each built for a proper night's rest — complimentary breakfast and high-speed WiFi included on NH 544, Angamaly.",
   openGraph: {
-    title: "10 Boutique Rooms & Executive Bar | Hotel New Town by Chettungal",
+    title: "10 Boutique AC Rooms | Hotel New Town by Chettungal",
     description: "Proper night's rest near Cochin International Airport. Air-conditioned rooms with complimentary breakfast and high-speed WiFi.",
     url: "https://hotelchettungal.com/rooms",
     images: [
@@ -131,8 +131,8 @@ export default function RoomsPage() {
               <span>~5 km from Kochi Airport</span>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <Wine className="w-4 h-4 text-[#E5C158]" />
-              <span>Resident Executive Bar</span>
+              <Plane className="w-4 h-4 text-[#E5C158]" />
+              <span>Airport Transfer Available</span>
             </div>
           </div>
         </div>
