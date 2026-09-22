@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -21,6 +22,31 @@ import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { ROOMS_CONTENT } from "@/content/rooms";
 import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
+
+export const metadata: Metadata = {
+  title: "Boutique AC Rooms & Executive Bar | Chettungal",
+  description:
+    "10 quiet air-conditioned rooms built for a proper night's rest on NH 544, Angamaly. Complimentary breakfast, high-speed WiFi, and resident Executive Bar.",
+  openGraph: {
+    title: "10 Boutique Rooms & Executive Bar | Hotel New Town by Chettungal",
+    description: "Proper night's rest near Cochin International Airport. Air-conditioned rooms with complimentary breakfast and high-speed WiFi.",
+    url: "https://hotelchettungal.com/rooms",
+    images: [
+      {
+        url: "/images/rooms/room-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Hotel New Town by Chettungal Boutique Rooms",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Boutique AC Rooms | Hotel New Town by Chettungal",
+    description: "10 quiet air-conditioned rooms with complimentary breakfast on NH 544, Angamaly.",
+    images: ["/images/rooms/room-hero.webp"],
+  },
+};
 
 export default function RoomsPage() {
   const { amenities } = ROOMS_CONTENT;
@@ -90,7 +116,7 @@ export default function RoomsPage() {
       {/* 2. BROCHURE INCLUSIONS STRIP */}
       <section className="py-10 bg-[#0E131C] border-y border-white/10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-xs text-slate-200">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center text-xs text-slate-200">
             <div className="flex items-center justify-center gap-2">
               <Coffee className="w-4 h-4 text-[#D4AF37]" />
               <span>Complimentary Breakfast</span>

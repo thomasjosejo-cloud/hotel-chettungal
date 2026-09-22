@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -23,6 +24,56 @@ import Property3DNavigator from "@/components/3d/Property3DNavigator";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
 
+export const metadata: Metadata = {
+  title: "Hotel New Town by Chettungal | Stay · Dine · Meet · Celebrate",
+  description:
+    "Rooms, a rooftop bar (CasaBay), a multi-cuisine kitchen (Fish Town), and banquet space (Town Hall) for up to 120 — all under one roof on NH 544, Angamaly, Kerala.",
+  openGraph: {
+    title: "Hotel New Town by Chettungal — Angamaly",
+    description: "Stay · Dine · Meet · Celebrate. CasaBay Rooftop Restobar, Fish Town Restaurant, Town Hall Banquets, and 10 Boutique Rooms on NH 544.",
+    url: "https://hotelchettungal.com",
+    siteName: "Hotel New Town by Chettungal",
+    images: [
+      {
+        url: "/images/casabay/casa-night-view.webp",
+        width: 1200,
+        height: 630,
+        alt: "Hotel New Town by Chettungal Rooftop Night View",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hotel New Town by Chettungal — Angamaly",
+    description: "Stay · Dine · Meet · Celebrate on NH 544, Angamaly.",
+    images: ["/images/casabay/casa-night-view.webp"],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  name: "Hotel New Town by Chettungal",
+  description: "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 under one roof on NH 544, Angamaly.",
+  url: "https://hotelchettungal.com",
+  telephone: "+919961134364",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "NH 544",
+    addressLocality: "Angamaly",
+    addressRegion: "Kerala",
+    postalCode: "683572",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "10.1960",
+    longitude: "76.3860",
+  },
+  image: "https://hotelchettungal.com/images/casabay/casa-night-view.webp",
+  priceRange: "$$",
+};
+
 export default function HomePage() {
   const assets = [
     {
@@ -31,7 +82,7 @@ export default function HomePage() {
       role: "Rooftop Restobar",
       tagline: "Take the evening upstairs.",
       href: "/casabay",
-      image: "/images/casabay/casa-hero.webp",
+      image: "/images/casabay/casa-sunset.webp",
       badge: "Rooftop · Open 5 PM · Live Music",
       accent: "border-[#D4AF37]/30 hover:border-[#D4AF37]",
       features: ["Open-air rooftop, full bar", "Cocktails, grills, small plates", "Live music nights & twilight skyline"],
@@ -73,12 +124,18 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col bg-[#0A0D12] text-slate-100 overflow-hidden">
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* 1. HERO SECTION WITH CINEMATIC OBSIDIAN & REAL CASABAY PHOTO */}
       <section className="relative min-h-[96vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         {/* Real CasaBay Hero Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/casabay/casa-hero.webp"
+            src="/images/casabay/casa-night-view.webp"
             alt="CasaBay Rooftop Restobar at Chettungal New Town Hotel"
             fill
             className="object-cover object-center brightness-[0.38] contrast-110 scale-105 transition-transform duration-1000"

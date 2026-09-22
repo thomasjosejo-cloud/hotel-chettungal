@@ -112,7 +112,7 @@ export default function Property3DNavigator() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3.5">
                     <div
-                      className={`w-11 h-11 rounded-sm flex items-center justify-center transition-colors ${
+                      className={`w-11 h-11 shrink-0 rounded-sm flex items-center justify-center transition-colors ${
                         isSelected
                           ? "bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0A0D12]"
                           : "bg-white/5 text-slate-300 group-hover:text-white"

@@ -23,7 +23,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hotelchettungal.com"),
-  title: "Hotel New Town by Chettungal | Stay · Dine · Meet · Celebrate",
+  title: {
+    default: "Hotel New Town by Chettungal | Stay · Dine · Meet · Celebrate",
+    template: "%s | Hotel New Town by Chettungal",
+  },
   description:
     "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly, Kerala.",
   keywords: [
@@ -33,21 +36,48 @@ export const metadata: Metadata = {
     "Fish Town Restaurant",
     "Town Hall Banquet Angamaly",
     "Hotels near Cochin Airport",
+    "Angamaly Restobar",
+    "NH 544 Hotels",
   ],
+  alternates: {
+    canonical: "https://hotelchettungal.com",
+  },
   icons: {
-    icon: "/branding/chettungal-logo-light.webp",
+    icon: "/branding/chettungal_crest_gold.png",
+    apple: "/branding/chettungal_crest_gold.png",
   },
   openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://hotelchettungal.com",
+    siteName: "Hotel New Town by Chettungal",
     title: "Hotel New Town by Chettungal — Angamaly",
     description: "One Address, Every Occasion. Rooftop Restobar, Multi-Cuisine Dining, Banquets, and 10 Rooms on NH 544.",
     images: [
       {
-        url: "/images/casabay/casa-hero.webp",
+        url: "/images/casabay/casa-night-view.webp",
         width: 1200,
         height: 630,
-        alt: "Hotel New Town by Chettungal",
+        alt: "Hotel New Town by Chettungal — CasaBay Rooftop & Dining",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hotel New Town by Chettungal — Angamaly",
+    description: "One Address, Every Occasion. Rooftop Restobar, Multi-Cuisine Dining, Banquets, and 10 Rooms on NH 544.",
+    images: ["/images/casabay/casa-night-view.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -67,7 +97,7 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
       <body className="min-h-screen flex flex-col bg-[#0A0D12] text-slate-100 antialiased selection:bg-[#D4AF37] selection:text-[#0A0D12]">
         <Navigation />
-        <main className="flex-grow pt-0">{children}</main>
+        <main className="flex-grow pt-0 pb-16 md:pb-0">{children}</main>
         <Footer />
 
         {/* Mobile Floating Direct Action Dock */}

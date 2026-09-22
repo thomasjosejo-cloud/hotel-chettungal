@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Navigation, Car, Train, Plane, Clock, Phone, Mail, ArrowRight, ShieldCheck } from "lucide-react";
@@ -6,6 +7,31 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { SITE_CONFIG } from "@/content/site-config";
+
+export const metadata: Metadata = {
+  title: "About & Location — NH 544, Angamaly | Chettungal",
+  description:
+    "Hotel New Town by Chettungal on NH 544, Angamaly. Located ~5 km from Cochin International Airport (CIAL) and ~1 km from Angamaly Railway Station.",
+  openGraph: {
+    title: "About & Directions | Hotel New Town by Chettungal",
+    description: "NH 544, Angamaly, Kerala. Destination hospitality ~5 km from Cochin International Airport with dining, banquets, and rooms.",
+    url: "https://hotelchettungal.com/about",
+    images: [
+      {
+        url: "/images/location/facade.webp",
+        width: 1200,
+        height: 630,
+        alt: "Hotel New Town by Chettungal Facade on NH 544 Angamaly",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About & Directions | Hotel New Town by Chettungal",
+    description: "Located on NH 544, Angamaly — ~5 km from Cochin International Airport.",
+    images: ["/images/location/facade.webp"],
+  },
+};
 
 export default function AboutPage() {
   const transitPoints = [
@@ -161,7 +187,7 @@ export default function AboutPage() {
               </a>
             </div>
 
-            <div className="relative w-full h-[420px] bg-[#0A0D12]">
+            <div className="relative w-full h-[300px] sm:h-[420px] bg-[#0A0D12]">
               <iframe
                 src={SITE_CONFIG.googleMapsEmbed}
                 width="100%"

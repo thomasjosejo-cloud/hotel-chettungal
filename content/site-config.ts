@@ -1,4 +1,5 @@
 export interface SiteConfig {
+  siteUrl: string;
   propertyName: string;
   brandSubtitle: string;
   tagline: string;
@@ -26,6 +27,7 @@ export interface SiteConfig {
 }
 
 export const SITE_CONFIG: SiteConfig = {
+  siteUrl: "https://hotelchettungal.com",
   propertyName: "Hotel New Town",
   brandSubtitle: "by Chettungal",
   tagline: "One Address, Every Occasion — Stay · Dine · Meet · Celebrate",

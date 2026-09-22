@@ -10,7 +10,27 @@ import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
 
 export const metadata = {
   title: "Fish Town Restaurant | Hotel New Town by Chettungal",
-  description: "Fresh catch. Local soul. Multi-cuisine dining featuring coastal fish curries, tandoor, biryani, Chinese & continental favorites in Angamaly, Kerala.",
+  description:
+    "Fresh catch. Local soul. Multi-cuisine dining featuring coastal fish curries, tandoor, biryani, Chinese & continental favorites in Angamaly, Kerala.",
+  openGraph: {
+    title: "Fish Town Restaurant | Hotel New Town by Chettungal",
+    description: "Fresh catch. Local soul. Kerala fish curries, tandoori grills, Chinese & Continental dining on NH 544, Angamaly.",
+    url: "https://hotelchettungal.com/fishtown",
+    images: [
+      {
+        url: "/images/fishtown/restaurant-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Fish Town Restaurant Angamaly",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fish Town Restaurant | Chettungal",
+    description: "Fresh catch. Local soul. Multi-cuisine family and business dining in Angamaly.",
+    images: ["/images/fishtown/restaurant-hero.webp"],
+  },
 };
 
 export default function FishTownPage() {
@@ -113,7 +133,7 @@ export default function FishTownPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {highlights.map((h, i) => (
-              <div key={i} className="p-4 border-r last:border-r-0 border-stone-200">
+              <div key={i} className="p-4 border-b last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 border-stone-200">
                 <span className="text-xs uppercase tracking-[0.25em] text-[#B8860B] font-semibold block mb-1">
                   {h.label}
                 </span>

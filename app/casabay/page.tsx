@@ -10,7 +10,27 @@ import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
 
 export const metadata = {
   title: "CasaBay Rooftop Restobar | Hotel New Town by Chettungal",
-  description: "Take the evening upstairs. Open-air rooftop resto-bar for conversations, cocktails, grills, small plates & live music nights in Angamaly, Kerala.",
+  description:
+    "Take the evening upstairs. Open-air rooftop resto-bar for conversations, cocktails, grills, small plates & live music nights in Angamaly, Kerala.",
+  openGraph: {
+    title: "CasaBay Rooftop Restobar | Hotel New Town by Chettungal",
+    description: "Open-air rooftop resto-bar with signature mixology, grills, small plates & twilight views in Angamaly, Kerala.",
+    url: "https://hotelchettungal.com/casabay",
+    images: [
+      {
+        url: "/images/casabay/casa-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "CasaBay Rooftop Restobar Angamaly",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CasaBay Rooftop Restobar | Chettungal",
+    description: "Take the evening upstairs. Rooftop cocktails, grills, and live music.",
+    images: ["/images/casabay/casa-hero.webp"],
+  },
 };
 
 export default function CasaBayPage() {
@@ -105,7 +125,7 @@ export default function CasaBayPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {highlights.map((h, i) => (
-              <div key={i} className="p-4 border-r last:border-r-0 border-white/10">
+              <div key={i} className="p-4 border-b last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 border-white/10">
                 <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-semibold block mb-1">
                   {h.label}
                 </span>
