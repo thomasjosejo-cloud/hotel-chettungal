@@ -18,7 +18,7 @@ export const metadata = {
     url: "https://hotelchettungal.com/casabay",
     images: [
       {
-        url: "/images/casabay/casa-hero.webp",
+        url: "/images/casabay/casa-cocktail-deck.webp",
         width: 1200,
         height: 630,
         alt: "CasaBay Rooftop Restobar Angamaly",
@@ -29,7 +29,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "CasaBay Rooftop Restobar | Chettungal",
     description: "Take the evening upstairs. Rooftop cocktails, grills, and live music.",
-    images: ["/images/casabay/casa-hero.webp"],
+    images: ["/images/casabay/casa-cocktail-deck.webp"],
   },
 };
 
@@ -50,10 +50,10 @@ export default function CasaBayPage() {
       <section className="relative min-h-[94vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/casabay/casa-hero.webp"
+            src="/images/casabay/casa-cocktail-deck.webp"
             alt="CasaBay Rooftop Restobar at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-90 contrast-105"
+            className="object-cover brightness-95 contrast-105"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />

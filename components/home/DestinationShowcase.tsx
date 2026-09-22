@@ -21,6 +21,7 @@ import TiltCard3D from "@/components/3d/TiltCard3D";
 interface Venue {
   id: string;
   floorBadge: string;
+  tabLabel: string;
   shortLevel: string;
   name: string;
   category: string;
@@ -37,7 +38,8 @@ interface Venue {
 const VENUES: Venue[] = [
   {
     id: "casabay",
-    floorBadge: "LEVEL 4",
+    floorBadge: "L4",
+    tabLabel: "CasaBay",
     shortLevel: "Level 4 · Rooftop",
     name: "CasaBay Restobar",
     category: "Rooftop Lounge & Mixology",
@@ -45,7 +47,7 @@ const VENUES: Venue[] = [
     hours: "5:00 PM – 11:30 PM",
     description:
       "Angamaly's premier open-air rooftop destination. Handcrafted cocktails, charcoal grills, and twilight skyline energy accompanied by acoustic live music sessions.",
-    image: "/images/casabay/casa-sunset.webp",
+    image: "/images/casabay/casa-cocktail-deck.webp",
     highlights: [
       "Open-air sky terrace with panoramic views",
       "Full craft cocktail & mixology bar",
@@ -58,9 +60,10 @@ const VENUES: Venue[] = [
   },
   {
     id: "fishtown",
-    floorBadge: "LEVEL 1",
+    floorBadge: "L1",
+    tabLabel: "Fish Town",
     shortLevel: "Level 1 · All-Day Dining",
-    name: "Fish Town",
+    name: "Fish Town Multi-Cuisine",
     category: "Multi-Cuisine Restaurant",
     tagline: "Fresh catch. Local soul.",
     hours: "7:30 AM – 11:00 PM",
@@ -79,7 +82,8 @@ const VENUES: Venue[] = [
   },
   {
     id: "rooms",
-    floorBadge: "LEVEL 2",
+    floorBadge: "L2",
+    tabLabel: "10 Rooms",
     shortLevel: "Level 2 · Accommodations",
     name: "10 Boutique Rooms",
     category: "AC Rooms & Executive Bar",
@@ -100,7 +104,8 @@ const VENUES: Venue[] = [
   },
   {
     id: "townhall",
-    floorBadge: "GROUND",
+    floorBadge: "G",
+    tabLabel: "Town Hall",
     shortLevel: "Ground · Banquets & Meetings",
     name: "Town Hall & Boardroom",
     category: "120-Pax Arena & Executive Suite",
@@ -108,7 +113,7 @@ const VENUES: Venue[] = [
     hours: "Custom Event Timings",
     description:
       "A dedicated 120-guest banquet hall for weddings, reception dinners, and conferences, paired with an executive 12-seat boardroom. Live in-house catering by Fish Town.",
-    image: "/images/town-hall/hall-hero.webp",
+    image: "/images/town-hall/hall-lighting.webp",
     highlights: [
       "Grand banquet arena for up to 120 guests",
       "Dedicated 12-delegate executive boardroom",
@@ -160,10 +165,10 @@ export default function DestinationShowcase() {
                   }`}
                 >
                   <VenueIcon className={`w-3.5 h-3.5 ${isSelected ? "text-[#0C101B]" : "text-[#E5C158]"}`} />
-                  <span className="hidden xs:inline text-[10px] sm:text-xs opacity-75 font-mono">
-                    {venue.floorBadge}
+                  <span className="text-[10px] sm:text-xs opacity-80 font-mono">
+                    {venue.floorBadge} ·
                   </span>
-                  <span>{venue.name.split(" ")[0]}</span>
+                  <span className="whitespace-nowrap">{venue.tabLabel}</span>
                 </button>
               );
             })}
@@ -300,10 +305,10 @@ export default function DestinationShowcase() {
                     {venue.floorBadge}
                   </span>
                   <span className="text-xs font-serif text-white font-medium truncate block group-hover:text-[#E5C158] transition-colors">
-                    {venue.name.split(" ")[0]}
+                    {venue.tabLabel}
                   </span>
                   <span className="text-[10px] text-slate-400 font-light truncate block">
-                    {venue.category.split(" ")[0]}
+                    {venue.category}
                   </span>
                 </div>
               </button>

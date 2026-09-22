@@ -54,10 +54,10 @@ export default function TownHallContent() {
       <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/town-hall/hall-hero.webp"
+            src="/images/town-hall/hall-lighting.webp"
             alt="Town Hall Banquet Arena at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-90 contrast-105"
+            className="object-cover brightness-95 contrast-105"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />

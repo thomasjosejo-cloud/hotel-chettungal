@@ -85,8 +85,8 @@ export default function HomePage() {
         {/* Full Vibrancy Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/casabay/casa-night-view.webp"
-            alt="CasaBay Rooftop Restobar at Chettungal New Town Hotel"
+            src="/images/location/reception-counter.webp"
+            alt="Hotel New Town by Chettungal Reception & Front Desk"
             fill
             className="object-cover object-center brightness-95 contrast-105"
             priority

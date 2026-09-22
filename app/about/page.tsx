@@ -43,17 +43,17 @@ export default function AboutPage() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. ABOUT HERO WITH REAL FACADE */}
-      <section className="relative min-h-[65vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* 1. ABOUT HERO WITH REAL FACADE SHOWING THE ENTRANCE */}
+      <section className="relative min-h-[72vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/location/facade.webp"
-            alt="Chettungal Hotel New Town Facade on NH 544 Angamaly"
+            alt="Chettungal Hotel New Town Facade & Entrance on NH 544 Angamaly"
             fill
-            className="object-cover brightness-95 contrast-105"
+            className="object-cover object-bottom brightness-95 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/50 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/45 to-black/55" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -74,10 +74,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. CHETTUNGAL ETHOS & RECEPTION PHOTO */}
+      {/* 2. CHETTUNGAL ETHOS & ENTRANCE / RECEPTION GALLERY */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-5">
             <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2 block">
               The Chettungal Ethos
             </span>
@@ -105,18 +105,33 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <TiltCard3D maxTilt={6} className="rounded-sm">
               <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-[#E5C158]/20 shadow-lg">
                 <Image
-                  src="/images/location/reception-1.webp"
-                  alt="Hotel New Town Reception"
+                  src="/images/location/reception-entrance.webp"
+                  alt="Hotel New Town Main Entrance"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 text-xs font-serif text-white">
-                  Ground Floor Reception
+                  Main Hotel Entrance
+                </div>
+              </div>
+            </TiltCard3D>
+
+            <TiltCard3D maxTilt={6} className="rounded-sm">
+              <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-[#E5C158]/20 shadow-lg">
+                <Image
+                  src="/images/location/reception-counter.webp"
+                  alt="Hotel New Town Reception Counter"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 text-xs font-serif text-white">
+                  Front Desk & Check-In
                 </div>
               </div>
             </TiltCard3D>
@@ -131,7 +146,7 @@ export default function AboutPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 text-xs font-serif text-white">
-                  Lobby Lounge & Concierge
+                  Lobby Lounge & Waiting
                 </div>
               </div>
             </TiltCard3D>

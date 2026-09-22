@@ -142,26 +142,24 @@ export default function Navigation() {
         <div className="flex items-center gap-2 lg:hidden">
           <a
             href={`tel:${SITE_CONFIG.phoneRaw}`}
-            className="p-2 text-[#E5C158] hover:text-white"
+            className="p-2 text-[#E5C158] hover:text-white rounded-sm bg-white/5 border border-white/10"
             title="Call"
           >
-            <Phone className="w-5 h-5" />
+            <Phone className="w-4 h-4" />
           </a>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`p-2 focus:outline-none ${
-              isLightPage && scrolled ? "text-stone-900" : "text-slate-100"
-            }`}
+            className="p-2 text-[#E5C158] hover:text-white rounded-sm bg-white/5 border border-[#E5C158]/30 focus:outline-none"
             aria-label="Toggle Navigation Menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-5 h-5 text-[#E5C158]" /> : <Menu className="w-5 h-5 text-[#E5C158]" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu - Absolute below header */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-full bg-[#0E1524] border-b border-[#E5C158]/30 shadow-2xl px-6 py-8 flex flex-col gap-5 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden absolute inset-x-0 top-full bg-[#0E1524] border-b border-[#E5C158]/30 shadow-2xl px-6 py-8 flex flex-col gap-5 max-h-[80vh] overflow-y-auto z-50">
           <div className="flex flex-col gap-4">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
