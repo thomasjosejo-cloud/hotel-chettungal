@@ -95,13 +95,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#0A0D12] text-slate-100 antialiased selection:bg-[#D4AF37] selection:text-[#0A0D12]">
+      <body className="min-h-screen flex flex-col bg-[#FAF8F5] text-stone-900 antialiased selection:bg-[#C8A962] selection:text-[#0E131C]">
         <Navigation />
         <main className="flex-grow pt-0 pb-16 md:pb-0">{children}</main>
         <Footer />
 
         {/* Mobile Floating Direct Action Dock */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0E131C]/95 backdrop-blur-lg border-t border-[#D4AF37]/30 px-3 py-2.5 flex items-center justify-around gap-2 shadow-2xl">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#121622]/95 backdrop-blur-lg border-t border-[#C8A962]/30 px-3 py-2.5 flex items-center justify-around gap-2 shadow-2xl">
           <a
             href={`tel:${SITE_CONFIG.phoneRaw}`}
             className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 text-xs font-medium rounded-sm bg-white/10 text-slate-200 border border-white/10"

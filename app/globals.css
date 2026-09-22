@@ -8,15 +8,15 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #0A0D12;
-    color: #F3F4F6;
+    background-color: #FAF8F5;
+    color: #17191E;
   }
 
   body {
     font-family: var(--font-sans);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    background-color: #0A0D12;
+    background-color: #FAF8F5;
   }
 
   h1, h2, h3, h4, .font-serif {
@@ -29,14 +29,14 @@
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0D12;
+  background: #FAF8F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #222938;
+  background: #D8D2C6;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #C8A962;
 }
 
 /* 3D Perspective & Transform containers */
@@ -50,59 +50,51 @@
   transform-style: preserve-3d;
 }
 
-/* 3D Depth Card with hover elevation */
+/* 3D Depth Card with soft warm elevation */
 .card-3d {
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
   transform-style: preserve-3d;
 }
 .card-3d:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12), 0 0 20px rgba(200, 169, 98, 0.15);
 }
 
 /* Luxury champagne gold gradients */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #FFF0C8 0%, #D4AF37 50%, #9A7B20 100%);
+  background: linear-gradient(135deg, #DFBE74 0%, #C8A962 50%, #9B7830 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-gradient-bg {
-  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B89028 100%);
+  background: linear-gradient(135deg, #E6C87C 0%, #C8A962 50%, #B28F42 100%);
 }
 
-.neon-glow-gold {
-  text-shadow: 0 0 14px rgba(212, 175, 55, 0.7), 0 0 28px rgba(212, 175, 55, 0.35);
-}
-
-.neon-glow-sunset {
-  text-shadow: 0 0 14px rgba(235, 140, 60, 0.85), 0 0 28px rgba(210, 80, 20, 0.45);
-}
-
-/* Glass panel effects (Sleek Obsidian & Pure Ivory) */
+/* Glass panel effects */
 .glass-panel-dark {
-  background: rgba(14, 18, 25, 0.85);
+  background: rgba(13, 17, 26, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(200, 169, 98, 0.2);
 }
 
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(200, 169, 98, 0.2);
 }
 
-/* Subtle dot texture */
+/* Soft dot texture */
 .luxury-dots-dark {
-  background-color: #0A0D12;
-  background-image: radial-gradient(rgba(212, 175, 55, 0.12) 1px, transparent 1px);
+  background-color: #0D111A;
+  background-image: radial-gradient(rgba(200, 169, 98, 0.15) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
 .luxury-dots-light {
-  background-color: #FAF9F6;
-  background-image: radial-gradient(rgba(212, 175, 55, 0.18) 1px, transparent 1px);
+  background-color: #FAF8F5;
+  background-image: radial-gradient(rgba(200, 169, 98, 0.2) 1px, transparent 1px);
   background-size: 28px 28px;
 }
