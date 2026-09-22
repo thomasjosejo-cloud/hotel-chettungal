@@ -1,108 +1,186 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  }
+/* ------------------------------------------------------------------
+   Design tokens
+   House:     charcoal / ivory / brass  (Chettungal)
+   CasaBay:   night / ember              (rooftop, after dark)
+   Fish Town: ivory / navy               (daylight, from the logo)
+   ------------------------------------------------------------------ */
+@theme {
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-casa: var(--font-chewy), "Chewy", cursive;
 
+  --color-charcoal: #1e1e1c;
+  --color-ink: #141412;
+  --color-ivory: #f5f1ea;
+  --color-paper: #fbf8f3;
+  --color-stone: #e6ded1;
+  --color-brass: #8b6b4a;
+  --color-brass-light: #c9a57b;
+  --color-muted: #5f5a51;
+  --color-mist: #b8b0a3;
+
+  --color-night: #0e0b08;
+  --color-night-2: #1a140e;
+  --color-ember: #e3a55a;
+
+  --color-navy: #0d2232;
+  --color-ft-brass: #a8793f;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
   html {
-    scroll-behavior: smooth;
-    background-color: #0C101B;
-    color: #F1F5F9;
+    background: var(--color-charcoal);
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     font-family: var(--font-sans);
-    overflow-x: hidden;
+    background: var(--color-paper);
+    color: var(--color-charcoal);
     -webkit-font-smoothing: antialiased;
-    background-color: #0C101B;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4, .font-serif {
+  h1,
+  h2,
+  h3 {
     font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass-light);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-brass);
+    color: var(--color-ivory);
   }
 }
 
-/* Custom scrollbars */
-::-webkit-scrollbar {
-  width: 7px;
-}
-::-webkit-scrollbar-track {
-  background: #0C101B;
-}
-::-webkit-scrollbar-thumb {
-  background: #1E293B;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #E5C158;
+@layer components {
+  /* Eyebrow label: small caps line above headings */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 1.6rem + 5.2vw, 6.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+  }
+
+  .h2 {
+    font-size: clamp(2.125rem, 1.5rem + 2.6vw, 3.75rem);
+    line-height: 1.04;
+  }
+
+  .h3 {
+    font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+    line-height: 1.1;
+  }
+
+  .lede {
+    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+    line-height: 1.6;
+  }
+
+  .statement {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 1.3rem + 1.9vw, 3rem);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+
+  .container-x {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-x {
+      padding-inline: 4rem;
+    }
+  }
+
+  .rule {
+    height: 1px;
+    background: currentColor;
+    opacity: 0.18;
+  }
+
+  /* Underlined text link with arrow motion */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid currentColor;
+    transition: gap 0.4s var(--ease-out-soft), opacity 0.3s;
+  }
+  .link-arrow:hover {
+    gap: 1rem;
+  }
 }
 
-/* 3D Perspective & Transform containers */
-.perspective-1000 {
-  perspective: 1000px;
-}
-.perspective-1500 {
-  perspective: 1500px;
-}
-.preserve-3d {
-  transform-style: preserve-3d;
+/* Scroll reveal — content is visible by default; only animates when JS
+   has marked the document ready and the user hasn't asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 1s var(--ease-out-soft),
+      transform 1.1s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-reveal][data-shown] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ken-burns {
+    animation: ken-burns 18s var(--ease-out-soft) both;
+  }
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 }
 
-/* 3D Depth Card with hover elevation & sapphire glow */
-.card-3d {
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
-  transform-style: preserve-3d;
+.img-zoom {
+  transition: transform 1.4s var(--ease-out-soft);
 }
-.card-3d:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(12, 16, 27, 0.9), 0 0 25px rgba(229, 193, 88, 0.22);
+.group:hover .img-zoom {
+  transform: scale(1.04);
 }
-
-/* Radiant amber-gold luxury gradients */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #FFF1CA 0%, #E5C158 50%, #B28F2A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gold-gradient-bg {
-  background: linear-gradient(135deg, #F5D77F 0%, #E5C158 50%, #C49E32 100%);
-}
-
-.sapphire-gradient-bg {
-  background: linear-gradient(180deg, #0C101B 0%, #111726 50%, #0C101B 100%);
-}
-
-/* 3D Glass panel effects with subtle sapphire/amber borders */
-.glass-panel-sapphire {
-  background: rgba(17, 23, 38, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(229, 193, 88, 0.25);
-}
-
-.glass-panel-light {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(229, 193, 88, 0.2);
-}
-
-/* Subtle dot texture */
-.luxury-dots-sapphire {
-  background-color: #0C101B;
-  background-image: radial-gradient(rgba(229, 193, 88, 0.16) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* Hide scrollbar for clean horizontal tab rails */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-

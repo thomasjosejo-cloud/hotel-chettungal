@@ -1,23 +1,70 @@
-import { Metadata } from "next";
-import EnquireContent from "@/components/pages/EnquireContent";
+import type { Metadata } from "next";
+import EnquiryForm from "@/components/EnquiryForm";
+import PageHero from "@/components/PageHero";
+import { Eyebrow, WhatsAppIcon } from "@/components/ui";
+import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Enquire — Book a Table, Plan an Event | Chettungal",
-  description: "Send your enquiry for dining reservations, banquet events, meeting room bookings, or room stays at Hotel New Town by Chettungal.",
-  openGraph: {
-    title: "Enquire — Book a Table, Plan an Event | Chettungal",
-    description: "Send your enquiry for dining reservations, banquet events, meeting room bookings, or room stays at Hotel New Town by Chettungal.",
-    url: "https://hotelchettungal.com/enquire",
-    images: [{ url: "/images/casabay/casa-night-view.webp", width: 1200, height: 630, alt: "Enquire — Book a Table, Plan an Event | Chettungal" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Enquire — Dining, Events, Stays | Chettungal",
-    description: "Fast WhatsApp and online enquiry for Hotel New Town by Chettungal.",
-    images: ["/images/casabay/casa-night-view.webp"],
-  },
+  title: "Enquire",
+  description:
+    "Reserve a table at CasaBay or Fish Town, plan an event at Town Hall, book the Board Room or a room at Hotel New Town by Chettungal, Angamaly.",
+  alternates: { canonical: "/enquire" },
 };
 
 export default function EnquirePage() {
-  return <EnquireContent />;
+  const hero = PHOTOS.location[1];
+  return (
+    <div className="bg-paper text-charcoal">
+      <PageHero image={hero.src} alt={hero.alt} height="medium">
+        <Eyebrow className="text-brass-light">Enquire</Eyebrow>
+        <h1 className="display mt-6 max-w-3xl">Tell us what you have in mind.</h1>
+      </PageHero>
+
+      <section className="py-20 md:py-32">
+        <div className="container-x grid gap-16 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <EnquiryForm />
+          </div>
+
+          <aside className="md:col-span-4 md:col-start-9">
+            <Eyebrow className="text-brass">Prefer to talk?</Eyebrow>
+            <ul className="mt-5">
+              <li className="border-t border-charcoal/15">
+                <a href={SITE.phoneHref} className="group block py-5">
+                  <span className="eyebrow block text-muted">Call</span>
+                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass">{SITE.phone}</span>
+                </a>
+              </li>
+              <li className="border-t border-charcoal/15">
+                <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer" className="group block py-5">
+                  <span className="eyebrow flex items-center gap-2 text-muted">
+                    <WhatsAppIcon className="h-3.5 w-3.5" /> WhatsApp
+                  </span>
+                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass">Message us</span>
+                </a>
+              </li>
+              {SITE.email && (
+                <li className="border-t border-charcoal/15">
+                  <a href={`mailto:${SITE.email}`} className="group block py-5">
+                    <span className="eyebrow block text-muted">Email</span>
+                    <span className="mt-1 block font-serif text-2xl transition-colors group-hover:text-brass">{SITE.email}</span>
+                  </a>
+                </li>
+              )}
+              <li className="border-y border-charcoal/15">
+                <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="group block py-5">
+                  <span className="eyebrow block text-muted">Visit</span>
+                  <span className="mt-1 block text-[1.0625rem] leading-relaxed transition-colors group-hover:text-brass">
+                    {SITE.address.line}
+                    <br />
+                    {SITE.address.region} {SITE.address.pincode} ↗
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </div>
+  );
 }
