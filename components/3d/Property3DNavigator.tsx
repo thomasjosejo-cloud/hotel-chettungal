@@ -14,6 +14,7 @@ export default function Property3DNavigator() {
     {
       id: "casabay",
       floorBadge: "L4",
+      shortName: "CasaBay",
       level: "LEVEL 4 · ROOFTOP RESTOBAR",
       name: "CasaBay Restobar",
       tagline: "Take the evening upstairs.",
@@ -30,6 +31,7 @@ export default function Property3DNavigator() {
     {
       id: "rooms",
       floorBadge: "L2",
+      shortName: "10 Rooms",
       level: "LEVEL 2 · BOUTIQUE ACCOMMODATIONS",
       name: "10 Boutique Rooms",
       tagline: "Built for a proper night's rest.",
@@ -46,6 +48,7 @@ export default function Property3DNavigator() {
     {
       id: "fishtown",
       floorBadge: "L1",
+      shortName: "Fish Town",
       level: "LEVEL 1 · ALL-DAY DINING",
       name: "Fish Town Multi-Cuisine",
       tagline: "Fresh catch. Local soul.",
@@ -62,6 +65,7 @@ export default function Property3DNavigator() {
     {
       id: "townhall",
       floorBadge: "G",
+      shortName: "Town Hall",
       level: "GROUND · BANQUETS & EVENTS",
       name: "Town Hall & Boardroom",
       tagline: "Where the whole guest list fits.",
@@ -113,7 +117,7 @@ export default function Property3DNavigator() {
               >
                 <Icon className="w-3.5 h-3.5" />
                 <span className="font-mono opacity-80">{fl.floorBadge}</span>
-                <span className="truncate">{fl.name.split(" ")[0]}</span>
+                <span className="whitespace-nowrap">{fl.shortName}</span>
               </button>
             );
           })}
