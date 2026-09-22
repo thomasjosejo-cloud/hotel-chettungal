@@ -184,7 +184,20 @@ export default function CasaBayPage() {
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
               <Image
                 src="/images/casabay/casa-hero.webp"
-                alt="CasaBay Bar Counter & Mural"
+                alt="CasaBay Skyline Rooftop Deck"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-slate-200">
+                Skyline Rooftop Deck & Canopy
+              </div>
+            </div>
+
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
+              <Image
+                src="/images/casabay/casa-bar.webp"
+                alt="CasaBay Bar Counter"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
@@ -196,27 +209,53 @@ export default function CasaBayPage() {
 
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
               <Image
-                src="/images/casabay/casa-ambience-1.webp"
-                alt="CasaBay Dining Seating"
+                src="/images/casabay/casa-cocktail-deck.webp"
+                alt="CasaBay High-Top Cocktail Deck"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-4 left-4 text-xs font-serif text-slate-200">
-                Lounge Tables & Conversation Corners
+                Open-Air High-Top Cocktail Tables
+              </div>
+            </div>
+
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
+              <Image
+                src="/images/casabay/casa-terrace.webp"
+                alt="CasaBay Panoramic Terrace"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-slate-200">
+                Panoramic Rooftop Terrace & Starlight Views
+              </div>
+            </div>
+
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
+              <Image
+                src="/images/casabay/casa-night-view.webp"
+                alt="CasaBay Twilight Party Lounge"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-slate-200">
+                Ambient Twilight Party Lounge & Music Nights
               </div>
             </div>
 
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
               <Image
                 src="/images/casabay/casa-ambience-2.webp"
-                alt="CasaBay Lantern Glow"
+                alt="CasaBay Warm Lantern Glow"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-4 left-4 text-xs font-serif text-slate-200">
-                Warm Wicker Lanterns & Evening Breeze
+                Warm Lantern Glow & Evening Breeze
               </div>
             </div>
           </div>

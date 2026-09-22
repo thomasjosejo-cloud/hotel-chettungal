@@ -31,7 +31,7 @@ export default function RoomsPage() {
     { src: "/images/rooms/lux-03.webp", title: "Quiet Contemporary Layout for Restorative Sleep" },
     { src: "/images/rooms/lux-05.webp", title: "Dedicated Work Desk & Universal Power Outlets" },
     { src: "/images/rooms/lux-08.webp", title: "High-Pressure Rain Shower & Botanical Amenities" },
-    { src: "/images/rooms/executive-bar.webp", title: "The Resident-Only Executive Bar Lounge" },
+    { src: "/images/rooms/room-1-bed.webp", title: "Plush Bedding & Integrated Headboard Illumination" },
   ];
 
   return (

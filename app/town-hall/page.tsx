@@ -145,7 +145,7 @@ export default function TownHallPage() {
             theme="dark"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
               <Image
                 src="/images/town-hall/hall-hero.webp"
@@ -161,14 +161,40 @@ export default function TownHallPage() {
 
             <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
               <Image
-                src="/images/town-hall/hall-2.webp"
-                alt="Town Hall Alternate View"
+                src="/images/town-hall/hall-stage.webp"
+                alt="Town Hall Stage & Dais"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
-                Acoustic Sound & Crystal Presentation Projection
+                Acoustic Presentation Stage & Dais
+              </div>
+            </div>
+
+            <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
+              <Image
+                src="/images/town-hall/hall-2.webp"
+                alt="Town Hall Conference & Seminar Layout"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
+                Theatre & Seminar Conference Layout
+              </div>
+            </div>
+
+            <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
+              <Image
+                src="/images/town-hall/hall-wide.webp"
+                alt="Town Hall Wide Panorama"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
+                Column-Free Banquet Floor (Up to 120 Guests)
               </div>
             </div>
           </div>

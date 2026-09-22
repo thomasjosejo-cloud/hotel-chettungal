@@ -25,10 +25,12 @@ export default function FishTownPage() {
   const bestFor = ["Fresh, daily catch", "Kerala at heart", "Family tables", "Business lunch booths"];
 
   const restaurantPhotos = [
-    { src: "/images/fishtown/restaurant-hero.webp", label: "Illuminated Wave Wall & Orange Leather Seating" },
-    { src: "/images/fishtown/restaurant-2.webp", label: "Family Tables & Wicker Hanging Lamps" },
-    { src: "/images/fishtown/restaurant-3.webp", label: "Contemporary Interior & Private Booths" },
-    { src: "/images/fishtown/restaurant-4.webp", label: "Spacious Multi-Generation Banqueting Layout" },
+    { src: "/images/fishtown/restaurant-hero.webp", label: "Signature Illuminated Wave Wall & Leather Dining Booths" },
+    { src: "/images/fishtown/restaurant-2.webp", label: "Spacious Multi-Generation Family Tables & Wicker Lanterns" },
+    { src: "/images/fishtown/restaurant-3.webp", label: "Contemporary Restaurant Interior & Warm Wood Partitions" },
+    { src: "/images/fishtown/restaurant-4.webp", label: "Warm Cove Lighting & Architectural Dining Accents" },
+    { src: "/images/fishtown/restaurant-wide.webp", label: "Full Dining Hall Panorama" },
+    { src: "/images/fishtown/restaurant-buffet.webp", label: "Executive Buffet & Fresh Service Zone" },
   ];
 
   return (
@@ -141,7 +143,7 @@ export default function FishTownPage() {
                 <div className="flex flex-col bg-white rounded-sm overflow-hidden border border-stone-200 h-full">
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100">
                     <Image
-                      src={idx % 2 === 0 ? "/images/fishtown/dish-01.webp" : "/images/fishtown/dish-02.webp"}
+                      src={["/images/fishtown/restaurant-wave-wall.webp", "/images/fishtown/restaurant-intimate.webp", "/images/fishtown/restaurant-buffet.webp", "/images/fishtown/restaurant-wide.webp"][idx % 4]}
                       alt={dish.name}
                       fill
                       className="object-cover transition-transform duration-500 hover:scale-105"
@@ -192,7 +194,7 @@ export default function FishTownPage() {
           theme="light"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {restaurantPhotos.map((photo, i) => (
             <div
               key={i}

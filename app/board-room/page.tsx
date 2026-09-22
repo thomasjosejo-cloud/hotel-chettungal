@@ -143,7 +143,7 @@ export default function BoardRoomPage() {
             theme="dark"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
               <Image
                 src="/images/board-room/boardroom-hero.webp"
@@ -153,20 +153,46 @@ export default function BoardRoomPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
-                12 Executive Ergonomic Armchairs & Conference Table
+                12 High-Back Executive Armchairs & Conference Table
               </div>
             </div>
 
             <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
               <Image
                 src="/images/board-room/boardroom-2.webp"
-                alt="The Boardroom Perspective View"
+                alt="Presentation Display Screen"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
-                Acoustic Wood Paneling & Presentation Space
+                Presentation Display & Dedicated Video Conferencing
+              </div>
+            </div>
+
+            <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
+              <Image
+                src="/images/board-room/boardroom-angle.webp"
+                alt="The Boardroom Angle View"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
+                Natural Daylight & Acoustic Paneling
+              </div>
+            </div>
+
+            <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
+              <Image
+                src="/images/board-room/boardroom-focus.webp"
+                alt="Distraction Free Setting"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 text-xs font-serif text-white text-base">
+                Distraction-Free Setting for Strategic Decisions
               </div>
             </div>
           </div>
