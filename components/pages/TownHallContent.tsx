@@ -60,7 +60,8 @@ export default function TownHallContent() {
             className="object-cover brightness-95 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />
+          <div className="absolute inset-0 bg-[#0C101B]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/70 to-black/75" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">

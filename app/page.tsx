@@ -88,59 +88,63 @@ export default function HomePage() {
             src="/images/location/reception-counter.webp"
             alt="Hotel New Town by Chettungal Reception & Front Desk"
             fill
-            className="object-cover object-center brightness-95 contrast-105"
+            className="object-cover object-center brightness-90 contrast-105"
             priority
           />
-          {/* Subtle Midnight Sapphire Vignette - Clean, Never Gloomy */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />
+          {/* High-Contrast Luxury Dark Scrim */}
+          <div className="absolute inset-0 bg-[#0C101B]/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/70 to-black/75" />
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#E5C158_1px,transparent_1px)] [background-size:32px_32px]" />
         </div>
 
-        {/* Hero Content */}
+        {/* Hero Content Container */}
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111726]/85 border border-[#E5C158]/40 backdrop-blur-md mb-5 shadow-[0_0_20px_rgba(229,193,88,0.2)]">
-            <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#E5C158]">
-              NH 544, Angamaly · Hotel New Town by Chettungal
-            </span>
-          </div>
+          {/* Hero Content with High-Legibility Frosted Backdrop */}
+          <div className="px-6 py-10 sm:px-12 sm:py-14 rounded-sm bg-[#0C101B]/85 backdrop-blur-md border border-[#E5C158]/35 shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col items-center">
+            {/* Eyebrow Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111726] border border-[#E5C158]/40 mb-5 shadow-md">
+              <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#E5C158]">
+                NH 544, Angamaly · Hotel New Town by Chettungal
+              </span>
+            </div>
 
-          {/* Clean, Punchy Headline */}
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-serif text-white tracking-tight leading-[1.1] mb-4 sm:mb-6">
-            Four Floors of <br />
-            <span className="italic font-light gold-gradient-text">Elevated Living.</span>
-          </h1>
+            {/* Clean, Punchy Headline with High Contrast */}
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-serif text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+              Four Floors of <br />
+              <span className="italic font-light text-[#F5D061] drop-shadow-md">Elevated Living.</span>
+            </h1>
 
-          {/* Subtitle */}
-          <p className="max-w-2xl text-sm sm:text-base md:text-lg font-light text-slate-200 leading-relaxed mb-8 sm:mb-10 px-2">
-            An open-sky rooftop restobar, coastal multi-cuisine dining, celebration banquets for 120, and 10 boutique rooms —{" "}
-            <span className="text-[#E5C158] font-normal">all under one roof.</span>
-          </p>
+            {/* Subtitle - high contrast, readable */}
+            <p className="max-w-2xl text-sm sm:text-base md:text-lg font-normal text-slate-100 leading-relaxed mb-8 sm:mb-10 px-2 drop-shadow-sm">
+              An open-sky rooftop restobar, coastal multi-cuisine dining, celebration banquets for 120, and 10 boutique rooms —{" "}
+              <span className="text-[#E5C158] font-semibold">all under one roof.</span>
+            </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <a
-              href="#destination-showcase"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl hover:scale-102 duration-300"
-            >
-              <Compass className="w-4 h-4" />
-              <span>Explore The Four Floors</span>
-            </a>
+            {/* Action CTAs */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <a
+                href="#destination-showcase"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl hover:scale-102 duration-300"
+              >
+                <Compass className="w-4 h-4" />
+                <span>Explore The Four Floors</span>
+              </a>
 
-            <WhatsAppCta
-              intent="General Destination Enquiry"
-              label={`WhatsApp: ${SITE_CONFIG.phone}`}
-              variant="dark"
-              className="w-full sm:w-auto px-6 py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-white/20 bg-black/50 hover:border-[#E5C158] text-slate-100"
-            />
+              <WhatsAppCta
+                intent="General Destination Enquiry"
+                label={`WhatsApp: ${SITE_CONFIG.phone}`}
+                variant="dark"
+                className="w-full sm:w-auto px-6 py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-[#E5C158]/30 bg-[#111726] hover:border-[#E5C158] text-slate-100"
+              />
+            </div>
           </div>
 
           {/* Smooth Scroll Cue */}
           <a
             href="#destination-showcase"
             aria-label="Scroll down"
-            className="mt-12 sm:mt-16 text-slate-400 hover:text-[#E5C158] transition-colors flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100"
+            className="mt-8 text-slate-400 hover:text-[#E5C158] transition-colors flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100"
           >
             <span className="text-[10px] uppercase tracking-widest font-mono">Discover</span>
             <ChevronDown className="w-4 h-4 animate-bounce" />

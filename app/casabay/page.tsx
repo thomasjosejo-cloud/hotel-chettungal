@@ -56,7 +56,8 @@ export default function CasaBayPage() {
             className="object-cover brightness-95 contrast-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/40 to-black/55" />
+          <div className="absolute inset-0 bg-[#0C101B]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/65 to-black/75" />
           <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#E5C158_1px,transparent_1px)] [background-size:28px_28px]" />
         </div>
 
