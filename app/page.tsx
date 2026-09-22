@@ -16,7 +16,7 @@ import {
   ShieldCheck,
   ChevronDown,
 } from "lucide-react";
-import DestinationShowcase from "@/components/home/DestinationShowcase";
+import Property3DNavigator from "@/components/3d/Property3DNavigator";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { SITE_CONFIG } from "@/content/site-config";
@@ -81,70 +81,67 @@ export default function HomePage() {
       />
 
       {/* 1. CINEMATIC LUXURY HERO SECTION */}
-      <section className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Full Vibrancy Background Image */}
+      <section className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+        {/* Full Vibrancy Reception Counter Photo */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/location/reception-counter.webp"
             alt="Hotel New Town by Chettungal Reception & Front Desk"
             fill
-            className="object-cover object-center brightness-90 contrast-105"
+            className="object-cover object-center brightness-95 contrast-105"
             priority
           />
-          {/* High-Contrast Luxury Dark Scrim */}
-          <div className="absolute inset-0 bg-[#0C101B]/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/70 to-black/75" />
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#E5C158_1px,transparent_1px)] [background-size:32px_32px]" />
+          {/* Natural Vignette: Dark at header and floor, soft glow in center, zero opaque box */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.55)_0%,transparent_75%)]" />
         </div>
 
-        {/* Hero Content Container */}
+        {/* Hero Content Container - Floating directly with high-contrast text shadows, NO clunky box */}
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          {/* Hero Content with High-Legibility Frosted Backdrop */}
-          <div className="px-6 py-10 sm:px-12 sm:py-14 rounded-sm bg-[#0C101B]/85 backdrop-blur-md border border-[#E5C158]/35 shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col items-center">
-            {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111726] border border-[#E5C158]/40 mb-5 shadow-md">
-              <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#E5C158]">
-                NH 544, Angamaly · Hotel New Town by Chettungal
-              </span>
-            </div>
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-lg">
+            <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#E5C158]">
+              NH 544, Angamaly · Hotel New Town by Chettungal
+            </span>
+          </div>
 
-            {/* Clean, Punchy Headline with High Contrast */}
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-serif text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
-              Four Floors of <br />
-              <span className="italic font-light text-[#F5D061] drop-shadow-md">Elevated Living.</span>
-            </h1>
+          {/* Clean, Punchy Headline with High Contrast Text Shadows */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-white tracking-tight leading-[1.08] mb-4 sm:mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+            Four Floors of <br />
+            <span className="italic font-light text-[#F5D061] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">Elevated Living.</span>
+          </h1>
 
-            {/* Subtitle - high contrast, readable */}
-            <p className="max-w-2xl text-sm sm:text-base md:text-lg font-normal text-slate-100 leading-relaxed mb-8 sm:mb-10 px-2 drop-shadow-sm">
-              An open-sky rooftop restobar, coastal multi-cuisine dining, celebration banquets for 120, and 10 boutique rooms —{" "}
-              <span className="text-[#E5C158] font-semibold">all under one roof.</span>
-            </p>
+          {/* Subtitle - high contrast, readable */}
+          <p className="max-w-2xl text-sm sm:text-base md:text-lg font-light text-slate-100 leading-relaxed mb-8 sm:mb-10 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            An open-sky rooftop restobar, coastal multi-cuisine dining, celebration banquets for 120, and 10 boutique rooms —{" "}
+            <span className="text-[#E5C158] font-normal">all under one roof.</span>
+          </p>
 
-            {/* Action CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
-              <a
-                href="#destination-showcase"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl hover:scale-102 duration-300"
-              >
-                <Compass className="w-4 h-4" />
-                <span>Explore The Four Floors</span>
-              </a>
+          {/* Action CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <a
+              href="#floor-navigator"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-2xl hover:scale-102 duration-300"
+            >
+              <Compass className="w-4 h-4" />
+              <span>Explore The Four Floors</span>
+            </a>
 
-              <WhatsAppCta
-                intent="General Destination Enquiry"
-                label={`WhatsApp: ${SITE_CONFIG.phone}`}
-                variant="dark"
-                className="w-full sm:w-auto px-6 py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-[#E5C158]/30 bg-[#111726] hover:border-[#E5C158] text-slate-100"
-              />
-            </div>
+            <WhatsAppCta
+              intent="General Destination Enquiry"
+              label={`WhatsApp: ${SITE_CONFIG.phone}`}
+              variant="dark"
+              className="w-full sm:w-auto px-6 py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-[#E5C158]/40 bg-black/60 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-xl"
+            />
           </div>
 
           {/* Smooth Scroll Cue */}
           <a
-            href="#destination-showcase"
+            href="#floor-navigator"
             aria-label="Scroll down"
-            className="mt-8 text-slate-400 hover:text-[#E5C158] transition-colors flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100"
+            className="mt-12 sm:mt-16 text-slate-300 hover:text-[#E5C158] transition-colors flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100 drop-shadow-md"
           >
             <span className="text-[10px] uppercase tracking-widest font-mono">Discover</span>
             <ChevronDown className="w-4 h-4 animate-bounce" />
@@ -152,9 +149,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. THE CONSOLIDATED DESTINATION SHOWCASE (NO DUPLICATION) */}
+      {/* 2. THE INTERACTIVE 3D MULTI-FLOOR NAVIGATOR */}
       <section className="bg-gradient-to-b from-[#0C101B] via-[#111726] to-[#0C101B] border-y border-[#E5C158]/20">
-        <DestinationShowcase />
+        <Property3DNavigator />
       </section>
 
       {/* 3. ATMOSPHERE & EXPERIENCES: WHY GUESTS CHOOSE CHETTUNGAL */}

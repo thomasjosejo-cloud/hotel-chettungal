@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Wine, Utensils, Users, Bed, ArrowRight, Sparkles } from "lucide-react";
+import { Wine, Utensils, Users, Bed, ArrowRight, Sparkles, Clock, Check } from "lucide-react";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
+import TiltCard3D from "@/components/3d/TiltCard3D";
 
 export default function Property3DNavigator() {
   const [activeFloor, setActiveFloor] = useState<"casabay" | "rooms" | "fishtown" | "townhall">("casabay");
@@ -12,23 +13,25 @@ export default function Property3DNavigator() {
   const floors = [
     {
       id: "casabay",
+      floorBadge: "L4",
       level: "LEVEL 4 · ROOFTOP RESTOBAR",
-      name: "CasaBay",
+      name: "CasaBay Restobar",
       tagline: "Take the evening upstairs.",
       badge: "Open 5 PM · Live Music",
-      image: "/images/casabay/casa-sunset.webp",
+      image: "/images/casabay/casa-cocktail-deck.webp",
       icon: Wine,
       accentBorder: "border-[#E5C158]",
       activeBg: "bg-[#182136]",
-      desc: "Open-air rooftop, full bar, craft cocktails, tandoori grills & small plates. An elevated setting where the night moves effortlessly into late-evening gatherings with panoramic skyline views.",
+      desc: "Angamaly's premier open-air rooftop destination. Handcrafted cocktails, charcoal grills, and twilight skyline energy accompanied by acoustic live music sessions.",
       features: ["Full Bar & Craft Mixology", "Charcoal Grills & Tapas", "Live Music Acoustic Sessions", "Skyline Twilight Views"],
       href: "/casabay",
       waIntent: "CasaBay Rooftop Reservation",
     },
     {
       id: "rooms",
+      floorBadge: "L2",
       level: "LEVEL 2 · BOUTIQUE ACCOMMODATIONS",
-      name: "10 AC Rooms",
+      name: "10 Boutique Rooms",
       tagline: "Built for a proper night's rest.",
       badge: "10 Air-Conditioned Rooms",
       image: "/images/rooms/room-hero.webp",
@@ -42,8 +45,9 @@ export default function Property3DNavigator() {
     },
     {
       id: "fishtown",
+      floorBadge: "L1",
       level: "LEVEL 1 · ALL-DAY DINING",
-      name: "Fish Town",
+      name: "Fish Town Multi-Cuisine",
       tagline: "Fresh catch. Local soul.",
       badge: "Breakfast · Lunch · Dinner",
       image: "/images/fishtown/restaurant-hero.webp",
@@ -57,11 +61,12 @@ export default function Property3DNavigator() {
     },
     {
       id: "townhall",
+      floorBadge: "G",
       level: "GROUND · BANQUETS & EVENTS",
       name: "Town Hall & Boardroom",
       tagline: "Where the whole guest list fits.",
       badge: "Up to 120 Guests",
-      image: "/images/town-hall/hall-hero.webp",
+      image: "/images/town-hall/hall-lighting.webp",
       icon: Users,
       accentBorder: "border-[#E5C158]",
       activeBg: "bg-[#182136]",
@@ -75,27 +80,50 @@ export default function Property3DNavigator() {
   const current = floors.find((f) => f.id === activeFloor) || floors[0];
 
   return (
-    <div id="navigator" className="w-full py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div id="floor-navigator" className="w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="text-center mb-14">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-[#E5C158]/40 backdrop-blur-md mb-3 shadow-[0_0_15px_rgba(229,193,88,0.15)]">
+      <div className="text-center mb-10 sm:mb-14">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-[#E5C158]/40 backdrop-blur-md mb-3 shadow-[0_0_15px_rgba(229,193,88,0.15)]">
           <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
-          <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
             Interactive 3D Floor Explorer
           </span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-serif text-white tracking-tight">
+        <h2 className="text-3xl sm:text-5xl font-serif text-white tracking-tight leading-tight">
           Four Floors. One Destination.
         </h2>
-        <p className="text-sm sm:text-base text-slate-300 font-light max-w-2xl mx-auto mt-3">
+        <p className="text-sm sm:text-base text-slate-300 font-light max-w-2xl mx-auto mt-3 leading-relaxed">
           Select a level to explore the rooftop restobar, boutique guest rooms, coastal kitchen, and grand banquet hall.
         </p>
+
+        {/* Mobile Horizontal Floor Selector (shows on mobile, hidden on lg desktop) */}
+        <div className="mt-6 flex lg:hidden items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar pb-2">
+          {floors.map((fl) => {
+            const Icon = fl.icon;
+            const isSelected = activeFloor === fl.id;
+            return (
+              <button
+                key={fl.id}
+                onClick={() => setActiveFloor(fl.id as any)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 shrink-0 ${
+                  isSelected
+                    ? "bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] shadow-lg scale-102"
+                    : "bg-[#111726]/80 text-slate-300 border border-white/10"
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span className="font-mono opacity-80">{fl.floorBadge}</span>
+                <span className="truncate">{fl.name.split(" ")[0]}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* 3D Interactive Stage */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        {/* Left: Building Floor Navigator Tabs */}
-        <div className="lg:col-span-5 flex flex-col justify-between gap-3.5">
+        {/* Left: Building Floor Navigator Tabs (Desktop) */}
+        <div className="hidden lg:flex lg:col-span-5 flex-col justify-between gap-3.5">
           {floors.map((fl) => {
             const Icon = fl.icon;
             const isSelected = activeFloor === fl.id;
@@ -129,7 +157,7 @@ export default function Property3DNavigator() {
                       </h3>
                     </div>
                   </div>
-                  <span className="text-[11px] font-mono text-slate-300 px-2.5 py-1 rounded-sm bg-black/40 border border-white/10 hidden sm:inline">
+                  <span className="text-[11px] font-mono text-slate-300 px-2.5 py-1 rounded-sm bg-black/40 border border-white/10">
                     {fl.badge}
                   </span>
                 </div>
@@ -146,69 +174,74 @@ export default function Property3DNavigator() {
           })}
         </div>
 
-        {/* Right: 3D Perspective Showcase View */}
-        <div className="lg:col-span-7 flex flex-col rounded-sm overflow-hidden border border-[#E5C158]/30 bg-[#121828] shadow-2xl">
-          <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
-            <Image
-              src={current.image}
-              alt={current.name}
-              fill
-              className="object-cover transition-all duration-700 brightness-100 hover:scale-105"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#121828] via-transparent to-transparent" />
+        {/* Right: 3D Perspective Showcase View with Specular Glare */}
+        <div className="lg:col-span-7 flex flex-col">
+          <TiltCard3D maxTilt={6} className="h-full rounded-sm">
+            <div className="flex flex-col h-full rounded-sm overflow-hidden border border-[#E5C158]/30 bg-[#121828] shadow-2xl">
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-black/60">
+                <Image
+                  key={current.image}
+                  src={current.image}
+                  alt={current.name}
+                  fill
+                  className="object-cover transition-all duration-700 brightness-95 group-hover:scale-105"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#121828] via-transparent to-black/30" />
 
-            <div className="absolute top-4 left-4">
-              <span className="px-3.5 py-1.5 text-xs uppercase tracking-widest font-semibold bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/40 rounded-sm backdrop-blur-md shadow-lg">
-                {current.level}
-              </span>
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
-            <div>
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
-                <h3 className="text-3xl sm:text-4xl font-serif text-white">
-                  {current.name}
-                </h3>
-                <span className="text-xs uppercase tracking-widest text-[#E5C158] font-serif italic">
-                  &ldquo;{current.tagline}&rdquo;
-                </span>
+                <div className="absolute top-4 left-4">
+                  <span className="px-3.5 py-1.5 text-xs uppercase tracking-widest font-semibold bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/40 rounded-sm backdrop-blur-md shadow-lg">
+                    {current.level}
+                  </span>
+                </div>
               </div>
 
-              <p className="text-sm font-light text-slate-200 leading-relaxed mb-6">
-                {current.desc}
-              </p>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-8">
-                {current.features.map((feat, i) => (
-                  <div
-                    key={i}
-                    className="p-2.5 rounded-sm bg-[#0C101B]/70 border border-white/10 text-[11px] text-slate-200 font-light flex items-center gap-2"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E5C158] shrink-0" />
-                    <span className="truncate">{feat}</span>
+              <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-3">
+                    <h3 className="text-2xl sm:text-3xl font-serif text-white">
+                      {current.name}
+                    </h3>
+                    <span className="text-xs uppercase tracking-widest text-[#E5C158] font-serif italic">
+                      &ldquo;{current.tagline}&rdquo;
+                    </span>
                   </div>
-                ))}
+
+                  <p className="text-sm font-light text-slate-300 leading-relaxed mb-6">
+                    {current.desc}
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-2.5 mb-8">
+                    {current.features.map((feat, i) => (
+                      <div
+                        key={i}
+                        className="p-2.5 rounded-sm bg-[#0C101B]/70 border border-white/10 text-xs text-slate-200 font-light flex items-center gap-2"
+                      >
+                        <Check className="w-3.5 h-3.5 text-[#E5C158] shrink-0" />
+                        <span className="truncate">{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <Link
+                    href={current.href}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-md"
+                  >
+                    <span>Experience {current.name.split(" ")[0]}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <WhatsAppCta
+                    intent={current.waIntent}
+                    label="Direct WhatsApp Enquiry"
+                    variant="outline"
+                    className="w-full sm:w-auto px-5 py-3 text-xs uppercase tracking-wider text-slate-200 border-white/20 hover:border-[#E5C158]"
+                  />
+                </div>
               </div>
             </div>
-
-            <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <Link
-                href={current.href}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-md"
-              >
-                <span>Experience {current.name.split(" ")[0]}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <WhatsAppCta
-                intent={current.waIntent}
-                label="Direct WhatsApp Enquiry"
-                variant="outline"
-                className="w-full sm:w-auto px-5 py-3 text-xs uppercase tracking-wider text-slate-200 border-white/20 hover:border-[#E5C158]"
-              />
-            </div>
-          </div>
+          </TiltCard3D>
         </div>
       </div>
     </div>
