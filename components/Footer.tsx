@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { NAV, SITE, WA, whatsapp } from "@/content/site";
 
-// 44px touch target on mobile via padding; original rhythm from md up
-const LINK = "inline-flex min-h-11 items-center py-2.5 text-ivory/85 transition-colors hover:text-brass-light md:min-h-0 md:py-0";
+// 44px touch target on phones and tablets via padding; original rhythm from lg up
+const LINK = "inline-flex min-h-11 items-center py-2.5 text-ivory/85 transition-colors hover:text-brass-light lg:min-h-0 lg:py-0";
 
 export default function Footer() {
   return (
@@ -24,7 +24,7 @@ export default function Footer() {
 
           <nav aria-label="Footer" className="md:col-span-3">
             <p className="eyebrow text-brass-light">The hotel</p>
-            <ul className="mt-3 grid md:mt-5 md:gap-3">
+            <ul className="mt-3 grid lg:mt-5 lg:gap-3">
               {NAV.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className={LINK}>
@@ -49,7 +49,7 @@ export default function Footer() {
               <br />
               {SITE.address.region} {SITE.address.pincode}
             </address>
-            <div className="mt-4 grid justify-items-start md:mt-6 md:gap-3">
+            <div className="mt-4 grid justify-items-start lg:mt-6 lg:gap-3">
               <a href={SITE.phoneHref} className={LINK}>
                 {SITE.phone}
               </a>

@@ -50,12 +50,13 @@ export default function EnquiryForm({
   const [guests, setGuests] = useState("");
   const [note, setNote] = useState("");
 
-  const dark = tone === "dark";
-  const field = `w-full border-0 border-b bg-transparent px-0 py-3 text-base outline-none transition-colors focus:ring-0 ${
-    dark ? "border-ivory/25 text-ivory placeholder:text-smoke/70 focus:border-brass-light" : "border-ivory/25 text-ivory placeholder:text-smoke/70 focus:border-brass-light"
-  }`;
-  // 44px touch target on mobile via padding; tight to the field from md up
-  const label = `eyebrow block min-h-11 pt-3 pb-3 md:min-h-0 md:pt-0 md:pb-0 ${dark ? "text-smoke" : "text-smoke"}`;
+  // The whole site sits on the night ground, so the form has one set of styles.
+  // `tone` is still accepted so existing call sites keep working.
+  void tone;
+  const field =
+    "w-full border-0 border-b border-ivory/25 bg-transparent px-0 py-3 text-base text-ivory outline-none transition-colors placeholder:text-smoke/70 focus:border-brass-light focus:ring-0";
+  // 44px touch target on phones and tablets via padding; tight to the field from lg up
+  const label = "eyebrow block min-h-11 pt-3 pb-3 text-smoke lg:min-h-0 lg:pt-0 lg:pb-0";
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -80,14 +81,8 @@ export default function EnquiryForm({
               return (
                 <label
                   key={p}
-                  className={`inline-flex min-h-11 cursor-pointer items-center border px-4 py-3 text-sm transition-colors md:min-h-0 md:py-2.5 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brass-light ${
-                    on
-                      ? dark
-                        ? "border-brass-light bg-brass-light text-ink"
-                        : "border-ivory bg-night-2 text-ivory"
-                      : dark
-                        ? "border-ivory/25 text-ivory hover:border-ivory/60"
-                        : "border-ivory/20 text-ivory hover:border-ivory/60"
+                  className={`inline-flex min-h-11 cursor-pointer items-center border px-4 py-3 text-sm transition-colors lg:min-h-0 lg:py-2.5 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brass-light ${
+                    on ? "border-brass-light bg-brass-light text-ink" : "border-ivory/25 text-ivory hover:border-ivory/60"
                   }`}
                 >
                   <input
@@ -113,7 +108,7 @@ export default function EnquiryForm({
         </div>
         <div>
           <label htmlFor={`${id}-date`} className={label}>{DATE_LABEL[purpose]}</label>
-          <input id={`${id}-date`} type="date" value={date} onChange={(e) => setDate(e.target.value)} className={`${field} ${dark ? "[color-scheme:dark]" : ""}`} />
+          <input id={`${id}-date`} type="date" value={date} onChange={(e) => setDate(e.target.value)} className={`${field} [color-scheme:dark]`} />
         </div>
         <div>
           <label htmlFor={`${id}-guests`} className={label}>{GUEST_LABEL[purpose]}</label>
@@ -126,14 +121,12 @@ export default function EnquiryForm({
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`max-w-sm text-sm ${dark ? "text-smoke" : "text-smoke"}`}>
+        <p className="max-w-sm text-sm text-smoke">
           This opens WhatsApp with your message ready to send. Our team replies directly.
         </p>
         <button
           type="submit"
-          className={`inline-flex min-h-12 items-center justify-center gap-3 px-8 py-3.5 text-[0.8125rem] font-medium uppercase tracking-[0.18em] transition-colors ${
-            dark ? "bg-brass-light text-ink hover:bg-ivory" : "bg-night-2 text-ivory hover:bg-brass"
-          }`}
+          className="inline-flex min-h-12 items-center justify-center gap-3 px-8 py-3.5 text-[0.8125rem] font-medium uppercase tracking-[0.18em] text-ink transition-colors bg-brass-light hover:bg-ivory"
         >
           <WhatsAppIcon /> Send on WhatsApp
         </button>

@@ -34,7 +34,10 @@ export function chapterMix(p: number): number {
   return CENTERS.length - 1;
 }
 
-/** Town Hall's local progress: drives both the seats and the HTML counter. */
+/**
+ * Town Hall's local progress: drives both the seats and the HTML counter.
+ * Fills 0 -> 120 on the way in and lands on 120 before the chapter centre.
+ */
 export function seatsProgress(p: number): number {
-  return Math.max(0, Math.min(1, (p - (CENTERS[1] - HALF * 1.6)) / (HALF * 2.2)));
+  return Math.max(0, Math.min(1, (p - (CENTERS[1] - HALF * 1.6)) / (HALF * 1.5)));
 }

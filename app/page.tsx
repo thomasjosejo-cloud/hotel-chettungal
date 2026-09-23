@@ -174,7 +174,10 @@ export default function Home() {
         <div>
           <p className="p-eyebrow">Stay</p>
           <h2>For when the evening runs long.</h2>
-          <p className="body">Ten air-conditioned rooms with a work desk, television, tea station and en-suite shower.</p>
+          <p className="body">
+            Ten air-conditioned rooms with a work desk, television, tea station and en-suite shower. The hotel also has{" "}
+            {SITE.executiveBar}.
+          </p>
           <Button href={whatsapp(WA.rooms)} tone="outline-light">
             Check availability
           </Button>

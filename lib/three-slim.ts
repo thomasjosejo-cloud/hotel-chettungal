@@ -18,7 +18,9 @@ export { OrthographicCamera } from "three/src/cameras/OrthographicCamera.js";
 export { Raycaster } from "three/src/core/Raycaster.js";
 export { Layers } from "three/src/core/Layers.js";
 export { Object3D } from "three/src/core/Object3D.js";
-export { Clock } from "three/src/core/Clock.js";
+// Timer-backed stand-in for the deprecated THREE.Clock that R3F constructs (see lib/timer-clock.ts).
+export { TimerClock as Clock } from "./timer-clock";
+export { Timer } from "three/src/core/Timer.js";
 export { Vector2 } from "three/src/math/Vector2.js";
 export { Vector3 } from "three/src/math/Vector3.js";
 export { Color } from "three/src/math/Color.js";

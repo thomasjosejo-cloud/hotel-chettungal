@@ -94,12 +94,12 @@ export default function Nav() {
           className="relative -mr-2 flex h-11 w-11 items-center justify-center xl:hidden"
         >
           <span
-            className={`absolute h-px w-6 bg-night-2 transition-transform duration-300 ${
+            className={`absolute h-px w-6 bg-ivory transition-transform duration-300 ${
               open ? "rotate-45" : "-translate-y-[5px]"
             }`}
           />
           <span
-            className={`absolute h-px w-6 bg-night-2 transition-transform duration-300 ${
+            className={`absolute h-px w-6 bg-ivory transition-transform duration-300 ${
               open ? "-rotate-45" : "translate-y-[5px]"
             }`}
           />

@@ -31,6 +31,8 @@ export const SITE = {
     fishtown: null as string | null,
   },
   boardRoomSeats: null as number | null,
+  // Confirmed facility beyond the four venues (named by the client in the original brief).
+  executiveBar: "the Executive Bar",
 } as const;
 
 /** WhatsApp deep link with a message written in the guest's own voice. */

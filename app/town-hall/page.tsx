@@ -49,7 +49,11 @@ export default function TownHallPage() {
       <section className="py-24 md:py-36">
         <div className="container-x grid gap-16 md:grid-cols-12">
           <div className="md:col-span-5" data-reveal>
-            <p className="font-serif text-[clamp(7rem,5rem+9vw,13rem)] leading-[0.8] text-brass-light">
+            <p
+              className="font-serif text-[clamp(7rem,5rem+9vw,13rem)] leading-[0.8] text-brass-light"
+              // Lining + tabular figures: Cormorant's default old-style 7 drops below the line.
+              style={{ fontVariantNumeric: "lining-nums tabular-nums", fontFeatureSettings: '"lnum" 1, "tnum" 1' }}
+            >
               <CountUp to={120} />
             </p>
             <p className="eyebrow mt-6 text-smoke">Guests, at capacity</p>
