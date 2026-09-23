@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import HomeJourney from "@/components/home/HomeJourney";
 import HeroEmbers from "@/components/motion/HeroEmbers";
+import HeroParallax from "@/components/motion/HeroParallax";
 import { Button, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, VENUES, WA, whatsapp, type Photo } from "@/content/site";
 import { blurFor } from "@/content/blur";
@@ -78,20 +79,24 @@ export default function Home() {
 
       {/* 1. Hero: CasaBay at night */}
       <section className="hero" aria-label="CasaBay rooftop restobar">
-        <Image
-          src={cb[0].src}
-          alt={cb[0].alt}
-          fill
-          priority
-          sizes="100vw"
-          placeholder={heroBlur ? "blur" : "empty"}
-          blurDataURL={heroBlur}
-          className="-z-20 object-cover"
-          style={{ objectPosition: "center 60%" }}
-        />
+        {/* Poster stays the LCP image; the parallax transform is on its wrapper. */}
+        <div className="hero-bg absolute inset-0 -z-20">
+          <Image
+            src={cb[0].src}
+            alt={cb[0].alt}
+            fill
+            priority
+            sizes="100vw"
+            placeholder={heroBlur ? "blur" : "empty"}
+            blurDataURL={heroBlur}
+            className="object-cover"
+            style={{ objectPosition: "center 60%" }}
+          />
+        </div>
+        <HeroParallax />
         <div className="hero-scrim" aria-hidden />
         <HeroEmbers className="-z-10" />
-        <div className="hero-copy">
+        <div className="hero-copy hero-copy-k">
           <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
           <h1 className="wordmark neon-glow ignite">CasaBay</h1>
           <p className="tag">Take the evening upstairs.</p>

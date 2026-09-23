@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import HeroFx from "@/components/HeroFx";
 import HeroEmbers from "@/components/motion/HeroEmbers";
+import HeroParallax from "@/components/motion/HeroParallax";
 import { blurFor } from "@/content/blur";
 
 /** "50% 60%" / "center" -> [0.5, 0.6] for the WebGL plane's object-position. */
@@ -46,23 +47,27 @@ export default function PageHero({
       }`}
     >
       <div className="absolute inset-0 -z-10">
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          priority
-          sizes="100vw"
-          placeholder={blur ? "blur" : "empty"}
-          blurDataURL={blur}
-          className="object-cover"
-          style={{ objectPosition: position }}
-        />
-        <HeroFx src={image} position={toXY(position)} wave={fx === "wave"} />
+        {/* Poster (the LCP image) and its WebGL copy share the parallax wrapper. */}
+        <div className="hero-bg absolute inset-0">
+          <Image
+            src={image}
+            alt={alt}
+            fill
+            priority
+            sizes="100vw"
+            placeholder={blur ? "blur" : "empty"}
+            blurDataURL={blur}
+            className="object-cover"
+            style={{ objectPosition: position }}
+          />
+          <HeroFx src={image} position={toXY(position)} wave={fx === "wave"} />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-night via-night/45 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
         {fx === "embers" && <HeroEmbers />}
       </div>
-      <div className="container-x relative pb-28 pt-36 md:pb-20 md:pt-40 lg:pb-24">{children}</div>
+      <div className="hero-copy-k container-x relative pb-28 pt-36 md:pb-20 md:pt-40 lg:pb-24">{children}</div>
+      <HeroParallax />
     </section>
   );
 }

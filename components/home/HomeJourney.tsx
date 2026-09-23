@@ -18,16 +18,27 @@ const RAIL = ["Fish Town", "Town Hall", "Board Room", "CasaBay"];
  */
 export default function HomeJourney({ children }: { children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const snaps = useRef<(HTMLDivElement | null)[]>([]);
   const state = useRef(createJourneyState()).current;
   const [webgl, setWebgl] = useState(false);
   const [ready, setReady] = useState(false);
   const [staticMode, setStaticMode] = useState(false);
 
+  // The journey's scroll span, from the stage's own height. The stage is 100svh,
+  // which doesn't change when a phone's address bar shows or hides; innerHeight
+  // does, and made the camera jump.
+  const spanOf = () => {
+    const el = root.current;
+    const st = stage.current;
+    return el && st ? Math.max(1, el.offsetHeight - st.offsetHeight) : 1;
+  };
+
   const goTo = (i: number, smooth = true) => {
     const el = root.current;
     if (!el) return;
-    const span = el.offsetHeight - innerHeight;
-    const top = el.getBoundingClientRect().top + scrollY + CENTERS[i] * span;
+    // Lands exactly on the chapter's snap marker, so snapping never fights it.
+    const top = el.getBoundingClientRect().top + scrollY + Math.round(CENTERS[i] * spanOf());
     scrollTo({ top, behavior: smooth && !prefersReducedMotion() ? "smooth" : "auto" });
   };
 
@@ -42,8 +53,7 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
     const update = () => {
       raf = 0;
       const r = el.getBoundingClientRect();
-      const span = el.offsetHeight - innerHeight;
-      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+      const p = Math.min(1, Math.max(0, -r.top / spanOf()));
       state.p = p;
       state.mobile = innerWidth <= 760;
       const cm = chapterMix(p);
@@ -70,14 +80,32 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       if (i >= 0 && !chapters[i].hasAttribute("data-on")) goTo(i, false);
     };
 
+    // One snap point per chapter centre. CSS only turns snapping on for touch
+    // phones with motion allowed (html.home-snap); proximity, never mandatory.
+    let lastSpan = 0;
+    const placeSnaps = () => {
+      const span = spanOf();
+      if (span === lastSpan) return;
+      lastSpan = span;
+      snaps.current.forEach((d, i) => d && (d.style.top = `${Math.round(CENTERS[i] * span)}px`));
+    };
+    const onResize = () => {
+      placeSnaps();
+      schedule();
+    };
+    const html = document.documentElement;
+    html.classList.add("home-snap");
+
+    placeSnaps();
     update();
     addEventListener("scroll", schedule, { passive: true });
-    addEventListener("resize", schedule);
+    addEventListener("resize", onResize);
     el.addEventListener("focusin", onFocus);
     return () => {
       cancelAnimationFrame(raf);
       removeEventListener("scroll", schedule);
-      removeEventListener("resize", schedule);
+      removeEventListener("resize", onResize);
+      html.classList.remove("home-snap");
       el.removeEventListener("focusin", onFocus);
       chapters.forEach((c) => {
         c.style.opacity = "";
@@ -87,6 +115,14 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       if (counter) counter.textContent = "120";
     };
   }, [state, staticMode]);
+
+  // Static mode (no WebGL) is also flagged on <html>, where the snap CSS looks for it.
+  useEffect(() => {
+    if (!staticMode) return;
+    const html = document.documentElement;
+    html.classList.add("static-mode");
+    return () => html.classList.remove("static-mode");
+  }, [staticMode]);
 
   // WebGL after load, when idle. No WebGL context: fall back to the static layout.
   useEffect(() => {
@@ -102,7 +138,10 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       aria-label="The evening at Hotel New Town"
       data-static={staticMode ? "" : undefined}
     >
-      <div className="stage">
+      {CENTERS.map((_, i) => (
+        <div key={i} ref={(d) => void (snaps.current[i] = d)} className="snap" aria-hidden />
+      ))}
+      <div ref={stage} className="stage">
         <div className="gl" aria-hidden data-ready={ready ? "" : undefined}>
           {webgl && <HomeScene journey={state} root={root} onReady={() => setReady(true)} />}
         </div>

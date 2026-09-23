@@ -640,9 +640,45 @@
   }
 }
 
+/* One chapter per swipe on touch phones: a snap marker at each chapter centre
+   (placed by HomeJourney). Proximity, never mandatory, so a hard fling still
+   passes several chapters. Off for reduced motion and in static mode (the
+   home-snap class is only set while the scroll journey is running). */
+.proto .snap {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+@media (max-width: 760px) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  html.js.home-snap:not(.static-mode) {
+    scroll-snap-type: y proximity;
+  }
+  html.home-snap .proto .snap,
+  html.home-snap .proto .hero {
+    scroll-snap-align: start;
+  }
+}
+
 /* ==================================================================
    Site-wide motion
    ================================================================== */
+
+/* Hero scroll parallax (every hero, phones included). HeroParallax sets --k
+   (0 -> 1 across the hero's height) on these two layers only. The poster stays
+   the LCP image; the transform is on its wrapper. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-bg {
+    transform: translate3d(0, calc(var(--k, 0) * 8%), 0) scale(calc(1 + var(--k, 0) * 0.1));
+    will-change: transform;
+  }
+  .hero-copy-k {
+    transform: translate3d(0, calc(var(--k, 0) * -40px), 0);
+    opacity: calc(1 - var(--k, 0) * 0.7);
+    will-change: transform, opacity;
+  }
+}
 
 /* Heading reveals: words rise into place (SplitText + RevealObserver).
    Visible by default; only moved when JS is on and motion is allowed. */
