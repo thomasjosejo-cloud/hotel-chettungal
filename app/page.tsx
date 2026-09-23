@@ -26,13 +26,29 @@ const jsonLd = {
     addressCountry: "IN",
   },
   containsPlace: [
-    { "@type": "BarOrPub", name: "CasaBay", url: `${SITE.url}/casabay` },
-    { "@type": "Restaurant", name: "Fish Town", url: `${SITE.url}/fishtown` },
+    {
+      "@type": "BarOrPub",
+      name: "CasaBay",
+      url: `${SITE.url}/casabay`,
+      openingHoursSpecification: { "@type": "OpeningHoursSpecification", ...SITE.openingHours.casabay },
+    },
+    {
+      "@type": "Restaurant",
+      name: "Fish Town",
+      url: `${SITE.url}/fishtown`,
+      openingHoursSpecification: { "@type": "OpeningHoursSpecification", ...SITE.openingHours.fishtown },
+    },
     { "@type": "EventVenue", name: "Town Hall", maximumAttendeeCapacity: 120, url: `${SITE.url}/town-hall` },
   ],
 };
 
 const venue = (slug: string) => VENUES.find((v) => v.slug === slug)!;
+
+/** A confirmed fact under a tagline (hours, seats), in the eyebrow style. Hidden while unset. */
+function Fact({ children }: { children: string | null }) {
+  return children ? <p className="fact">{children}</p> : null;
+}
+const open = (hours: string | null) => (hours ? `Open ${hours}` : null);
 const CUISINES = ["Kerala & seafood", "North Indian", "Chinese", "Continental"];
 
 /** Chapter photo for the static layout (hidden in the WebGL journey). */
@@ -79,6 +95,7 @@ export default function Home() {
           <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
           <h1 className="wordmark neon-glow ignite">CasaBay</h1>
           <p className="tag">Take the evening upstairs.</p>
+          <Fact>{open(SITE.hours.casabay)}</Fact>
           <p className="body">
             A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten rooms.
             One address on NH&nbsp;544.
@@ -107,6 +124,7 @@ export default function Home() {
             <Image src="/branding/fishtown-logo-ivory.png" alt="" width={1184} height={678} sizes="190px" className="ft-logo" />
           </h2>
           <p className="tag">{venue("fishtown").line}</p>
+          <Fact>{open(SITE.hours.fishtown)}</Fact>
           <p className="body">{venue("fishtown").body}</p>
           <ul className="cuisines">
             {CUISINES.map((c) => (
@@ -140,6 +158,7 @@ export default function Home() {
           <p className="numeral">III</p>
           <h2>The Board Room</h2>
           <p className="tag">{venue("board-room").line}</p>
+          <Fact>{SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : null}</Fact>
           <p className="body">{venue("board-room").body}</p>
           <Button href={whatsapp(WA.boardroom)} tone="outline-light">
             Book the room
@@ -151,6 +170,7 @@ export default function Home() {
           <p className="numeral">IV</p>
           <h2 className="neon-glow">CasaBay</h2>
           <p className="tag">Back on the roof.</p>
+          <Fact>{open(SITE.hours.casabay)}</Fact>
           <p className="body">{venue("casabay").body}</p>
           <Button href={whatsapp(WA.casabay)} tone="ember">
             Reserve a table

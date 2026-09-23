@@ -238,6 +238,19 @@
   max-width: 34ch;
   font-size: 17px;
 }
+/* A confirmed fact (hours, seats) under a tagline: eyebrow style, quiet colour,
+   so it informs without competing with the copy. */
+.proto .fact {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-smoke);
+  margin: -8px 0 18px;
+}
+.proto .hero .fact {
+  margin: -6px 0 22px;
+}
 .proto .row {
   display: flex;
   flex-wrap: wrap;

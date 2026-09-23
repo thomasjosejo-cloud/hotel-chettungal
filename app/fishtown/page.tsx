@@ -69,7 +69,12 @@ export default function FishTownPage() {
               From a quick lunch to a business meal or a table full of family and friends, Fish Town is the
               hotel&apos;s everyday kitchen.
             </p>
-            {SITE.hours.fishtown && <p className="mt-6 text-sm text-brass-light">Open {SITE.hours.fishtown}</p>}
+            {SITE.hours.fishtown && (
+              <div className="mt-8">
+                <p className="eyebrow text-smoke">Hours</p>
+                <p className="mt-2 text-[0.9375rem] text-brass-light">Open {SITE.hours.fishtown}</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

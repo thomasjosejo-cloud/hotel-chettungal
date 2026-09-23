@@ -56,7 +56,10 @@ export default function CasaBayPage() {
               for the view, stay for the food, and raise a glass to the night.
             </p>
             {SITE.hours.casabay && (
-              <p className="mt-6 text-sm text-ember">Open {SITE.hours.casabay}</p>
+              <div className="mt-8">
+                <p className="eyebrow text-smoke">Hours</p>
+                <p className="mt-2 text-[0.9375rem] text-ember">Open {SITE.hours.casabay}</p>
+              </div>
             )}
           </div>
         </div>

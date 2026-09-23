@@ -25,12 +25,17 @@ export const SITE = {
   },
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hotel+New+Town+Chettungal+Angamaly",
   mapsEmbed: "https://www.google.com/maps?q=Hotel+New+Town+Chettungal+Angamaly&output=embed",
-  // Confirmed-only extras. Leave null until the property confirms them.
+  // Confirmed by the property. Days were not given: never add days or "daily".
   hours: {
-    casabay: null as string | null,
-    fishtown: null as string | null,
+    casabay: "3 pm – 11 pm" as string | null,
+    fishtown: "7 am – 11 pm" as string | null,
   },
-  boardRoomSeats: null as number | null,
+  // The same hours in 24-hour form, for schema.org openingHoursSpecification.
+  openingHours: {
+    casabay: { opens: "15:00", closes: "23:00" },
+    fishtown: { opens: "07:00", closes: "23:00" },
+  },
+  boardRoomSeats: 12 as number | null,
   // Confirmed facility beyond the four venues (named by the client in the original brief).
   executiveBar: "the Executive Bar",
 } as const;

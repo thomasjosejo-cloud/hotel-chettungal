@@ -49,6 +49,20 @@ export default function Footer() {
               <br />
               {SITE.address.region} {SITE.address.pincode}
             </address>
+            {(SITE.hours.casabay || SITE.hours.fishtown) && (
+              <dl className="mt-5 grid gap-1 leading-relaxed text-ivory/85">
+                {SITE.hours.casabay && (
+                  <div>
+                    <dt className="inline">CasaBay</dt> <dd className="inline text-smoke">{SITE.hours.casabay}</dd>
+                  </div>
+                )}
+                {SITE.hours.fishtown && (
+                  <div>
+                    <dt className="inline">Fish Town</dt> <dd className="inline text-smoke">{SITE.hours.fishtown}</dd>
+                  </div>
+                )}
+              </dl>
+            )}
             <div className="mt-4 grid justify-items-start lg:mt-6 lg:gap-3">
               <a href={SITE.phoneHref} className={LINK}>
                 {SITE.phone}
