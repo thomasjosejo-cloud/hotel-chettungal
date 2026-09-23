@@ -45,8 +45,8 @@ export default function AboutPage() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. ABOUT HERO - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
-      <section className="relative min-h-[75vh] sm:min-h-[82vh] flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
+      {/* 1. ABOUT HERO - NATURAL PHOTOGRAPHIC CLARITY */}
+      <section className="relative min-h-[75vh] sm:min-h-[82vh] flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/location/facade.webp"
@@ -55,27 +55,28 @@ export default function AboutPage() {
             className="object-cover object-bottom brightness-100"
             priority
           />
-          {/* Subtle top header gradient & deep bottom gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/85 to-transparent h-3/5 sm:h-1/2" />
+          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-4 shadow-lg">
-            <MapPin className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-              NH 544, Angamaly, Kerala · 683572
-            </span>
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-3 shadow-lg">
+              <MapPin className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+                NH 544, Angamaly, Kerala · 683572
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+              One Address, <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
+            </h1>
+
+            <p className="font-serif text-xl sm:text-2xl text-[#F5D061] italic drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+              &ldquo;Rooms, rooftop, restaurant, and hall — all under one roof.&rdquo;
+            </p>
           </div>
-
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-            One Address, <br />
-            <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
-          </h1>
-
-          <p className="font-serif text-xl sm:text-2xl text-slate-200 italic font-light drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            &ldquo;Rooms, rooftop, restaurant, and hall — all under one roof.&rdquo;
-          </p>
         </div>
       </section>
 

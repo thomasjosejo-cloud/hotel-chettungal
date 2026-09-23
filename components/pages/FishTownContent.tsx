@@ -50,8 +50,8 @@ export default function FishTownContent() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. CINEMATIC FISH TOWN HERO - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
-      <section className="relative min-h-[92vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
+      {/* 1. CINEMATIC FISH TOWN HERO - NATURAL PHOTOGRAPHIC CLARITY */}
+      <section className="relative min-h-[92vh] sm:min-h-screen flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/fishtown/restaurant-hero.webp"
@@ -60,49 +60,51 @@ export default function FishTownContent() {
             className="object-cover object-center brightness-100"
             priority
           />
-          {/* Subtle top header gradient & deep bottom gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/80 to-transparent h-3/5 sm:h-1/2" />
+          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 shadow-lg backdrop-blur-md mb-4">
-            <Utensils className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-              Multi-Cuisine Dining · NH 544, Angamaly
-            </span>
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="max-w-xl">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 shadow-lg backdrop-blur-md mb-3">
+              <Utensils className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+                Multi-Cuisine Dining · NH 544, Angamaly
+              </span>
+            </div>
+
+            <h1 className="sr-only">Fish Town Multi-Cuisine Restaurant</h1>
+
+            {/* Fish Town Master Logo - Clean Transparent Ivory & Gold */}
+            <div className="relative w-52 sm:w-64 md:w-80 h-16 sm:h-20 mb-2 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+              <Image
+                src="/branding/fishtown-logo-ivory.png"
+                alt="Fish Town Restaurant Logo"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+
+            {/* Brochure Tagline */}
+            <p className="font-serif text-xl sm:text-2xl text-[#F5D061] italic drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+              &ldquo;Fresh catch. Local soul.&rdquo;
+            </p>
           </div>
-
-          <h1 className="sr-only">Fish Town Multi-Cuisine Restaurant</h1>
-
-          {/* Fish Town Master Logo - Clean Transparent Ivory & Gold */}
-          <div className="relative w-64 sm:w-80 md:w-[420px] h-20 sm:h-28 mb-3 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-            <Image
-              src="/branding/fishtown-logo-ivory.png"
-              alt="Fish Town Restaurant Logo"
-              fill
-              className="object-contain object-left"
-              priority
-            />
-          </div>
-
-          {/* Brochure Tagline */}
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-            &ldquo;Fresh catch. Local soul.&rdquo;
-          </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <WhatsAppCta
               intent="Fish Town Table Booking"
               label="Reserve Table on WhatsApp"
               variant="gold"
-              className="px-7 py-3.5 text-xs uppercase tracking-widest shadow-2xl font-bold"
+              className="px-6 py-3.5 text-xs uppercase tracking-widest shadow-2xl font-bold"
             />
             <a
               href="#dining-menu"
-              className="inline-flex items-center justify-center px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-100 hover:text-white border border-[#E5C158]/50 hover:border-[#E5C158] rounded-sm transition-all bg-black/60 backdrop-blur-md shadow-xl"
+              className="inline-flex items-center justify-center px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-100 hover:text-white border border-[#E5C158]/50 hover:border-[#E5C158] rounded-sm transition-all bg-black/70 backdrop-blur-md shadow-xl"
             >
               Explore The Menu
             </a>

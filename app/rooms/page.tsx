@@ -64,8 +64,8 @@ export default function RoomsPage() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. HERO SECTION - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
-      <section className="relative min-h-[88vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
+      {/* 1. HERO SECTION - NATURAL PHOTOGRAPHIC CLARITY */}
+      <section className="relative min-h-[88vh] sm:min-h-screen flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/rooms/room-hero.webp"
@@ -74,37 +74,39 @@ export default function RoomsPage() {
             className="object-cover object-center brightness-100"
             priority
           />
-          {/* Subtle top header gradient & deep bottom gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/85 to-transparent h-3/5 sm:h-1/2" />
+          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-4 shadow-lg">
-            <Bed className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-              10 AC Rooms · NH 544, Angamaly
-            </span>
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-3 shadow-lg">
+              <Bed className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+                10 AC Rooms · NH 544, Angamaly
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+              10 AC Rooms
+            </h1>
+
+            <p className="font-serif text-xl sm:text-2xl text-[#F5D061] italic drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+              &ldquo;Each built for a proper night’s rest.&rdquo;
+            </p>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-            10 AC Rooms
-          </h1>
-
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            &ldquo;Each built for a proper night’s rest.&rdquo;
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <WhatsAppCta
               intent="Room Stay Direct Enquiry"
               label="Enquire via WhatsApp"
               variant="gold"
-              className="px-7 py-3.5 text-xs uppercase tracking-widest shadow-xl font-bold"
+              className="px-6 py-3.5 text-xs uppercase tracking-widest shadow-xl font-bold"
             />
             <a
               href={`tel:${SITE_CONFIG.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-[#E5C158] rounded-sm transition-colors bg-black/60 backdrop-blur-md shadow-lg"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-[#E5C158] rounded-sm transition-colors bg-black/70 backdrop-blur-md shadow-lg"
             >
               <Phone className="w-4 h-4 text-[#E5C158]" />
               <span>Call Front Desk</span>

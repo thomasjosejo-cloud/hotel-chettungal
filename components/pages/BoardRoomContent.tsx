@@ -53,8 +53,8 @@ export default function BoardRoomContent() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. HERO SECTION - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
-      <section className="relative min-h-[88vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
+      {/* 1. HERO SECTION - NATURAL PHOTOGRAPHIC CLARITY */}
+      <section className="relative min-h-[88vh] sm:min-h-screen flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/board-room/boardroom-hero.webp"
@@ -63,31 +63,33 @@ export default function BoardRoomContent() {
             className="object-cover object-center brightness-100"
             priority
           />
-          {/* Subtle top header gradient & deep bottom gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/85 to-transparent h-3/5 sm:h-1/2" />
+          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-4 shadow-lg">
-            <Briefcase className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-              Dedicated Meeting Suite · For 12 · NH 544, Angamaly
-            </span>
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-3 shadow-lg">
+              <Briefcase className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+                Dedicated Meeting Suite · For 12 · NH 544, Angamaly
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+              The Boardroom
+            </h1>
+
+            <p className="font-serif text-xl sm:text-2xl text-[#F5D061] italic drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+              &ldquo;A room built for focus.&rdquo;
+            </p>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-            The Boardroom
-          </h1>
-
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            &ldquo;A room built for focus.&rdquo;
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <a
               href="#corporate-enquiry"
-              className="inline-flex items-center justify-center px-7 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-xl"
+              className="inline-flex items-center justify-center px-6 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-xl"
             >
               Book Corporate Suite
             </a>
@@ -95,7 +97,7 @@ export default function BoardRoomContent() {
               intent="The Boardroom Availability Check"
               label="Check Availability via WhatsApp"
               variant="dark"
-              className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/60 backdrop-blur-md shadow-lg"
+              className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/70 backdrop-blur-md shadow-lg"
             />
           </div>
         </div>

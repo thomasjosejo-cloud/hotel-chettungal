@@ -9,6 +9,7 @@ interface StaggerChildrenProps {
   staggerDelay?: number;
   duration?: number;
   once?: boolean;
+  margin?: string;
 }
 
 export default function StaggerChildren({
@@ -17,9 +18,10 @@ export default function StaggerChildren({
   staggerDelay = 0.1,
   duration = 0.5,
   once = true,
+  margin = "0px",
 }: StaggerChildrenProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin: "-40px 0px" });
+  const isInView = useInView(ref, { once, margin: margin as any });
 
   const containerVariants = {
     hidden: {},

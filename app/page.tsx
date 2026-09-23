@@ -82,62 +82,61 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 1. CINEMATIC LUXURY HERO SECTION - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
-      <section className="relative min-h-[96vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
+      {/* 1. CINEMATIC LUXURY HERO SECTION - NATURAL PHOTOGRAPHIC CLARITY */}
+      <section className="relative min-h-[92vh] sm:min-h-screen flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
         {/* Full Vibrancy Reception Counter Photo */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/location/reception-counter.webp"
             alt="Hotel New Town by Chettungal Reception & Front Desk"
             fill
-            className="object-cover object-center brightness-100"
+            className="object-cover object-center brightness-95 contrast-105"
             priority
           />
-          {/* Subtle top header gradient & deep bottom gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/85 to-transparent h-3/5 sm:h-1/2" />
+          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content Container - Bottom-Left Aligned */}
-        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
-          <ScrollReveal direction="up">
+        {/* Hero Content Bar - Positioned at the bottom, letting the lobby & desk breathe */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <ScrollReveal direction="up" className="max-w-xl">
             {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-4 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-3 shadow-lg">
               <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
               <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-                Stay · Dine · Meet · Celebrate
+                NH 544, Angamaly · Cochin Airport 5 km
               </span>
             </div>
 
             {/* Clean, Punchy Headline */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight leading-[1.08] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-              One Address, <br />
-              <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-tight mb-2 drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]">
+              One Address, <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
             </h1>
 
-            {/* Crisp One-Line Subtitle */}
-            <p className="text-sm sm:text-base font-light text-slate-200 max-w-xl leading-relaxed mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-              Rooms, rooftop resto-bar, multi-cuisine dining, and 120-guest banquet hall on NH 544, Angamaly.
+            {/* Crisp Tagline */}
+            <p className="text-xs sm:text-sm font-light text-slate-200 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              Stay · Dine · Meet · Celebrate — Rooms, Rooftop Resto-Bar, Multi-Cuisine Dining & Banquets.
             </p>
-
-            {/* Action CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto">
-              <a
-                href="#hotel-venues"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl"
-              >
-                <Compass className="w-4 h-4" />
-                <span>Explore The Hotel</span>
-              </a>
-
-              <WhatsAppCta
-                intent="General Hotel Enquiry"
-                label="Chat on WhatsApp"
-                variant="dark"
-                className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/60 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-lg"
-              />
-            </div>
           </ScrollReveal>
+
+          {/* Action CTAs */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <a
+              href="#hotel-venues"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl"
+            >
+              <Compass className="w-4 h-4" />
+              <span>Explore The Hotel</span>
+            </a>
+
+            <WhatsAppCta
+              intent="General Hotel Enquiry"
+              label="Chat on WhatsApp"
+              variant="dark"
+              className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/70 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-lg"
+            />
+          </div>
         </div>
       </section>
 
@@ -405,12 +404,13 @@ export default function HomePage() {
               </a>
             </div>
 
-            <div className="lg:col-span-6 relative aspect-[16/10] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl">
+            <div className="lg:col-span-6 relative aspect-[1131/942] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl bg-[#0A0E18]">
               <Image
                 src="/images/location/facade.webp"
                 alt="Hotel New Town by Chettungal Facade on NH 544 Angamaly"
                 fill
-                className="object-cover brightness-95 contrast-105"
+                className="object-contain sm:object-cover sm:object-top brightness-100"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
           </div>

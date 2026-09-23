@@ -11,6 +11,7 @@ interface ScrollRevealProps {
   duration?: number;
   distance?: number;
   once?: boolean;
+  margin?: string;
 }
 
 export default function ScrollReveal({
@@ -21,9 +22,10 @@ export default function ScrollReveal({
   duration = 0.6,
   distance = 40,
   once = true,
+  margin = "0px",
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin: "-60px 0px" });
+  const isInView = useInView(ref, { once, margin: margin as any });
 
   const directionMap = {
     up: { y: distance, x: 0 },
