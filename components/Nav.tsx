@@ -49,7 +49,7 @@ export default function Nav() {
           />
           <span className="flex flex-col leading-none">
             <span className="font-serif text-[1.3rem] tracking-[0.02em] md:text-[1.45rem]">Hotel New Town</span>
-            <span className="mt-1 text-[0.75rem] font-medium uppercase tracking-[0.28em] text-brass-light">
+            <span className="mt-1 text-[0.8125rem] font-medium uppercase tracking-[0.28em] text-brass-light">
               by Chettungal
             </span>
           </span>

@@ -47,7 +47,7 @@ export default function TownHallPage() {
       <section className="py-24 md:py-36">
         <div className="container-x grid gap-16 md:grid-cols-12">
           <div className="md:col-span-5" data-reveal>
-            <p className="font-serif text-[clamp(7rem,5rem+9vw,13rem)] leading-[0.8] text-brass">120</p>
+            <p className="font-serif text-[clamp(7rem,5rem+9vw,13rem)] leading-[0.8] text-brass-text">120</p>
             <p className="eyebrow mt-6 text-muted">Guests, at capacity</p>
           </div>
           <div className="md:col-span-6 md:col-start-7" data-reveal>
@@ -59,7 +59,7 @@ export default function TownHallPage() {
             <dl className="mt-12 grid gap-8">
               {ROOM.map((r) => (
                 <div key={r.k} className="grid gap-2 border-t border-charcoal/15 pt-6 sm:grid-cols-[10rem_1fr]">
-                  <dt className="eyebrow text-brass">{r.k}</dt>
+                  <dt className="eyebrow text-brass-text">{r.k}</dt>
                   <dd className="text-[1.0625rem] text-charcoal">{r.v}</dd>
                 </div>
               ))}
@@ -71,13 +71,13 @@ export default function TownHallPage() {
       <section className="bg-ivory py-24 md:py-32">
         <div className="container-x">
           <div data-reveal>
-            <Eyebrow className="text-brass">Occasions</Eyebrow>
+            <Eyebrow className="text-brass-text">Occasions</Eyebrow>
             <h2 className="h2 mt-4 max-w-2xl">What Town Hall is for.</h2>
           </div>
           <ol className="mt-14 grid gap-px bg-charcoal/15 md:grid-cols-2">
             {OCCASIONS.map((o, i) => (
               <li key={o.t} className="flex gap-6 bg-ivory py-8 md:px-8 md:odd:pl-0" data-reveal style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}>
-                <span className="w-8 shrink-0 pt-1.5 font-serif text-lg italic text-brass">{["I", "II", "III", "IV"][i]}</span>
+                <span className="w-8 shrink-0 pt-1.5 font-serif text-lg italic text-brass-text">{["I", "II", "III", "IV"][i]}</span>
                 <div>
                   <h3 className="h3">{o.t}</h3>
                   <p className="mt-2 text-muted">{o.d}</p>
@@ -91,7 +91,7 @@ export default function TownHallPage() {
       <section className="py-24 md:py-32">
         <div className="container-x">
           <div className="mb-14 md:mb-20" data-reveal>
-            <Eyebrow className="text-brass">The hall</Eyebrow>
+            <Eyebrow className="text-brass-text">The hall</Eyebrow>
             <h2 className="h2 mt-4">Inside Town Hall</h2>
           </div>
           <Gallery photos={p} tone="light" />

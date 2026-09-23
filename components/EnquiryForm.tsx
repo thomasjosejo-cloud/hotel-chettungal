@@ -54,7 +54,8 @@ export default function EnquiryForm({
   const field = `w-full border-0 border-b bg-transparent px-0 py-3 text-base outline-none transition-colors focus:ring-0 ${
     dark ? "border-ivory/25 text-ivory placeholder:text-mist/70 focus:border-brass-light" : "border-charcoal/25 text-charcoal placeholder:text-muted/70 focus:border-brass"
   }`;
-  const label = `eyebrow block ${dark ? "text-mist" : "text-muted"}`;
+  // 44px touch target on mobile via padding; tight to the field from md up
+  const label = `eyebrow block min-h-11 pt-3 pb-3 md:min-h-0 md:pt-0 md:pb-0 ${dark ? "text-mist" : "text-muted"}`;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -79,7 +80,7 @@ export default function EnquiryForm({
               return (
                 <label
                   key={p}
-                  className={`cursor-pointer border px-4 py-2.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brass-light ${
+                  className={`inline-flex min-h-11 cursor-pointer items-center border px-4 py-3 text-sm transition-colors md:min-h-0 md:py-2.5 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brass-light ${
                     on
                       ? dark
                         ? "border-brass-light bg-brass-light text-ink"

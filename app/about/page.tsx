@@ -34,19 +34,19 @@ export default function AboutPage() {
             </p>
           </div>
           <nav aria-label="The hotel" className="md:col-span-4 md:col-start-9" data-reveal>
-            <Eyebrow className="text-brass">Under one roof</Eyebrow>
+            <Eyebrow className="text-brass-text">Under one roof</Eyebrow>
             <ul className="mt-5">
               {VENUES.map((v) => (
                 <li key={v.slug} className="border-t border-charcoal/15">
                   <Link href={v.href} className="group flex items-baseline justify-between gap-4 py-4">
-                    <span className="font-serif text-2xl transition-colors group-hover:text-brass">{v.name}</span>
+                    <span className="font-serif text-2xl transition-colors group-hover:text-brass-text">{v.name}</span>
                     <span className="text-sm text-muted">{v.kind}</span>
                   </Link>
                 </li>
               ))}
               <li className="border-y border-charcoal/15">
                 <Link href="/rooms" className="group flex items-baseline justify-between gap-4 py-4">
-                  <span className="font-serif text-2xl transition-colors group-hover:text-brass">Rooms</span>
+                  <span className="font-serif text-2xl transition-colors group-hover:text-brass-text">Rooms</span>
                   <span className="text-sm text-muted">Ten rooms</span>
                 </Link>
               </li>
@@ -58,7 +58,7 @@ export default function AboutPage() {
       <section className="bg-ivory py-24 md:py-32" id="location">
         <div className="container-x grid gap-14 md:grid-cols-12">
           <div className="md:col-span-4" data-reveal>
-            <Eyebrow className="text-brass">Find us</Eyebrow>
+            <Eyebrow className="text-brass-text">Find us</Eyebrow>
             <h2 className="h2 mt-4">On NH 544, in Angamaly.</h2>
             <address className="mt-6 not-italic text-[1.0625rem] leading-relaxed text-muted">
               {SITE.name}
@@ -91,7 +91,7 @@ export default function AboutPage() {
       <section className="py-24 md:py-32">
         <div className="container-x">
           <div className="mb-14 md:mb-20" data-reveal>
-            <Eyebrow className="text-brass">Arriving</Eyebrow>
+            <Eyebrow className="text-brass-text">Arriving</Eyebrow>
             <h2 className="h2 mt-4">The front of house</h2>
           </div>
           <Gallery photos={[p[0], p[1], p[2]]} tone="light" />

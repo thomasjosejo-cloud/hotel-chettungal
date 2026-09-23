@@ -2,6 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { NAV, SITE, WA, whatsapp } from "@/content/site";
 
+// 44px touch target on mobile via padding; original rhythm from md up
+const LINK = "inline-flex min-h-11 items-center py-2.5 text-ivory/85 transition-colors hover:text-brass-light md:min-h-0 md:py-0";
+
 export default function Footer() {
   return (
     <footer className="bg-ink pb-28 pt-20 text-ivory md:pb-12">
@@ -21,16 +24,16 @@ export default function Footer() {
 
           <nav aria-label="Footer" className="md:col-span-3">
             <p className="eyebrow text-brass-light">The hotel</p>
-            <ul className="mt-5 grid gap-3">
+            <ul className="mt-3 grid md:mt-5 md:gap-3">
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} className="text-ivory/85 transition-colors hover:text-brass-light">
+                  <Link href={n.href} className={LINK}>
                     {n.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/enquire" className="text-ivory/85 transition-colors hover:text-brass-light">
+                <Link href="/enquire" className={LINK}>
                   Enquire
                 </Link>
               </li>
@@ -46,20 +49,20 @@ export default function Footer() {
               <br />
               {SITE.address.region} {SITE.address.pincode}
             </address>
-            <div className="mt-6 grid gap-3">
-              <a href={SITE.phoneHref} className="text-ivory/85 transition-colors hover:text-brass-light">
+            <div className="mt-4 grid justify-items-start md:mt-6 md:gap-3">
+              <a href={SITE.phoneHref} className={LINK}>
                 {SITE.phone}
               </a>
               <a
                 href={whatsapp(WA.general)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ivory/85 transition-colors hover:text-brass-light"
+                className={LINK}
               >
                 WhatsApp us
               </a>
               {SITE.email && (
-                <a href={`mailto:${SITE.email}`} className="text-ivory/85 transition-colors hover:text-brass-light">
+                <a href={`mailto:${SITE.email}`} className={LINK}>
                   {SITE.email}
                 </a>
               )}
@@ -67,7 +70,7 @@ export default function Footer() {
                 href={SITE.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ivory/85 transition-colors hover:text-brass-light"
+                className={LINK}
               >
                 Directions ↗
               </a>

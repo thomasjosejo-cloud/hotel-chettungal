@@ -27,12 +27,12 @@ export default function EnquirePage() {
           </div>
 
           <aside className="md:col-span-4 md:col-start-9">
-            <Eyebrow className="text-brass">Prefer to talk?</Eyebrow>
+            <Eyebrow className="text-brass-text">Prefer to talk?</Eyebrow>
             <ul className="mt-5">
               <li className="border-t border-charcoal/15">
                 <a href={SITE.phoneHref} className="group block py-5">
                   <span className="eyebrow block text-muted">Call</span>
-                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass">{SITE.phone}</span>
+                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass-text">{SITE.phone}</span>
                 </a>
               </li>
               <li className="border-t border-charcoal/15">
@@ -40,21 +40,21 @@ export default function EnquirePage() {
                   <span className="eyebrow flex items-center gap-2 text-muted">
                     <WhatsAppIcon className="h-3.5 w-3.5" /> WhatsApp
                   </span>
-                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass">Message us</span>
+                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass-text">Message us</span>
                 </a>
               </li>
               {SITE.email && (
                 <li className="border-t border-charcoal/15">
                   <a href={`mailto:${SITE.email}`} className="group block py-5">
                     <span className="eyebrow block text-muted">Email</span>
-                    <span className="mt-1 block font-serif text-2xl transition-colors group-hover:text-brass">{SITE.email}</span>
+                    <span className="mt-1 block font-serif text-2xl transition-colors group-hover:text-brass-text">{SITE.email}</span>
                   </a>
                 </li>
               )}
               <li className="border-y border-charcoal/15">
                 <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="group block py-5">
                   <span className="eyebrow block text-muted">Visit</span>
-                  <span className="mt-1 block text-[1.0625rem] leading-relaxed transition-colors group-hover:text-brass">
+                  <span className="mt-1 block text-[1.0625rem] leading-relaxed transition-colors group-hover:text-brass-text">
                     {SITE.address.line}
                     <br />
                     {SITE.address.region} {SITE.address.pincode} ↗

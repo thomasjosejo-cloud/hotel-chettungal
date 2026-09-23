@@ -48,11 +48,11 @@ export default function RoomsPage() {
           <div className="md:col-span-6" data-reveal>
             <p className="statement">
               A small hotel on purpose. Ten rooms for wedding guests, visiting teams and{" "}
-              <em className="text-brass">anyone who stayed for one more at CasaBay.</em>
+              <em className="text-brass-text">anyone who stayed for one more at CasaBay.</em>
             </p>
           </div>
           <div className="md:col-span-5 md:col-start-8" data-reveal>
-            <Eyebrow className="text-brass">In the rooms</Eyebrow>
+            <Eyebrow className="text-brass-text">In the rooms</Eyebrow>
             <ul className="mt-5 grid gap-3">
               {IN_ROOM.map((f) => (
                 <li key={f} className="border-t border-charcoal/15 pt-3 text-[1.0625rem]">

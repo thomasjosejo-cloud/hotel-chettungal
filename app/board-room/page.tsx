@@ -45,7 +45,7 @@ export default function BoardRoomPage() {
         <div className="container-x grid gap-16 md:grid-cols-12">
           <div className="md:col-span-6" data-reveal>
             <h2 className="statement">
-              A dedicated meeting room, <em className="text-brass">not a converted corner.</em>
+              A dedicated meeting room, <em className="text-brass-text">not a converted corner.</em>
             </h2>
             <p className="mt-8 max-w-lg text-[1.0625rem] leading-relaxed text-muted">
               Quiet, private and ready for the kind of meeting that needs a closed door.
@@ -53,7 +53,7 @@ export default function BoardRoomPage() {
           </div>
           <div className="grid gap-12 sm:grid-cols-2 md:col-span-5 md:col-start-8" data-reveal>
             <div>
-              <Eyebrow className="text-brass">The room</Eyebrow>
+              <Eyebrow className="text-brass-text">The room</Eyebrow>
               <ul className="mt-5 grid gap-3">
                 {facts.map((f) => (
                   <li key={f} className="border-t border-charcoal/15 pt-3">
@@ -63,7 +63,7 @@ export default function BoardRoomPage() {
               </ul>
             </div>
             <div>
-              <Eyebrow className="text-brass">Booked for</Eyebrow>
+              <Eyebrow className="text-brass-text">Booked for</Eyebrow>
               <ul className="mt-5 grid gap-3">
                 {USES.map((u) => (
                   <li key={u} className="border-t border-charcoal/15 pt-3">
@@ -85,7 +85,7 @@ export default function BoardRoomPage() {
       <section className="bg-ivory py-24 md:py-32">
         <div className="container-x">
           <div data-reveal>
-            <Eyebrow className="text-brass">Make a day of it</Eyebrow>
+            <Eyebrow className="text-brass-text">Make a day of it</Eyebrow>
             <h2 className="h2 mt-4 max-w-2xl">Everything else is under the same roof.</h2>
           </div>
           <ul className="mt-14 grid gap-px bg-charcoal/15 md:grid-cols-3">

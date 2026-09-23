@@ -58,10 +58,10 @@ export default function Home() {
       {/* Statement */}
       <section className="bg-paper py-24 md:py-36">
         <div className="container-x grid gap-10 md:grid-cols-12">
-          <Eyebrow className="text-brass md:col-span-3 md:pt-3">More than a stay</Eyebrow>
+          <Eyebrow className="text-brass-text md:col-span-3 md:pt-3">More than a stay</Eyebrow>
           <p className="statement text-charcoal md:col-span-9" data-reveal>
             Hotel New Town is built around the table, not the bed. Four spaces for eating, drinking, meeting and
-            celebrating, <span className="italic text-brass">and ten rooms for when the evening runs long.</span>
+            celebrating, <span className="italic text-brass-text">and ten rooms for when the evening runs long.</span>
           </p>
         </div>
       </section>
@@ -87,10 +87,10 @@ export default function Home() {
                   data-reveal
                   style={{ ["--reveal-delay" as string]: "120ms" }}
                 >
-                  <Numeral n={v.numeral} className="text-brass" />
+                  <Numeral n={v.numeral} className="text-brass-text" />
                   <Eyebrow className="mt-8 text-muted">{v.kind}</Eyebrow>
                   <h2 className="h2 mt-3 text-charcoal">{v.name}</h2>
-                  <p className="mt-3 font-serif text-2xl italic text-brass">{v.line}</p>
+                  <p className="mt-3 font-serif text-2xl italic text-brass-text">{v.line}</p>
                   <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-muted">{v.body}</p>
                   <Link href={v.href} className="link-arrow mt-9 text-charcoal">
                     Explore {v.name.replace(/^The /, "")} <span aria-hidden>→</span>
@@ -133,7 +133,7 @@ export default function Home() {
       <section className="bg-ivory py-24 md:py-32">
         <div className="container-x grid items-end gap-12 md:grid-cols-12">
           <div className="md:col-span-5" data-reveal>
-            <Eyebrow className="text-brass">Find us</Eyebrow>
+            <Eyebrow className="text-brass-text">Find us</Eyebrow>
             <h2 className="h2 mt-5 text-charcoal">On NH 544, in Angamaly.</h2>
             <address className="mt-6 not-italic text-[1.0625rem] leading-relaxed text-muted">
               {SITE.address.line}

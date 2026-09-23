@@ -58,17 +58,17 @@ export default function FishTownPage() {
 
       <section className="py-24 md:py-36">
         <div className="container-x grid gap-10 md:grid-cols-12">
-          <Eyebrow className="text-ft-brass md:col-span-3 md:pt-3">The restaurant</Eyebrow>
+          <Eyebrow className="text-brass-text md:col-span-3 md:pt-3">The restaurant</Eyebrow>
           <div className="md:col-span-9">
             <p className="statement" data-reveal>
               The food Kerala knows best: fresh fish, generous portions and familiar spices, served in a room lit by
-              its <em className="text-ft-brass">glowing wave walls.</em>
+              its <em className="text-brass-text">glowing wave walls.</em>
             </p>
             <p className="mt-8 max-w-2xl text-[1.0625rem] leading-relaxed text-navy/70" data-reveal>
               From a quick lunch to a business meal or a table full of family and friends, Fish Town is the
               hotel&apos;s everyday kitchen.
             </p>
-            {SITE.hours.fishtown && <p className="mt-6 text-sm text-ft-brass">Open {SITE.hours.fishtown}</p>}
+            {SITE.hours.fishtown && <p className="mt-6 text-sm text-brass-text">Open {SITE.hours.fishtown}</p>}
           </div>
         </div>
       </section>
@@ -101,7 +101,7 @@ export default function FishTownPage() {
       <section className="py-24 md:py-32">
         <div className="container-x">
           <div data-reveal>
-            <Eyebrow className="text-ft-brass">At the table</Eyebrow>
+            <Eyebrow className="text-brass-text">At the table</Eyebrow>
             <h2 className="h2 mt-4 max-w-2xl">A table for every kind of meal.</h2>
           </div>
           <ul className="mt-14 grid gap-10 md:grid-cols-3 md:gap-6">
@@ -121,7 +121,7 @@ export default function FishTownPage() {
       <section className="bg-ivory py-24 md:py-32">
         <div className="container-x">
           <div className="mb-14 md:mb-20" data-reveal>
-            <Eyebrow className="text-ft-brass">The room</Eyebrow>
+            <Eyebrow className="text-brass-text">The room</Eyebrow>
             <h2 className="h2 mt-4">Inside Fish Town</h2>
           </div>
           <Gallery photos={[p[1], p[5], p[6], p[7], p[0], p[2]]} tone="light" />
