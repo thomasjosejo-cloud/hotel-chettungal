@@ -118,6 +118,7 @@ export const PHOTOS = {
     { src: br("boardroom-hero"), alt: "The Board Room from the entrance corner", caption: "From the door" },
   ] satisfies Photo[],
   rooms: [
+    { src: rm("room-hero"), alt: "Guest room with a double bed, desk and wardrobe", caption: "A guest room" },
     { src: rm("lux-05"), alt: "A guest room with a double bed and carved headboard", caption: "A guest room" },
     { src: rm("lux-03"), alt: "Guest room with the bed and window drapes", caption: "Light from the window side" },
     { src: rm("room-2-lounge"), alt: "Guest room with kettle station, desk and television", caption: "Desk, television and tea station" },

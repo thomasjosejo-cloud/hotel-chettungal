@@ -14,10 +14,14 @@ export type JourneyState = {
   p: number;
   /** Viewport is phone-sized (the prototype's 760px breakpoint). */
   mobile: boolean;
+  /** On-screen width (px) of the chapter frame, for the swipe (set by the scene). */
+  framePx: number;
+  /** The journey's stage fills the screen (not still on the hero, not past it). */
+  onStage: boolean;
 };
 
 export function createJourneyState(): JourneyState {
-  return { p: 0, mobile: false };
+  return { p: 0, mobile: false, framePx: 0, onStage: false };
 }
 
 const ease = (x: number) => x * x * (3 - 2 * x);

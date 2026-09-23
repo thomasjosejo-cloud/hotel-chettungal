@@ -80,6 +80,72 @@ export function createPlaneMaterial(edge = 0.015) {
   return { material, uniforms };
 }
 
+/* ------------------------------------------------------------------ */
+/* Chapter frame: one plane per chapter, its photos taking turns          */
+/* ------------------------------------------------------------------ */
+
+// From prototype v5's planeFrag. uTex is the photo showing, uNext the one
+// wiping in from the top (uMix 0 -> 1) with a thin warm light on the wipe
+// edge; each photo pushes in slowly (uZa / uZb) while it holds. The chapter
+// reveal, light-by-distance and soft side edges are unchanged.
+const frameFrag = /* glsl */ `
+  uniform sampler2D uTex;
+  uniform sampler2D uNext;
+  uniform float uMix;
+  uniform float uZa;
+  uniform float uZb;
+  uniform float uReveal;
+  uniform float uLight;
+  uniform float uReady;
+  varying vec2 vUv;
+  void main() {
+    vec3 ca = texture2D(uTex, (vUv - 0.5) / uZa + 0.5).rgb;
+    vec3 cb = texture2D(uNext, (vUv - 0.5) / uZb + 0.5).rgb;
+    float y = 1.0 - vUv.y;
+    float front = uMix * 1.12;
+    float w = 1.0 - smoothstep(front - 0.1, front, y);
+    float line = exp(-pow((y - front + 0.05) * 30.0, 2.0)) * step(0.001, uMix) * step(uMix, 0.999);
+    vec3 c = mix(ca, cb, w) + vec3(1.0, 0.72, 0.4) * line * 0.3;
+    float m = 1.0 - smoothstep(uReveal - 0.08, uReveal, y);
+    float edge = smoothstep(0.0, 0.015, vUv.x) * smoothstep(0.0, 0.015, 1.0 - vUv.x);
+    gl_FragColor = vec4(c * uLight, m * uReady * edge);
+  }
+`;
+
+export type FrameUniforms = {
+  uTex: { value: THREE.Texture | null };
+  uNext: { value: THREE.Texture | null };
+  uMix: { value: number };
+  uZa: { value: number };
+  uZb: { value: number };
+  uReveal: { value: number };
+  uLight: { value: number };
+  uBend: { value: number };
+  uReady: { value: number };
+};
+
+export function createFrameMaterial() {
+  const uniforms: FrameUniforms = {
+    uTex: { value: null },
+    uNext: { value: null },
+    uMix: { value: 0 },
+    uZa: { value: 1 },
+    uZb: { value: 1 },
+    uReveal: { value: 0 },
+    uLight: { value: 1 },
+    uBend: { value: 0 },
+    uReady: { value: 0 },
+  };
+  const material = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader: planeVert,
+    fragmentShader: frameFrag,
+    transparent: true,
+    depthWrite: false,
+  });
+  return { material, uniforms };
+}
+
 /** UV scale/offset that reproduces CSS object-fit: cover + object-position. */
 export function coverUv(planeAspect: number, imageAspect: number, posX = 0.5, posY = 0.5) {
   const scale = new THREE.Vector2(1, 1);

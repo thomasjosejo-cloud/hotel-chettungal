@@ -738,3 +738,80 @@
 .hero-fx[data-ready] {
   opacity: 1;
 }
+
+/* ==================================================================
+   One frame per chapter (and Rooms): photos take turns.
+   ================================================================== */
+
+/* Photo marks: which photo is showing; the current one fills over the hold.
+   Each is a 44px-tall button; the visible mark is a thin brass line. */
+.proto .ticks {
+  display: flex;
+  gap: 6px;
+  margin: 2px 0 -8px -6px;
+}
+.proto .ticks button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 30px;
+  height: 44px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+}
+.proto .ticks button span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: rgb(243 236 224 / 0.25);
+  overflow: hidden;
+}
+.proto .ticks button span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-brass-light);
+  transform: scaleX(var(--f, 0));
+  transform-origin: left;
+}
+.proto .ticks button[aria-current="true"] span {
+  background: rgb(201 165 123 / 0.35);
+}
+.proto .ticks button:focus-visible {
+  outline: 2px solid var(--color-brass-light);
+  outline-offset: 2px;
+}
+.proto .close .ticks {
+  margin: 8px 0 0 -6px;
+}
+
+/* A frame in HTML (Rooms; chapters in the static layout): photos stacked. */
+.photo-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* Sideways drags change the photo; vertical scrolling and pinch stay native. */
+  touch-action: pan-y pinch-zoom;
+}
+.photo-frame-layer {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+}
+.proto .close figure {
+  background: var(--color-night-2);
+}
+
+/* The journey stage takes sideways drags for the frame; vertical stays native. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .proto .journey:not([data-static]) .stage {
+    touch-action: pan-y pinch-zoom;
+  }
+}
+html.frame-dragging,
+html.frame-dragging * {
+  user-select: none;
+  cursor: grabbing;
+}

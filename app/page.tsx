@@ -4,8 +4,11 @@ import HomeJourney from "@/components/home/HomeJourney";
 import HeroEmbers from "@/components/motion/HeroEmbers";
 import HeroParallax from "@/components/motion/HeroParallax";
 import CasaBayLogo from "@/components/CasaBayLogo";
+import PhotoFrame from "@/components/home/PhotoFrame";
+import PhotoMarks from "@/components/home/PhotoMarks";
+import { CHAPTER_NAMES, CHAPTER_SETS, ROOMS_SET } from "@/components/home/sets";
 import { Button, WhatsAppIcon } from "@/components/ui";
-import { PHOTOS, SITE, VENUES, WA, whatsapp, type Photo } from "@/content/site";
+import { PHOTOS, SITE, VENUES, WA, whatsapp } from "@/content/site";
 import { blurFor } from "@/content/blur";
 
 // Home page: the approved prototype (docs/prototype-home.html), built in React.
@@ -53,22 +56,22 @@ function Fact({ children }: { children: string | null }) {
 const open = (hours: string | null) => (hours ? `Open ${hours}` : null);
 const CUISINES = ["Kerala & seafood", "North Indian", "Chinese", "Continental"];
 
-/** Chapter photo for the static layout (hidden in the WebGL journey). */
-function ChapterImage({ photo }: { photo: Photo }) {
-  const blur = blurFor(photo.src);
+/**
+ * A chapter's photos for the static layout (hidden while the WebGL journey
+ * runs): the same set as the WebGL frame, first photo showing, swapped
+ * instantly by the marks or a sideways swipe; never changes by itself.
+ */
+function ChapterPhotos({ i }: { i: number }) {
   return (
     <div className="ch-img">
-      <Image
-        src={photo.src}
-        alt={photo.alt}
-        fill
-        sizes="(min-width: 800px) 760px, 100vw"
-        placeholder={blur ? "blur" : "empty"}
-        blurDataURL={blur}
-        className="object-cover"
-      />
+      <PhotoFrame id={`ch${i}`} photos={CHAPTER_SETS[i]} auto={false} sizes="(min-width: 800px) 760px, 100vw" />
     </div>
   );
+}
+
+/** Photo marks under a chapter's numeral. */
+function Marks({ i }: { i: number }) {
+  return <PhotoMarks id={`ch${i}`} count={CHAPTER_SETS[i].length} label={`${CHAPTER_NAMES[i]} photos`} />;
 }
 
 export default function Home() {
@@ -127,8 +130,9 @@ export default function Home() {
       {/* 2. Journey */}
       <HomeJourney>
         <article className="chapter" data-ch="0">
-          <ChapterImage photo={PHOTOS.fishtown[0]} />
+          <ChapterPhotos i={0} />
           <p className="numeral">I</p>
+          <Marks i={0} />
           <h2>
             <span className="sr-only">Fish Town</span>
             <Image src="/branding/fishtown-logo-ivory.png" alt="" width={1184} height={678} sizes="190px" className="ft-logo" />
@@ -147,8 +151,9 @@ export default function Home() {
         </article>
 
         <article className="chapter" data-ch="1">
-          <ChapterImage photo={PHOTOS.townhall[0]} />
+          <ChapterPhotos i={1} />
           <p className="numeral">II</p>
+          <Marks i={1} />
           <h2>Town Hall</h2>
           <p className="count">
             <span data-count aria-hidden>
@@ -164,8 +169,9 @@ export default function Home() {
         </article>
 
         <article className="chapter" data-ch="2">
-          <ChapterImage photo={PHOTOS.boardroom[0]} />
+          <ChapterPhotos i={2} />
           <p className="numeral">III</p>
+          <Marks i={2} />
           <h2>The Board Room</h2>
           <p className="tag">{venue("board-room").line}</p>
           <Fact>{SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : null}</Fact>
@@ -176,8 +182,9 @@ export default function Home() {
         </article>
 
         <article className="chapter finale" data-ch="3">
-          <ChapterImage photo={cb[1]} />
+          <ChapterPhotos i={3} />
           <p className="numeral">IV</p>
+          <Marks i={3} />
           <h2 className="casa-mark">
             {/* Same sizes as the hero logo, so this reuses the hero's download. */}
             <CasaBayLogo sizes="clamp(290px, 46vw, 640px)" />
@@ -193,17 +200,12 @@ export default function Home() {
 
       {/* 3. Quiet close: Rooms */}
       <section className="close" aria-label="Rooms">
-        <figure>
-          <Image
-            src={PHOTOS.rooms[0].src}
-            alt={PHOTOS.rooms[0].alt}
-            fill
-            sizes="(min-width: 761px) 55vw, 100vw"
-            placeholder={blurFor(PHOTOS.rooms[0].src) ? "blur" : "empty"}
-            blurDataURL={blurFor(PHOTOS.rooms[0].src)}
-            className="object-cover"
-          />
-        </figure>
+        <div>
+          <figure>
+            <PhotoFrame id="rooms" photos={ROOMS_SET} auto sizes="(min-width: 761px) 55vw, 100vw" />
+          </figure>
+          <PhotoMarks id="rooms" count={ROOMS_SET.length} label="Room photos" />
+        </div>
         <div>
           <p className="p-eyebrow">Stay</p>
           <h2>For when the evening runs long.</h2>

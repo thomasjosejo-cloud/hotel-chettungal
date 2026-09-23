@@ -4,6 +4,9 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { canRunWebGL, prefersReducedMotion, whenIdleAfterLoad } from "@/lib/motion";
 import { CENTERS, chapterMix, createJourneyState, seatsProgress } from "./journey";
+import { CHAPTER_SETS } from "./sets";
+import { getSlides } from "./slides";
+import { attachSwipe } from "./swipe";
 
 // three.js + R3F: never on the server, and only requested once the page is idle.
 const HomeScene = dynamic(() => import("./HomeScene"), { ssr: false });
@@ -55,6 +58,9 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       const r = el.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, -r.top / spanOf()));
       state.p = p;
+      // Photos only take turns while the stage is actually on screen: at the top
+      // of the page p is 0 (which reads as "chapter I") but the hero is showing.
+      state.onStage = r.top <= innerHeight * 0.5 && r.bottom >= innerHeight * 0.5;
       state.mobile = innerWidth <= 760;
       const cm = chapterMix(p);
 
@@ -96,6 +102,21 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
     const html = document.documentElement;
     html.classList.add("home-snap");
 
+    // A sideways drag on the frame changes the current chapter's photo (touch
+    // and mouse). Only on the current chapter, and only once the WebGL frame
+    // drives it; vertical gestures stay native (touch-action: pan-y on .stage).
+    const stageEl = stage.current;
+    const detachSwipe = stageEl
+      ? attachSwipe(stageEl, () => {
+          const cm = chapterMix(state.p);
+          const i = Math.round(cm);
+          if (!state.onStage || Math.abs(cm - i) >= 0.3) return null;
+          const s = getSlides(`ch${i}`, CHAPTER_SETS[i].length);
+          if (s.driver !== "webgl") return null;
+          return { slides: s, width: state.framePx || innerWidth * 0.5 };
+        })
+      : () => {};
+
     placeSnaps();
     update();
     addEventListener("scroll", schedule, { passive: true });
@@ -106,6 +127,7 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       removeEventListener("scroll", schedule);
       removeEventListener("resize", onResize);
       html.classList.remove("home-snap");
+      detachSwipe();
       el.removeEventListener("focusin", onFocus);
       chapters.forEach((c) => {
         c.style.opacity = "";

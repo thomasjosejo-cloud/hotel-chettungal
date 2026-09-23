@@ -3,46 +3,36 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { PHOTOS } from "@/content/site";
 import { isPhone, textureUrl } from "@/lib/motion";
 import {
   createEmberMaterial,
-  createPlaneMaterial,
+  createFrameMaterial,
   createSeatMaterial,
   createWaveMaterial,
   disableColorManagement,
 } from "@/components/three/materials";
-import { FrameDriver, lerpAt60, useLazyTexture } from "@/components/three/parts";
+import { FrameDriver, lerpAt60 } from "@/components/three/parts";
 import { CENTERS, FLOOR, chapterMix, seatsProgress, type JourneyState } from "./journey";
+import { CHAPTER_SETS } from "./sets";
+import { getSlides, paintMarks, tick, zoomCurrent, zoomNext } from "./slides";
 
 disableColorManagement();
 
 const NIGHT = 0x0b0907;
-const { casabay: cb, fishtown: ft, townhall: th, boardroom: br } = PHOTOS;
+const CAMERA_Z = 16;
 
-// The prototype's layout per chapter: [src, x, y, z, width]. Desktop places the
-// photos right of the copy.
-type Spec = [src: string, x: number, y: number, z: number, w: number];
-const LAYOUT: Spec[][] = [
-  [[ft[0].src, 3.4, 0.6, 0, 9.2], [ft[1].src, -2.6, -2.6, -4, 6.2], [ft[2].src, 8.6, -3.2, -6, 6]],
-  [[th[0].src, 3.6, 0.9, 0, 9.4], [th[1].src, 9.2, -2.2, -5, 5.8], [th[4].src, -3.2, 3.4, -7, 6]],
-  [[br[0].src, 3.6, 0.4, 0, 8.4], [br[1].src, -3.4, -3, -6, 5.4]],
-  [[cb[1].src, 3.4, 0.8, 0, 9.4], [cb[3].src, -2.8, -2.8, -4, 6], [cb[4].src, 8.8, 3.4, -6, 6.2]],
-];
-// Phones: one large photo up top, others at different depths peeking in from the
-// sides and behind, so rising through a chapter still shows parallax.
-// [x, y, z, width] per plane, in the same order as LAYOUT (the prototype's PHONE table).
-type PhoneSpec = [x: number, y: number, z: number, w: number];
-const PHONE: PhoneSpec[][] = [
-  [[0.4, 3.6, 0, 7.0], [-3.3, 0.7, -3.5, 4.2], [3.6, 6.8, -6, 4.4]],
-  [[0.3, 3.8, 0, 7.2], [3.8, 0.5, -4.5, 4.2], [-3.6, 7.2, -6.5, 4.6]],
-  [[0.2, 3.6, 0, 6.6], [-3.2, 0.9, -5, 4.0]],
-  [[0.3, 3.8, 0, 7.2], [-3.4, 0.7, -3.5, 4.4], [3.5, 7.0, -6, 4.6]],
-];
+// One frame per chapter: [x, y, z, width], aspect 1.5. Desktop sits right of
+// the copy; phones put it up top, full width (width applied as scale). The
+// Board Room and CasaBay frames sit lower, closer to their shorter copy.
+type Layout = [x: number, y: number, z: number, w: number];
+const DESK: Layout[] = [[3.8, 0.6, 0, 10.2], [3.8, 0.8, 0, 10.2], [3.8, 0.5, 0, 9.6], [3.8, 0.7, 0, 10.2]];
+const PHONE: Layout[] = [[0, 3.7, 0, 7.0], [0, 3.8, 0, 7.0], [0, 2.0, 0, 7.0], [0, 2.4, 0, 7.0]];
 
 /** Per-frame values shared by every object in the scene (never React state). */
 type Sim = {
   t: number;
+  /** chapterMix of the scroll progress, this frame. */
+  cm: number;
   camY: number;
   bend: number;
   lastP: number;
@@ -114,9 +104,10 @@ function Rig({ journey, sim, onReady }: { journey: JourneyState; sim: Sim; onRea
     sim.lastP = p;
     sim.bend += (Math.max(-1.2, Math.min(1.2, vel * 5)) - sim.bend) * lerpAt60(0.08, dt);
 
-    const targetY = chapterMix(p) * FLOOR;
+    sim.cm = chapterMix(p);
+    const targetY = sim.cm * FLOOR;
     sim.camY += (targetY - sim.camY) * lerpAt60(0.09, dt);
-    camera.position.set(sim.mx * 1.2, sim.camY - sim.my * 0.6, 16);
+    camera.position.set(sim.mx * 1.2, sim.camY - sim.my * 0.6, CAMERA_Z);
     camera.lookAt(sim.mx * 0.4, sim.camY, 0);
 
     if (++frames.current === 2) onReady();
@@ -125,48 +116,138 @@ function Rig({ journey, sim, onReady }: { journey: JourneyState; sim: Sim; onRea
   return null;
 }
 
-function Plane({ spec, phone, floor, sim }: { spec: Spec; phone: PhoneSpec; floor: number; sim: Sim }) {
-  const [src, x, y, z, width] = spec;
-  const [px, py, pz, pw] = phone;
-  const mesh = useRef<THREE.Mesh>(null);
-  const { material, uniforms } = useMemo(() => createPlaneMaterial(), []);
-  const geometry = useMemo(() => new THREE.PlaneGeometry(width, width / 1.5, 24, 24), [width]);
-  const small = useThree((s) => s.size.width < 760);
-
-  // Fetch one chapter ahead of the camera; a state change per chapter, not per frame.
-  const [load, setLoad] = useState(() => floor <= Math.floor(sim.camY / FLOOR + 1.5));
-  const tex = useLazyTexture(textureUrl(src, small), load);
-
+/**
+ * Textures for every chapter's photos. The first photo of each chapter loads
+ * first (the scene itself mounts after load, when idle); the rest follow once
+ * all the firsts are in. Each is uploaded to the GPU as it arrives, so a wipe
+ * never stalls on a first-time upload. A swap only starts once its texture is in.
+ */
+function useChapterTextures(small: boolean) {
+  const gl = useThree((s) => s.gl);
+  const texs = useRef<(THREE.Texture | null)[][]>(CHAPTER_SETS.map((set) => set.map(() => null)));
   useEffect(() => {
-    uniforms.uTex.value = tex;
-    uniforms.uReady.value = tex ? 1 : 0;
-  }, [tex, uniforms]);
+    let alive = true;
+    const loader = new THREE.TextureLoader();
+    const all: THREE.Texture[] = [];
+    const load = (f: number, k: number) =>
+      new Promise<void>((done) =>
+        loader.load(
+          textureUrl(CHAPTER_SETS[f][k].src, small),
+          (tex) => {
+            tex.minFilter = THREE.LinearFilter;
+            tex.generateMipmaps = false;
+            all.push(tex);
+            if (alive) {
+              gl.initTexture(tex);
+              texs.current[f][k] = tex;
+            }
+            done();
+          },
+          undefined,
+          () => done(),
+        ),
+      );
+    Promise.all(CHAPTER_SETS.map((_, f) => load(f, 0))).then(() => {
+      if (alive) CHAPTER_SETS.forEach((set, f) => set.forEach((_, k) => k && load(f, k)));
+    });
+    return () => {
+      alive = false;
+      all.forEach((t) => t.dispose());
+      texs.current = CHAPTER_SETS.map((set) => set.map(() => null));
+    };
+  }, [gl, small]);
+  return texs;
+}
+
+/** One chapter's frame: its photos take turns (hold, wipe, push-in), swipeable. */
+function Frame({
+  floor,
+  sim,
+  journey,
+  texs,
+}: {
+  floor: number;
+  sim: Sim;
+  journey: JourneyState;
+  texs: RefObject<(THREE.Texture | null)[][]>;
+}) {
+  const mesh = useRef<THREE.Mesh>(null);
+  const { material, uniforms } = useMemo(() => createFrameMaterial(), []);
+  const [dx, dy, dz, dw] = DESK[floor];
+  const [px, py, pz, pw] = PHONE[floor];
+  const geometry = useMemo(() => new THREE.PlaneGeometry(dw, dw / 1.5, 24, 24), [dw]);
+  const sizeW = useThree((s) => s.size.width);
+  const sizeH = useThree((s) => s.size.height);
+  const small = sizeW < 760;
+
+  // The WebGL frame drives this chapter's photo state while it's mounted.
+  useEffect(() => {
+    const s = getSlides(`ch${floor}`, CHAPTER_SETS[floor].length);
+    s.driver = "webgl";
+    s.animated = true;
+    s.ready = (k) => !!texs.current?.[floor]?.[k];
+    return () => {
+      if (s.driver === "webgl") s.driver = null;
+      s.animated = false;
+    };
+  }, [floor, texs]);
   useEffect(() => () => (material.dispose(), geometry.dispose()), [material, geometry]);
 
-  // Phone layout: explicit position per plane, width applied as a scale.
+  // Layout, and the frame's on-screen width for the swipe (all four share it).
   useLayoutEffect(() => {
     const m = mesh.current;
     if (!m) return;
-    m.position.set(small ? px : x, floor * FLOOR + (small ? py : y), small ? pz : z);
-    m.scale.setScalar(small ? pw / width : 1);
-  }, [small, px, py, pz, pw, x, y, z, width, floor]);
+    m.position.set(small ? px : dx, floor * FLOOR + (small ? py : dy), small ? pz : dz);
+    m.scale.setScalar(small ? pw / dw : 1);
+    if (floor === 0) {
+      const fov = small ? 58 : 42;
+      const visW = 2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(fov / 2)) * (sizeW / Math.max(1, sizeH));
+      journey.framePx = ((small ? pw : dw) / visW) * sizeW;
+    }
+  }, [small, px, py, pz, pw, dx, dy, dz, dw, floor, sizeW, sizeH, journey]);
 
   useFrame((_, dt) => {
     const m = mesh.current;
-    if (!m) return;
-    if (!load && floor <= Math.floor(sim.camY / FLOOR + 1.5)) setLoad(true);
+    const t = texs.current?.[floor];
+    if (!m || !t) return;
+    const s = getSlides(`ch${floor}`, t.length);
     const d = Math.abs(sim.camY / FLOOR - floor);
+
+    // Photos take turns only on the current chapter, in a visible tab; the
+    // others freeze where they are.
+    tick(s, Math.min(dt, 0.1), journey.onStage && Math.abs(sim.cm - floor) < 0.3 && !document.hidden);
+    const cur = t[s.cur];
+    uniforms.uTex.value = cur;
+    uniforms.uNext.value = s.next >= 0 && t[s.next] ? t[s.next] : cur;
+    uniforms.uMix.value = s.next >= 0 ? s.mix : 0;
+    uniforms.uZa.value = zoomCurrent(s);
+    uniforms.uZb.value = zoomNext(s);
+    uniforms.uReady.value = cur ? 1 : 0;
+    if (d < 1.2) paintMarks(s);
+
     const reveal = Math.max(0, Math.min(1, 1.25 - d * 1.4));
     uniforms.uReveal.value += (reveal * 1.1 - uniforms.uReveal.value) * lerpAt60(0.12, dt);
     uniforms.uLight.value = Math.max(0.25, 1 - d * 0.9);
     // Board Room (chapter 2) stays still: its bend is multiplied by 0.15.
-    uniforms.uBend.value = sim.bend * (z === 0 ? 1 : 0.6) * (floor === 2 ? 0.15 : 1);
-    // Idle drift around the layout's x (the phone x on phones).
-    const bx = sim.mobile ? px : x;
-    m.position.x += (bx + Math.sin(sim.t * 0.25 + z) * 0.08 - m.position.x) * lerpAt60(0.05, dt);
+    uniforms.uBend.value = sim.bend * (floor === 2 ? 0.15 : 1);
+    // Idle drift around the layout's x.
+    const bx = sim.mobile ? px : dx;
+    m.position.x += (bx + Math.sin(sim.t * 0.25 + dz) * 0.08 - m.position.x) * lerpAt60(0.05, dt);
   });
 
   return <mesh ref={mesh} geometry={geometry} material={material} />;
+}
+
+function Frames({ sim, journey }: { sim: Sim; journey: JourneyState }) {
+  const small = useThree((s) => s.size.width < 760);
+  const texs = useChapterTextures(small);
+  return (
+    <>
+      {CHAPTER_SETS.map((_, floor) => (
+        <Frame key={floor} floor={floor} sim={sim} journey={journey} texs={texs} />
+      ))}
+    </>
+  );
 }
 
 function Wave({ sim }: { sim: Sim }) {
@@ -214,7 +295,7 @@ function Seats({ sim, journey }: { sim: Sim; journey: JourneyState }) {
   }, []);
   useEffect(() => () => (material.dispose(), geometry.dispose()), [material, geometry]);
 
-  // Phones: the 120 lights sit over the lower edge of the hall photo, above the copy.
+  // Phones: the 120 lights sit over the lower edge of the hall frame, above the copy.
   useLayoutEffect(() => {
     const g = group.current;
     if (!g) return;
@@ -284,6 +365,7 @@ export default function HomeScene({
 }) {
   const sim = useRef<Sim>({
     t: 0,
+    cm: chapterMix(journey.p),
     camY: chapterMix(journey.p) * FLOOR,
     bend: 0,
     lastP: journey.p,
@@ -326,15 +408,13 @@ export default function HomeScene({
       // Size from the container only. The stage is 100svh, so the address bar
       // showing or hiding never resizes it, and scrolling never re-measures.
       resize={{ scroll: false, debounce: { scroll: 0, resize: 100 } }}
-      camera={{ fov: 42, near: 0.1, far: 100, position: [0, sim.camY, 16] }}
+      camera={{ fov: 42, near: 0.1, far: 100, position: [0, sim.camY, CAMERA_Z] }}
       style={{ pointerEvents: "none" }}
     >
       <FrameDriver active={active} />
       <Rig journey={journey} sim={sim} onReady={onReady} />
       <Wave sim={sim} />
-      {LAYOUT.map((list, floor) =>
-        list.map((spec, i) => <Plane key={spec[0]} spec={spec} phone={PHONE[floor][i]} floor={floor} sim={sim} />),
-      )}
+      <Frames sim={sim} journey={journey} />
       <Seats sim={sim} journey={journey} />
       <Embers sim={sim} />
     </Canvas>

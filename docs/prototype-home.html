@@ -133,6 +133,13 @@
   .chapter.finale h2 .casa-logo { width: clamp(250px, 24vw + 80px, 480px); }
   .chapter.finale .tag { color: var(--ivory); }
   .ch-img { display: none; }
+  /* Photo marks: which of the chapter's photos is showing; the active one fills while it holds. */
+  .ticks { display: flex; gap: 6px; margin: 14px 0 0 -6px; }
+  .ticks button { all: unset; cursor: pointer; width: 30px; height: 24px; padding: 0 6px; display: flex; align-items: center; }
+  .ticks button span { position: relative; display: block; width: 100%; height: 2px; background: rgba(243, 236, 224, 0.25); overflow: hidden; }
+  .ticks button span::after { content: ""; position: absolute; inset: 0; background: var(--brass); transform: scaleX(var(--f, 0)); transform-origin: left; }
+  .ticks button.on span { background: rgba(201, 165, 123, 0.35); }
+  .ticks button:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 
   .rail { position: absolute; z-index: 3; left: var(--gutter); bottom: calc(28px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 28px; }
   .rail button {
@@ -146,8 +153,14 @@
 
   /* Quiet close */
   .close { padding-block: clamp(96px, 14vh, 160px); padding-inline: var(--gutter); display: grid; gap: clamp(40px, 6vw, 96px); grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; }
-  .close figure { margin: 0; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; }
-  .close img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .close figure { margin: 0; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; position: relative; background: var(--night-2); }
+  .close figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+    clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease); z-index: 0; }
+  .close figure img.on { clip-path: inset(0 0 0 0); z-index: 1; }
+  .close figure img.was { clip-path: inset(0 0 0 0); z-index: 0; }
+  .close figure img.on { animation: push 7s linear both; }
+  @keyframes push { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .close .ticks { margin: 16px 0 0 -6px; }
   .close h2 { font-size: clamp(40px, 3.4vw + 14px, 72px); line-height: 1; margin: 18px 0 16px; }
   .close .body { margin-bottom: 30px; }
   .find { border-top: 1px solid var(--line); padding-block: 64px; padding-inline: var(--gutter); display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
@@ -186,9 +199,11 @@
   html.static .chapter { position: relative; left: auto; top: auto; bottom: auto; right: auto; transform: none; opacity: 1; width: auto;
     padding: 72px var(--gutter) 0; pointer-events: auto; display: grid; gap: 0; max-width: 760px; }
   html.static .chapter .body { display: block; }
+  html.static .ticks-gl { display: none; }
   html.static .ch-img { display: block; width: 100%; max-width: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin-bottom: 28px; }
   @media (prefers-reduced-motion: reduce) {
-    .wordmark, .cue::after { animation: none; }
+    .wordmark, .cue::after, .close figure img.on { animation: none; }
+    .close figure img { transition: none; }
   }
 </style>
 
@@ -225,7 +240,7 @@
       <canvas id="gl" aria-hidden="true"></canvas>
 
       <article class="chapter" data-ch="0">
-        <img class="ch-img" src="img/ft-1.webp" alt="Fish Town dining room with illuminated wave walls" loading="lazy">
+        <img class="ch-img" src="img/ft-a.webp" alt="Fish Town main dining room with illuminated wave walls" loading="lazy">
         <p class="numeral">I</p>
         <img class="ft-logo" src="img/fishtown-logo.png" alt="Fish Town" width="520" height="298">
         <p class="tag">Fresh catch. Local soul.</p>
@@ -237,7 +252,7 @@
       </article>
 
       <article class="chapter" data-ch="1">
-        <img class="ch-img" src="img/th-1.webp" alt="Town Hall set theatre-style facing the stage" loading="lazy">
+        <img class="ch-img" src="img/th-a.webp" alt="Head table on the carpeted stage at Town Hall" loading="lazy">
         <p class="numeral">II</p>
         <h2>Town Hall</h2>
         <p class="count" aria-label="120 guests"><span id="count">120</span></p>
@@ -247,7 +262,7 @@
       </article>
 
       <article class="chapter" data-ch="2">
-        <img class="ch-img" src="img/br-1.webp" alt="The Board Room table seen from its head" loading="lazy">
+        <img class="ch-img" src="img/br-a.webp" alt="The Board Room from the entrance corner" loading="lazy">
         <p class="numeral">III</p>
         <h2>The Board Room</h2>
         <p class="tag">A room built for focus.</p>
@@ -256,7 +271,7 @@
       </article>
 
       <article class="chapter finale" data-ch="3">
-        <img class="ch-img" src="img/cb-bar.webp" alt="Cocktails on the CasaBay bar" loading="lazy">
+        <img class="ch-img" src="img/cb-a.webp" alt="Cocktails on the CasaBay bar with the winged mural behind" loading="lazy">
         <p class="numeral">IV</p>
         <h2><img class="casa-logo" src="img/casabay-logo.webp" alt="CasaBay" width="1600" height="496" loading="lazy"></h2>
         <p class="tag">Back on the roof.</p>
@@ -274,7 +289,14 @@
   </section>
 
   <section class="close" aria-label="Rooms">
-    <figure><img src="img/rooms.webp" alt="A guest room with a double bed and carved headboard" loading="lazy" width="1280" height="960"></figure>
+    <div>
+      <figure id="roomsFig">
+        <img class="on" src="img/rm-a.webp" alt="Guest room with a double bed, desk and wardrobe" loading="lazy" width="1080" height="720">
+        <img src="img/rm-b.webp" alt="Guest room with kettle station, desk and television" loading="lazy" width="1080" height="720">
+        <img src="img/rm-c.webp" alt="Guest room with the bed and window drapes" loading="lazy" width="1080" height="810">
+      </figure>
+      <div class="ticks" id="roomsTicks" role="group" aria-label="Room photos"></div>
+    </div>
     <div>
       <p class="eyebrow">Stay</p>
       <h2>For when the evening runs long.</h2>
@@ -367,6 +389,31 @@
     set();
   })();
 
+  /* ---------- Rooms: photos take turns in one frame ---------- */
+  (function rooms() {
+    const imgs = [...document.querySelectorAll("#roomsFig img")];
+    const ticks = document.getElementById("roomsTicks");
+    const btns = imgs.map((_, i) => { const b = document.createElement("button"); b.type = "button";
+      b.setAttribute("aria-label", "Room photo " + (i + 1) + " of " + imgs.length); b.innerHTML = "<span></span>"; ticks.appendChild(b); return b; });
+    let cur = 0, age = 0, inView = false, last = 0;
+    const HOLD = 4.6;
+    function show(k) {
+      if (k === cur) return;
+      imgs.forEach((im, i) => { im.classList.toggle("was", i === cur); im.classList.toggle("on", i === k); });
+      cur = k; age = 0;
+    }
+    btns.forEach((b, i) => b.addEventListener("click", () => show(i)));
+    function frame(ts) {
+      const dt = last ? Math.min(0.1, (ts - last) / 1000) : 0; last = ts;
+      if (inView && !reduce && !document.hidden) { age += dt; if (age > HOLD) show((cur + 1) % imgs.length); }
+      btns.forEach((b, i) => { b.classList.toggle("on", i === cur); b.style.setProperty("--f", i === cur ? (reduce ? 1 : Math.min(1, age / HOLD)).toFixed(3) : 0); });
+      if (inView) requestAnimationFrame(frame); else last = 0;
+    }
+    new IntersectionObserver(([e]) => { const was = inView; inView = e.isIntersecting; if (inView && !was) requestAnimationFrame(frame); }, { threshold: 0.35 })
+      .observe(document.getElementById("roomsFig"));
+    frame(0);
+  })();
+
   /* ---------- Journey ---------- */
   const journey = document.getElementById("journey");
   const chapters = [...document.querySelectorAll(".chapter")];
@@ -423,52 +470,77 @@
     void main(){ vUv = uv; vec3 p = position;
       p.z += sin(uv.y * 3.14159) * uBend + sin(uv.x * 3.14159) * uBend * 0.4;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`;
+  // One frame per chapter. uTex is the photo showing, uNext the one wiping in
+  // from the top (uMix 0->1) with a thin warm light on the wipe edge; each photo
+  // pushes in slowly (uZa / uZb) while it holds.
   const planeFrag = `
-    uniform sampler2D uTex; uniform float uReveal; uniform float uLight; uniform float uReady; varying vec2 vUv;
-    void main(){ vec4 c = texture2D(uTex, vUv);
-      float m = 1.0 - smoothstep(uReveal - 0.08, uReveal, 1.0 - vUv.y);
+    uniform sampler2D uTex; uniform sampler2D uNext; uniform float uMix; uniform float uZa; uniform float uZb;
+    uniform float uReveal; uniform float uLight; uniform float uReady; varying vec2 vUv;
+    void main(){
+      vec3 ca = texture2D(uTex, (vUv - 0.5) / uZa + 0.5).rgb;
+      vec3 cb = texture2D(uNext, (vUv - 0.5) / uZb + 0.5).rgb;
+      float y = 1.0 - vUv.y; float front = uMix * 1.12;
+      float w = 1.0 - smoothstep(front - 0.1, front, y);
+      float line = exp(-pow((y - front + 0.05) * 30.0, 2.0)) * step(0.001, uMix) * step(uMix, 0.999);
+      vec3 c = mix(ca, cb, w) + vec3(1.0, 0.72, 0.4) * line * 0.3;
+      float m = 1.0 - smoothstep(uReveal - 0.08, uReveal, y);
       float edge = smoothstep(0.0, 0.015, vUv.x) * smoothstep(0.0, 0.015, 1.0 - vUv.x);
-      gl_FragColor = vec4(c.rgb * uLight, m * uReady * edge); }`;
+      gl_FragColor = vec4(c * uLight, m * uReady * edge); }`;
 
   const planes = [];
-  function addPlane(src, floor, x, y, z, width, aspect) {
-    const u = { uTex: { value: null }, uReveal: { value: 0 }, uLight: { value: 1 }, uBend: { value: 0 }, uReady: { value: 0 } };
+  function addFrame(floor, srcs, x, y, z, width, aspect) {
+    const u = { uTex: { value: null }, uNext: { value: null }, uMix: { value: 0 }, uZa: { value: 1 }, uZb: { value: 1 },
+      uReveal: { value: 0 }, uLight: { value: 1 }, uBend: { value: 0 }, uReady: { value: 0 } };
     const mat = new T.ShaderMaterial({ uniforms: u, vertexShader: planeVert, fragmentShader: planeFrag, transparent: true, depthWrite: false });
     const mesh = new T.Mesh(new T.PlaneGeometry(width, width / aspect, 24, 24), mat);
     mesh.position.set(x, floor * FLOOR + y, z);
     scene.add(mesh);
-    const p = { mesh, u, floor, base: { x, y, z }, src };
+    const p = { mesh, u, floor, base: { x, y, z }, srcs, texs: [], cur: 0, next: -1, age: 0, mixT: 0 };
     planes.push(p);
     return p;
   }
 
-  // Layout per chapter: [src, x, y, z, width]; desktop places photos right of the copy.
-  const LAYOUT = [
-    [["ft-1", 3.4, 0.6, 0, 9.2], ["ft-2", -2.6, -2.6, -4, 6.2], ["ft-3", 8.6, -3.2, -6, 6]],
-    [["th-1", 3.6, 0.9, 0, 9.4], ["th-2", 9.2, -2.2, -5, 5.8], ["th-3", -3.2, 3.4, -7, 6]],
-    [["br-1", 3.6, 0.4, 0, 8.4], ["br-2", -3.4, -3, -6, 5.4]],
-    [["cb-bar", 3.4, 0.8, 0, 9.4], ["cb-onyx", -2.8, -2.8, -4, 6], ["cb-deck", 8.8, 3.4, -6, 6.2]],
-  ];
-  // Phones: one large photo up top, others at different depths peeking in from the
-  // sides and behind, so rising through a chapter still shows parallax.
-  const PHONE = [
-    [[0.4, 3.6, 0, 7.0], [-3.3, 0.7, -3.5, 4.2], [3.6, 6.8, -6, 4.4]],
-    [[0.3, 3.8, 0, 7.2], [3.8, 0.5, -4.5, 4.2], [-3.6, 7.2, -6.5, 4.6]],
-    [[0.2, 3.6, 0, 6.6], [-3.2, 0.9, -5, 4.0]],
-    [[0.3, 3.8, 0, 7.2], [-3.4, 0.7, -3.5, 4.4], [3.5, 7.0, -6, 4.6]],
-  ];
-  LAYOUT.forEach((list, f) => list.forEach(([src, x, y, z, w], i) => {
-    const pl = addPlane(src, f, x, y, z, w, 1.5);
-    const [px, py, pz, pw] = PHONE[f][i];
+  // One frame per chapter, holding that chapter's photos in turn (chosen by the property).
+  const SETS = [["ft-a", "ft-b", "ft-c"], ["th-a", "th-b", "th-c"], ["br-a", "br-b", "br-c"], ["cb-a", "cb-b", "cb-c"]];
+  // [x, y, z, width]: desktop sits right of the copy; phones put it up top, full width.
+  const DESK = [[3.8, 0.6, 0, 10.2], [3.8, 0.8, 0, 10.2], [3.8, 0.5, 0, 9.6], [3.8, 0.7, 0, 10.2]];
+  const PHONE = [[0, 3.7, 0, 7.0], [0, 3.8, 0, 7.0], [0, 2.0, 0, 7.0], [0, 2.4, 0, 7.0]];
+  SETS.forEach((srcs, f) => {
+    const [x, y, z, w] = DESK[f];
+    const pl = addFrame(f, srcs, x, y, z, w, 1.5);
+    const [px, py, pz, pw] = PHONE[f];
     pl.phone = { x: px, y: py, z: pz, s: pw / w };
-  }));
+  });
 
-  // Load textures after the hero has painted.
+  // Load the first photo of each chapter after the hero has painted, the rest after that.
   const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 400));
-  idle(() => planes.forEach((p) => loader.load(`img/${p.src}.webp`, (tex) => {
-    tex.minFilter = T.LinearFilter; tex.generateMipmaps = false;
-    p.u.uTex.value = tex; p.u.uReady.value = 1;
-  })));
+  const load = (p, k, done) => loader.load(`img/${p.srcs[k]}.webp`, (tex) => {
+    tex.minFilter = T.LinearFilter; tex.generateMipmaps = false; p.texs[k] = tex; done && done(tex);
+  });
+  idle(() => {
+    let first = 0;
+    planes.forEach((p) => load(p, 0, (tex) => {
+      p.u.uTex.value = tex; p.u.uNext.value = tex; p.u.uReady.value = 1;
+      if (++first === planes.length) planes.forEach((q) => q.srcs.forEach((_, k) => k && load(q, k)));
+    }));
+  });
+
+  // Photo marks under each chapter's numeral; tap to jump to a photo.
+  planes.forEach((pl) => {
+    const head = chapters[pl.floor].querySelector(".numeral");
+    const box = document.createElement("div");
+    box.className = "ticks ticks-gl"; box.setAttribute("role", "group");
+    box.setAttribute("aria-label", "Photos");
+    pl.btns = pl.srcs.map((_, k) => { const b = document.createElement("button"); b.type = "button";
+      b.setAttribute("aria-label", "Photo " + (k + 1) + " of " + pl.srcs.length); b.innerHTML = "<span></span>";
+      b.addEventListener("click", () => startSwap(pl, k)); box.appendChild(b); return b; });
+    head.after(box);
+  });
+  const HOLD = 4.2, SWAP = 1.25;
+  function startSwap(pl, k) {
+    if (pl.next >= 0 || k === pl.cur || !pl.texs[k]) return;
+    pl.next = k; pl.mixT = 0; pl.u.uNext.value = pl.texs[k];
+  }
 
   // Fish Town wave-wall glow: warm light bands behind the photos.
   const waveMat = new T.ShaderMaterial({
@@ -569,7 +641,7 @@
 
   /* ---------- Loop ---------- */
   let camY = 0, bend = 0, lastP = progress(), mx = 0, my = 0, active = false;
-  let hasMouse = false, tiltX = 0, tiltY = 0;
+  let hasMouse = false, tiltX = 0, tiltY = 0, lastT = 0;
   addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") { hasMouse = true; mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; } });
   // Android sends orientation without a permission prompt; iOS simply won't fire.
   addEventListener("deviceorientation", (e) => {
@@ -610,7 +682,26 @@
     camera.position.set(mx * 1.2, camY - my * 0.6, 16);
     camera.lookAt(mx * 0.4, camY, 0);
 
+    const dt = Math.min(0.1, t - lastT); lastT = t;
     planes.forEach((pl) => {
+      const onCh = Math.abs(cm - pl.floor) < 0.3;
+      if (pl.next >= 0) {
+        pl.mixT += dt / SWAP;
+        const k = Math.min(1, pl.mixT);
+        pl.u.uMix.value = k * k * (3 - 2 * k);
+        pl.u.uZb.value = 1 + 0.05 * Math.min(1, (pl.mixT * SWAP) / (HOLD + SWAP));
+        if (pl.mixT >= 1) {
+          pl.u.uTex.value = pl.u.uNext.value; pl.u.uZa.value = pl.u.uZb.value;
+          pl.cur = pl.next; pl.next = -1; pl.u.uMix.value = 0; pl.age = SWAP;
+        }
+      } else if (onCh) {
+        pl.age += dt;
+        pl.u.uZa.value = 1 + 0.05 * Math.min(1, pl.age / (HOLD + SWAP));
+        if (pl.age > HOLD + SWAP) startSwap(pl, (pl.cur + 1) % pl.srcs.length);
+      }
+      const shown = pl.next >= 0 && pl.u.uMix.value > 0.5 ? pl.next : pl.cur;
+      pl.btns.forEach((b, i) => { b.classList.toggle("on", i === shown);
+        b.style.setProperty("--f", i === shown ? (pl.next >= 0 ? 0 : Math.min(1, Math.max(0, (pl.age - SWAP) / HOLD))).toFixed(3) : 0); });
       const d = Math.abs(camY / FLOOR - pl.floor);
       const reveal = Math.max(0, Math.min(1, 1.25 - d * 1.4));
       pl.u.uReveal.value += (reveal * 1.1 - pl.u.uReveal.value) * 0.12;
