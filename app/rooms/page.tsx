@@ -27,7 +27,7 @@ export default function RoomsPage() {
   const p = PHOTOS.rooms;
   return (
     <div className="bg-paper text-charcoal">
-      <PageHero image={p[0].src} alt={p[0].alt} height="medium">
+      <PageHero image={p[0].src} alt={p[0].alt}>
         <Eyebrow className="text-brass-light">Stay · Hotel New Town</Eyebrow>
         <h1 className="display mt-6">Ten rooms.</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">

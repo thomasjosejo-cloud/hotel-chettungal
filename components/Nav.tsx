@@ -30,6 +30,7 @@ export default function Nav() {
   const solid = scrolled || open;
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 text-ivory transition-[background-color,padding,border-color] duration-500 ${
         solid
@@ -55,7 +56,7 @@ export default function Nav() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex xl:gap-10">
+        <nav aria-label="Primary" className="hidden items-center gap-8 xl:flex 2xl:gap-10">
           {NAV.map((item) => {
             const active = pathname === item.href;
             return (
@@ -90,7 +91,7 @@ export default function Nav() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="relative -mr-2 flex h-11 w-11 items-center justify-center lg:hidden"
+          className="relative -mr-2 flex h-11 w-11 items-center justify-center xl:hidden"
         >
           <span
             className={`absolute h-px w-6 bg-ivory transition-transform duration-300 ${
@@ -105,11 +106,15 @@ export default function Nav() {
         </button>
       </div>
 
+    </header>
+
       {/* Mobile menu */}
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-[68px] overflow-y-auto bg-charcoal lg:hidden"
+        // Sibling of <header>, not a child: the header's backdrop-blur would make it
+        // the containing block and collapse this fixed panel to 0px tall.
+        className="fixed inset-0 z-[45] overflow-y-auto bg-charcoal pt-[76px] text-ivory xl:hidden"
       >
         <nav aria-label="Mobile" className="container-x flex min-h-full flex-col pb-10 pt-8">
           <ol className="flex flex-col">
@@ -152,6 +157,6 @@ export default function Nav() {
           </div>
         </nav>
       </div>
-    </header>
+    </>
   );
 }

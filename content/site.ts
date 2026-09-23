@@ -51,6 +51,7 @@ export const WA = {
 } as const;
 
 export const NAV = [
+  { href: "/", label: "Home" },
   { href: "/casabay", label: "CasaBay" },
   { href: "/fishtown", label: "Fish Town" },
   { href: "/town-hall", label: "Town Hall" },

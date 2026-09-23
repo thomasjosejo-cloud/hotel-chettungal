@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { Photo } from "@/content/site";
+import { blurFor } from "@/content/blur";
 
 // Repeating editorial rhythm on a 12-column grid (desktop); single column on mobile.
 const LAYOUT = [
@@ -73,6 +74,8 @@ export default function Gallery({
                 alt={p.alt}
                 fill
                 sizes="(min-width: 768px) 60vw, 100vw"
+                placeholder={blurFor(p.src) ? "blur" : "empty"}
+                blurDataURL={blurFor(p.src)}
                 className="img-zoom object-cover"
               />
             </button>

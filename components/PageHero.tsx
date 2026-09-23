@@ -1,10 +1,13 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { blurFor } from "@/content/blur";
 
 /**
  * Full-bleed photographic hero. Copy sits low and left (editorial), never a
- * centred stack. `tint` sets the colour the image fades into at the bottom so
- * each sub-brand hands off into its own page ground.
+ * centred stack. The section paints its own dark ground and a blurred preview
+ * of the photo on first paint, so there is no light flash while the photo
+ * loads. `tint` sets the colour the image fades into at the bottom so each
+ * sub-brand hands off into its own page ground.
  */
 export default function PageHero({
   image,
@@ -21,15 +24,17 @@ export default function PageHero({
   position?: string;
   children: ReactNode;
 }) {
+  const ground = { charcoal: "bg-charcoal", night: "bg-night", navy: "bg-navy" }[tint];
   const fade = {
     charcoal: "from-charcoal via-charcoal/45",
     night: "from-night via-night/50",
     navy: "from-navy via-navy/45",
   }[tint];
+  const blur = blurFor(image);
 
   return (
     <section
-      className={`relative isolate flex items-end overflow-hidden text-ivory ${
+      className={`relative isolate flex items-end overflow-hidden text-ivory ${ground} ${
         height === "tall" ? "min-h-[100svh]" : "min-h-[78svh]"
       }`}
     >
@@ -40,6 +45,8 @@ export default function PageHero({
           fill
           priority
           sizes="100vw"
+          placeholder={blur ? "blur" : "empty"}
+          blurDataURL={blur}
           className="ken-burns object-cover"
           style={{ objectPosition: position }}
         />

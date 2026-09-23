@@ -15,7 +15,7 @@ const TONES: Record<Tone, string> = {
 };
 
 const BASE =
-  "inline-flex min-h-12 items-center justify-center gap-3 px-7 py-3.5 text-[0.8125rem] font-medium uppercase tracking-[0.18em] transition-colors duration-300";
+  "inline-flex min-h-12 items-center justify-center gap-3 whitespace-nowrap px-7 py-3.5 text-[0.8125rem] font-medium uppercase tracking-[0.18em] transition-colors duration-300";
 
 export function Button({
   href,

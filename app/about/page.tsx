@@ -18,7 +18,7 @@ export default function AboutPage() {
   const p = PHOTOS.location;
   return (
     <div className="bg-paper text-charcoal">
-      <PageHero image={p[3].src} alt={p[3].alt} height="medium">
+      <PageHero image={p[3].src} alt={p[3].alt}>
         <Eyebrow className="text-brass-light">About the hotel</Eyebrow>
         <h1 className="display mt-6 max-w-3xl">
           One address, <em className="text-brass-light">every occasion.</em>

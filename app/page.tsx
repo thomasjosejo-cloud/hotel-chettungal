@@ -5,6 +5,15 @@ import PageHero from "@/components/PageHero";
 import EnquiryBand from "@/components/EnquiryBand";
 import { Button, Eyebrow, Numeral, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, VENUES, WA, whatsapp } from "@/content/site";
+import { blurFor } from "@/content/blur";
+
+// Each venue keeps its own colour world on the dark home page.
+const WORLD: Record<string, { band: string; accent: string }> = {
+  casabay: { band: "bg-night", accent: "text-ember" },
+  fishtown: { band: "bg-navy", accent: "text-brass-light" },
+  "town-hall": { band: "bg-[#2a2118]", accent: "text-brass-light" },
+  "board-room": { band: "bg-charcoal", accent: "text-brass-light" },
+};
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -56,23 +65,24 @@ export default function Home() {
       </PageHero>
 
       {/* Statement */}
-      <section className="bg-paper py-24 md:py-36">
+      <section className="bg-ink py-24 text-ivory md:py-36">
         <div className="container-x grid gap-10 md:grid-cols-12">
-          <Eyebrow className="text-brass-text md:col-span-3 md:pt-3">More than a stay</Eyebrow>
-          <p className="statement text-charcoal md:col-span-9" data-reveal>
+          <Eyebrow className="text-brass-light md:col-span-3 md:pt-3">More than a stay</Eyebrow>
+          <p className="statement md:col-span-9" data-reveal>
             Hotel New Town is built around the table, not the bed. Four spaces for eating, drinking, meeting and
-            celebrating, <span className="italic text-brass-text">and ten rooms for when the evening runs long.</span>
+            celebrating, <span className="italic text-brass-light">and ten rooms for when the evening runs long.</span>
           </p>
         </div>
       </section>
 
-      {/* The four venues */}
-      <section className="bg-paper pb-12 md:pb-24" aria-label="Venues">
-        <div className="container-x grid gap-24 md:gap-36">
-          {VENUES.map((v, i) => {
-            const flip = i % 2 === 1;
-            return (
-              <article key={v.slug} className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
+      {/* The four venues — each in its own colour world */}
+      <div aria-label="Venues" role="region">
+        {VENUES.map((v, i) => {
+          const flip = i % 2 === 1;
+          const w = WORLD[v.slug];
+          return (
+            <section key={v.slug} className={`${w.band} py-20 text-ivory md:py-32`}>
+              <article className="container-x grid items-center gap-8 md:grid-cols-12 md:gap-12">
                 <Link
                   href={v.href}
                   className={`group relative block aspect-[4/3] overflow-hidden md:col-span-7 ${flip ? "md:order-2 md:col-start-6" : ""}`}
@@ -80,30 +90,42 @@ export default function Home() {
                   tabIndex={-1}
                   aria-hidden
                 >
-                  <Image src={v.image.src} alt={v.image.alt} fill sizes="(min-width: 768px) 58vw, 100vw" className="img-zoom object-cover" />
+                  <Image
+                    src={v.image.src}
+                    alt={v.image.alt}
+                    fill
+                    sizes="(min-width: 768px) 58vw, 100vw"
+                    placeholder={blurFor(v.image.src) ? "blur" : "empty"}
+                    blurDataURL={blurFor(v.image.src)}
+                    className="img-zoom object-cover"
+                  />
                 </Link>
                 <div
                   className={`md:col-span-5 ${flip ? "md:order-1 md:col-start-1 md:row-start-1 md:pr-6" : "md:pl-6"}`}
                   data-reveal
                   style={{ ["--reveal-delay" as string]: "120ms" }}
                 >
-                  <Numeral n={v.numeral} className="text-brass-text" />
-                  <Eyebrow className="mt-8 text-muted">{v.kind}</Eyebrow>
-                  <h2 className="h2 mt-3 text-charcoal">{v.name}</h2>
-                  <p className="mt-3 font-serif text-2xl italic text-brass-text">{v.line}</p>
-                  <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-muted">{v.body}</p>
-                  <Link href={v.href} className="link-arrow mt-9 text-charcoal">
+                  <Numeral n={v.numeral} className={w.accent} />
+                  <Eyebrow className="mt-8 text-mist">{v.kind}</Eyebrow>
+                  {v.slug === "casabay" ? (
+                    <h2 className="mt-3 font-casa text-[clamp(3rem,2.2rem+3vw,4.75rem)] leading-none text-ember">{v.name}</h2>
+                  ) : (
+                    <h2 className="h2 mt-3">{v.name}</h2>
+                  )}
+                  <p className={`mt-3 font-serif text-2xl italic ${w.accent}`}>{v.line}</p>
+                  <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-ivory/75">{v.body}</p>
+                  <Link href={v.href} className="link-arrow mt-9 text-ivory">
                     Explore {v.name.replace(/^The /, "")} <span aria-hidden>→</span>
                   </Link>
                 </div>
               </article>
-            );
-          })}
-        </div>
-      </section>
+            </section>
+          );
+        })}
+      </div>
 
       {/* Stay */}
-      <section className="bg-charcoal text-ivory">
+      <section className="bg-ink text-ivory">
         <div className="grid lg:grid-cols-2">
           <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[640px]">
             <Image src={PHOTOS.rooms[0].src} alt={PHOTOS.rooms[0].alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
@@ -116,7 +138,7 @@ export default function Home() {
                 Air-conditioned rooms with a work desk, television, tea station and en-suite shower. For wedding
                 guests, visiting teams and anyone passing through Angamaly.
               </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-10 flex flex-col flex-wrap gap-3 sm:flex-row">
                 <Button href="/rooms" tone="outline-light">
                   See the rooms
                 </Button>
@@ -130,21 +152,21 @@ export default function Home() {
       </section>
 
       {/* Location */}
-      <section className="bg-ivory py-24 md:py-32">
+      <section className="bg-night-2 py-24 text-ivory md:py-32">
         <div className="container-x grid items-end gap-12 md:grid-cols-12">
           <div className="md:col-span-5" data-reveal>
-            <Eyebrow className="text-brass-text">Find us</Eyebrow>
-            <h2 className="h2 mt-5 text-charcoal">On NH 544, in Angamaly.</h2>
-            <address className="mt-6 not-italic text-[1.0625rem] leading-relaxed text-muted">
+            <Eyebrow className="text-brass-light">Find us</Eyebrow>
+            <h2 className="h2 mt-5">On NH 544, in Angamaly.</h2>
+            <address className="mt-6 not-italic text-[1.0625rem] leading-relaxed text-mist">
               {SITE.address.line}
               <br />
               {SITE.address.region} {SITE.address.pincode}
             </address>
             <div className="mt-9 flex flex-wrap gap-x-10 gap-y-4">
-              <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="link-arrow text-charcoal">
+              <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="link-arrow text-ivory">
                 Get directions <span aria-hidden>↗</span>
               </a>
-              <Link href="/about" className="link-arrow text-charcoal">
+              <Link href="/about" className="link-arrow text-ivory">
                 About the hotel <span aria-hidden>→</span>
               </Link>
             </div>
