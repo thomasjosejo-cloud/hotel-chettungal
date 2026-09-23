@@ -20,6 +20,8 @@ import Property3DNavigator from "@/components/3d/Property3DNavigator";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { SITE_CONFIG } from "@/content/site-config";
+import ScrollReveal from "@/components/motion/ScrollReveal";
+import StaggerChildren from "@/components/motion/StaggerChildren";
 
 export const metadata: Metadata = {
   title: "Hotel New Town by Chettungal | Stay · Dine · Meet · Celebrate",
@@ -92,9 +94,9 @@ export default function HomePage() {
             priority
           />
           {/* Natural Vignette: Dark at header and floor, soft glow in center, zero opaque box */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.55)_0%,transparent_75%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.25)_0%,transparent_75%)]" />
         </div>
 
         {/* Hero Content Container - Floating directly with high-contrast text shadows, NO clunky box */}
@@ -113,10 +115,6 @@ export default function HomePage() {
             <span className="italic font-light text-[#F5D061] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">Every Occasion.</span>
           </h1>
 
-          {/* Subtitle - high contrast, readable */}
-          <p className="max-w-2xl text-sm sm:text-base md:text-lg font-light text-slate-100 leading-relaxed mb-8 sm:mb-10 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-            Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.
-          </p>
 
           {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -150,24 +148,28 @@ export default function HomePage() {
 
       {/* 2. THE PROPERTY & VENUES EXPLORER */}
       <section className="bg-gradient-to-b from-[#0C101B] via-[#111726] to-[#0C101B] border-y border-[#E5C158]/20">
-        <Property3DNavigator />
+        <ScrollReveal direction="up">
+          <Property3DNavigator />
+        </ScrollReveal>
       </section>
 
       {/* 3. ATMOSPHERE & EXPERIENCES: WHY GUESTS CHOOSE CHETTUNGAL */}
       <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold block mb-2">
-            The Living Property
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight">
-            Crafted for Every Occasion
-          </h2>
-          <p className="text-sm sm:text-base text-slate-300 font-light mt-3 leading-relaxed">
-            Whether arriving from Cochin Airport for a restful stay, gathering family over fresh karimeen, or unwinding on the rooftop under night skies.
-          </p>
-        </div>
+        <ScrollReveal direction="up">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold block mb-2">
+              The Living Property
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight">
+              Crafted for Every Occasion
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 font-light mt-3 leading-relaxed">
+              Whether arriving from Cochin Airport for a restful stay, gathering family over fresh karimeen, or unwinding on the rooftop under night skies.
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {/* Experience Card 1 */}
           <TiltCard3D maxTilt={6} className="h-full rounded-sm">
             <div className="h-full flex flex-col rounded-sm overflow-hidden border border-white/10 bg-[#111726]/70 hover:border-[#E5C158]/40 transition-all duration-300 group">
@@ -290,160 +292,166 @@ export default function HomePage() {
               </div>
             </div>
           </TiltCard3D>
-        </div>
+        </StaggerChildren>
       </section>
 
       {/* 4. BOUTIQUE ACCOMMODATIONS */}
       <section className="py-20 bg-[#111726] border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5 relative aspect-[16/10] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl">
-              <Image
-                src="/images/rooms/room-hero.webp"
-                alt="Hotel New Town 10 Air Conditioned Rooms"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-xs text-slate-300 flex items-center justify-between">
-                <span>10 AC Rooms</span>
-                <span className="text-[#E5C158] font-medium">Breakfast & WiFi Included</span>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 flex flex-col justify-center">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2">
-                10 AIR-CONDITIONED ROOMS
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight mb-4">
-                Built for Rest. Connected to the Highway.
-              </h2>
-              <p className="text-sm sm:text-base font-light text-slate-300 leading-relaxed mb-6">
-                Ten quiet, sound-insulated rooms built for business transit, airport layovers, and wedding parties. Complimentary breakfast and high-speed WiFi included.
-              </p>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-200 mb-8">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Complimentary Breakfast</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>High-Speed WiFi</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Airport Transfer</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>~5 km to Kochi Airport</span>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                <Link
-                  href="/rooms"
-                  className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-md"
-                >
-                  <span>View Room Specs</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <WhatsAppCta
-                  intent="Room Stay Direct Enquiry"
-                  label="Enquire Availability"
-                  variant="outline"
-                  className="px-6 py-3 text-xs uppercase tracking-widest text-slate-200 border-white/25 hover:border-[#E5C158]"
+        <ScrollReveal direction="up">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-5 relative aspect-[16/10] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl">
+                <Image
+                  src="/images/rooms/room-hero.webp"
+                  alt="Hotel New Town 10 Air Conditioned Rooms"
+                  fill
+                  className="object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-xs text-slate-300 flex items-center justify-between">
+                  <span>10 AC Rooms</span>
+                  <span className="text-[#E5C158] font-medium">Breakfast & WiFi Included</span>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2">
+                  10 AIR-CONDITIONED ROOMS
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight mb-4">
+                  Built for Rest. Connected to the Highway.
+                </h2>
+                <p className="text-sm sm:text-base font-light text-slate-300 leading-relaxed mb-6">
+                  Ten quiet, sound-insulated rooms built for business transit, airport layovers, and wedding parties. Complimentary breakfast and high-speed WiFi included.
+                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-200 mb-8">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
+                    <span>Complimentary Breakfast</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
+                    <span>High-Speed WiFi</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
+                    <span>Airport Transfer</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
+                    <span>~5 km to Kochi Airport</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                  <Link
+                    href="/rooms"
+                    className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-md"
+                  >
+                    <span>View Room Specs</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                  <WhatsAppCta
+                    intent="Room Stay Direct Enquiry"
+                    label="Enquire Availability"
+                    variant="outline"
+                    className="px-6 py-3 text-xs uppercase tracking-widest text-slate-200 border-white/25 hover:border-[#E5C158]"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* 5. LOCATION & CONNECTIVITY */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2 block">
-              LOCATION & ARRIVAL
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight mb-4">
-              Directly on NH 544, Angamaly
-            </h2>
-            <p className="text-sm sm:text-base font-light text-slate-300 leading-relaxed mb-6">
-              Effortless access along the primary highway artery connecting Kochi Airport, railway stations, and regional transit corridors.
-            </p>
+        <ScrollReveal direction="up">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-6">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2 block">
+                LOCATION & ARRIVAL
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight mb-4">
+                Directly on NH 544, Angamaly
+              </h2>
+              <p className="text-sm sm:text-base font-light text-slate-300 leading-relaxed mb-6">
+                Effortless access along the primary highway artery connecting Kochi Airport, railway stations, and regional transit corridors.
+              </p>
 
-            <div className="space-y-3.5 text-sm text-slate-300 mb-8 font-light">
-              <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-[#E5C158] shrink-0" />
-                <span>{SITE_CONFIG.address}, {SITE_CONFIG.cityState} {SITE_CONFIG.pincode}</span>
+              <div className="space-y-3.5 text-sm text-slate-300 mb-8 font-light">
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-[#E5C158] shrink-0" />
+                  <span>{SITE_CONFIG.address}, {SITE_CONFIG.cityState} {SITE_CONFIG.pincode}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Plane className="w-4 h-4 text-[#E5C158] shrink-0" />
+                  <span>{SITE_CONFIG.proximity.airport}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Train className="w-4 h-4 text-[#E5C158] shrink-0" />
+                  <span>{SITE_CONFIG.proximity.railway}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <ShieldCheck className="w-4 h-4 text-[#E5C158] shrink-0" />
+                  <span>Complimentary on-site valet parking & 100% DG power backup</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Plane className="w-4 h-4 text-[#E5C158] shrink-0" />
-                <span>{SITE_CONFIG.proximity.airport}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Train className="w-4 h-4 text-[#E5C158] shrink-0" />
-                <span>{SITE_CONFIG.proximity.railway}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <ShieldCheck className="w-4 h-4 text-[#E5C158] shrink-0" />
-                <span>Complimentary on-site valet parking & 100% DG power backup</span>
-              </div>
+
+              <a
+                href={SITE_CONFIG.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-semibold text-[#E5C158] hover:text-white border border-[#E5C158]/30 hover:border-[#E5C158] rounded-sm transition-colors"
+              >
+                <span>Open in Google Maps Navigation</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
             </div>
 
-            <a
-              href={SITE_CONFIG.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-semibold text-[#E5C158] hover:text-white border border-[#E5C158]/30 hover:border-[#E5C158] rounded-sm transition-colors"
-            >
-              <span>Open in Google Maps Navigation</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            <div className="lg:col-span-6 relative aspect-[16/10] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl">
+              <Image
+                src="/images/location/facade.webp"
+                alt="Hotel New Town by Chettungal Facade on NH 544 Angamaly"
+                fill
+                className="object-cover brightness-95 contrast-105"
+              />
+            </div>
           </div>
-
-          <div className="lg:col-span-6 relative aspect-[16/10] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl">
-            <Image
-              src="/images/location/facade.webp"
-              alt="Hotel New Town by Chettungal Facade on NH 544 Angamaly"
-              fill
-              className="object-cover brightness-95 contrast-105"
-            />
-          </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* 6. CONVERSION BANNER */}
       <section className="py-20 bg-gradient-to-b from-[#111726] to-[#0A0D14] border-t border-[#E5C158]/25 text-center px-4">
-        <div className="max-w-3xl mx-auto flex flex-col items-center">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#E5C158] font-semibold mb-3">
-            DIRECT HOST ASSISTANCE
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-serif text-white font-normal mb-4">
-            Reserve a Table or Plan an Event
-          </h2>
-          <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed mb-8 max-w-xl">
-            Whether booking an intimate rooftop evening at CasaBay, a family feast at Fish Town, or a 120-guest banquet at Town Hall, our team responds directly on WhatsApp.
-          </p>
+        <ScrollReveal direction="fade">
+          <div className="max-w-3xl mx-auto flex flex-col items-center">
+            <span className="text-xs uppercase tracking-[0.3em] text-[#E5C158] font-semibold mb-3">
+              DIRECT HOST ASSISTANCE
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-serif text-white font-normal mb-4">
+              Reserve a Table or Plan an Event
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed mb-8 max-w-xl">
+              Whether booking an intimate rooftop evening at CasaBay, a family feast at Fish Town, or a 120-guest banquet at Town Hall, our team responds directly on WhatsApp.
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <Link
-              href="/enquire"
-              className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-lg"
-            >
-              Fill Online Enquiry Form
-            </Link>
-            <WhatsAppCta
-              intent="Direct Banner Enquiry"
-              label={`Chat on WhatsApp (${SITE_CONFIG.phone})`}
-              variant="dark"
-              className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest border-white/20"
-            />
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <Link
+                href="/enquire"
+                className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-lg"
+              >
+                Fill Online Enquiry Form
+              </Link>
+              <WhatsAppCta
+                intent="Direct Banner Enquiry"
+                label={`Chat on WhatsApp (${SITE_CONFIG.phone})`}
+                variant="dark"
+                className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest border-white/20"
+              />
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </div>
   );

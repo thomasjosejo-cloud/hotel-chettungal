@@ -18,6 +18,8 @@ import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { CASABAY_CONTENT } from "@/content/casabay";
 import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
+import ScrollReveal from "@/components/motion/ScrollReveal";
+import StaggerChildren from "@/components/motion/StaggerChildren";
 
 export default function CasaBayContent() {
   const { signatureCocktails, menuTabs, quickFacts } = CASABAY_CONTENT;
@@ -27,13 +29,6 @@ export default function CasaBayContent() {
     { label: "Setting", desc: "Open-air rooftop, full bar" },
     { label: "On the Menu", desc: "Cocktails, grills, small plates" },
     { label: "Evenings", desc: "Live music nights & sundowner hours" },
-  ];
-
-  const bestFor = [
-    "Rooftop evenings",
-    "Handcrafted mixology",
-    "Open-sky charcoal grills",
-    "Live music weekends",
   ];
 
   const filteredItems =
@@ -54,9 +49,9 @@ export default function CasaBayContent() {
             priority
           />
           {/* Natural Photographic Vignette - Zero artificial dot grid */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.45)_0%,transparent_75%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.2)_0%,transparent_75%)]" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -69,7 +64,7 @@ export default function CasaBayContent() {
           </div>
 
           {/* Master CasaBay Logo Image */}
-          <div className="relative w-72 sm:w-96 md:w-[480px] h-28 sm:h-36 mb-4 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]">
+          <div className="relative w-72 sm:w-96 md:w-[480px] h-28 sm:h-36 mb-4 filter drop-shadow-[0_6px_20px_rgba(229,193,88,0.25)]">
             <Image
               src="/branding/casabay-logo.webp"
               alt="CasaBay Wordmark"
@@ -83,23 +78,6 @@ export default function CasaBayContent() {
           <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             &ldquo;Take the evening upstairs.&rdquo;
           </p>
-
-          {/* Official Brochure Narrative */}
-          <p className="max-w-2xl text-sm sm:text-base md:text-lg text-slate-100 font-light leading-relaxed mb-8 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            CASABAY is our rooftop resto-bar for conversations, cocktails, and unhurried evenings — an elevated setting where the night moves effortlessly from after-work drinks to late-evening gatherings. Come for the view, stay for the food, raise a glass to the evening.
-          </p>
-
-          {/* Best For Tags */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-            {bestFor.map((item, idx) => (
-              <span
-                key={idx}
-                className="px-3.5 py-1 rounded-full text-xs font-light bg-black/60 text-slate-200 border border-white/20 shadow-md backdrop-blur-sm"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
 
           {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -122,33 +100,37 @@ export default function CasaBayContent() {
       {/* 2. BROCHURE SPECS STRIP */}
       <section className="py-12 bg-[#111726] border-y border-white/10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {highlights.map((h, i) => (
-              <div
-                key={i}
-                className="p-4 border-b last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 border-white/10"
-              >
-                <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold block mb-1">
-                  {h.label}
-                </span>
-                <p className="text-base sm:text-lg font-serif text-white">
-                  {h.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+          <ScrollReveal direction="up">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              {highlights.map((h, i) => (
+                <div
+                  key={i}
+                  className="p-4 border-b last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 border-white/10"
+                >
+                  <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold block mb-1">
+                    {h.label}
+                  </span>
+                  <p className="text-base sm:text-lg font-serif text-white">
+                    {h.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* 3. DEDICATED ROOFTOP MENU SECTION WITH TABS */}
       <section id="rooftop-menu" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <SectionHeader
-          eyebrow="Rooftop Menu"
-          title="Handcrafted Cocktails & Charcoal Grills"
-          subtitle="Botanical spirits, house-smoked reductions, and savory rooftop tapas curated for unhurried conversations."
-          align="center"
-          theme="dark"
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader
+            eyebrow="Rooftop Menu"
+            title="Handcrafted Cocktails & Charcoal Grills"
+            subtitle="Botanical spirits, house-smoked reductions, and savory rooftop tapas curated for unhurried conversations."
+            align="center"
+            theme="dark"
+          />
+        </ScrollReveal>
 
         {/* Interactive Menu Tabs */}
         <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar pb-4 mb-10">
@@ -171,7 +153,7 @@ export default function CasaBayContent() {
         </div>
 
         {/* Menu Items Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((drink) => (
             <TiltCard3D key={drink.id} maxTilt={6} className="rounded-sm">
               <div className="flex flex-col justify-between h-full p-6 rounded-sm bg-[#131A2B] border border-[#E5C158]/20 hover:border-[#E5C158]/60 transition-colors shadow-lg">
@@ -209,48 +191,52 @@ export default function CasaBayContent() {
               </div>
             </TiltCard3D>
           ))}
-        </div>
+        </StaggerChildren>
 
         {/* Full Menu WhatsApp Request Card */}
-        <div className="mt-12 p-8 rounded-sm bg-gradient-to-r from-[#111726] via-[#162033] to-[#111726] border border-[#E5C158]/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="flex items-center gap-4 text-left">
-            <div className="w-12 h-12 rounded-sm bg-[#E5C158]/10 border border-[#E5C158]/30 flex items-center justify-center text-[#E5C158] shrink-0">
-              <FileText className="w-6 h-6" />
+        <ScrollReveal direction="up">
+          <div className="mt-12 p-8 rounded-sm bg-gradient-to-r from-[#111726] via-[#162033] to-[#111726] border border-[#E5C158]/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+            <div className="flex items-center gap-4 text-left">
+              <div className="w-12 h-12 rounded-sm bg-[#E5C158]/10 border border-[#E5C158]/30 flex items-center justify-center text-[#E5C158] shrink-0">
+                <FileText className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-serif text-xl sm:text-2xl text-white">
+                  Want the Full Rooftop Bar & Food Menu on WhatsApp?
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-300 font-light mt-1">
+                  Receive our complete beverage list, premium spirits, mocktails, and live grill platters directly on your phone.
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="font-serif text-xl sm:text-2xl text-white">
-                Want the Full Rooftop Bar & Food Menu on WhatsApp?
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-300 font-light mt-1">
-                Receive our complete beverage list, premium spirits, mocktails, and live grill platters directly on your phone.
-              </p>
-            </div>
-          </div>
 
-          <a
-            href={buildWhatsAppLink("Request CasaBay Full Bar Menu")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-md shrink-0 whitespace-nowrap"
-          >
-            <MessageSquare className="w-4 h-4" />
-            <span>Get CasaBay Menu on WhatsApp</span>
-          </a>
-        </div>
+            <a
+              href={buildWhatsAppLink("Request CasaBay Full Bar Menu")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-md shrink-0 whitespace-nowrap"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Get CasaBay Menu on WhatsApp</span>
+            </a>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* 4. ROOFTOP AMBIENCE GALLERY WITH REAL SHOTS */}
       <section id="ambience-gallery" className="py-20 bg-[#111726] border-y border-[#E5C158]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Atmosphere"
-            title="Twilight at the Rooftop"
-            subtitle="The warm glow of wicker lamps, custom mural art, and elevated seating under the night sky."
-            align="center"
-            theme="dark"
-          />
+          <ScrollReveal direction="up">
+            <SectionHeader
+              eyebrow="Atmosphere"
+              title="Twilight at the Rooftop"
+              subtitle="The warm glow of wicker lamps, custom mural art, and elevated seating under the night sky."
+              align="center"
+              theme="dark"
+            />
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
               <Image
                 src="/images/casabay/casa-hero.webp"
@@ -328,22 +314,23 @@ export default function CasaBayContent() {
                 Cocktail Deck & Open Air
               </div>
             </div>
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* 5. DIRECT WHATSAPP RESERVATION CTA BANNER */}
       <section className="py-20 bg-gradient-to-b from-[#111726] to-[#0A0D14] border-t border-[#E5C158]/20 text-center px-4">
-        <div className="max-w-3xl mx-auto flex flex-col items-center">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2">
-            DIRECT RESERVATIONS
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-serif text-white font-normal mb-4">
-            Spend the Evening Upstairs
-          </h2>
-          <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed mb-8 max-w-xl">
-            Book your table directly with our floor team on WhatsApp for prompt table arrangements and live music night updates.
-          </p>
+        <ScrollReveal direction="fade">
+          <div className="max-w-3xl mx-auto flex flex-col items-center">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2">
+              DIRECT RESERVATIONS
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-serif text-white font-normal mb-4">
+              Spend the Evening Upstairs
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed mb-8 max-w-xl">
+              Book your table directly with our floor team on WhatsApp for prompt table arrangements and live music night updates.
+            </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <WhatsAppCta
@@ -359,7 +346,8 @@ export default function CasaBayContent() {
               Online Enquiry
             </Link>
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   );

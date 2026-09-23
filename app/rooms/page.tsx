@@ -20,6 +20,8 @@ import {
 import SectionHeader from "@/components/shared/SectionHeader";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
+import ScrollReveal from "@/components/motion/ScrollReveal";
+import StaggerChildren from "@/components/motion/StaggerChildren";
 import { ROOMS_CONTENT } from "@/content/rooms";
 import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
 
@@ -72,10 +74,9 @@ export default function RoomsPage() {
             className="object-cover brightness-90 contrast-105"
             priority
           />
-          {/* Natural Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.45)_0%,transparent_75%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.2)_0%,transparent_75%)]" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -92,10 +93,6 @@ export default function RoomsPage() {
 
           <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             &ldquo;Each built for a proper night’s rest.&rdquo;
-          </p>
-
-          <p className="max-w-2xl text-sm sm:text-base md:text-lg text-slate-100 font-light leading-relaxed mb-8 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            10 air-conditioned rooms, each built for a proper night’s rest — complimentary breakfast and high-speed WiFi included, so business stays and leisure stays get the same standard.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -117,6 +114,7 @@ export default function RoomsPage() {
       </section>
 
       {/* 2. BROCHURE INCLUSIONS STRIP */}
+      <ScrollReveal direction="up">
       <section className="py-10 bg-[#111726] border-y border-[#E5C158]/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center text-xs text-slate-200">
@@ -139,18 +137,21 @@ export default function RoomsPage() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* 3. REAL ROOM PHOTO GALLERY WITH 3D TILT */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <SectionHeader
-          eyebrow="Accommodations Gallery"
-          title="Intimate Boutique Comfort"
-          subtitle="Because we operate just ten rooms, your stay receives personal care, quiet privacy, and immediate host service."
-          align="center"
-          theme="dark"
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader
+            eyebrow="Accommodations Gallery"
+            title="Intimate Boutique Comfort"
+            subtitle="Because we operate just ten rooms, your stay receives personal care, quiet privacy, and immediate host service."
+            align="center"
+            theme="dark"
+          />
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {roomGallery.map((img, i) => (
             <TiltCard3D key={i} maxTilt={8} className="rounded-sm">
               <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 shadow-lg group">
@@ -167,10 +168,11 @@ export default function RoomsPage() {
               </div>
             </TiltCard3D>
           ))}
-        </div>
+        </StaggerChildren>
       </section>
 
       {/* 4. ROOM AMENITIES & DIRECT-RESERVATION PHILOSOPHY */}
+      <ScrollReveal direction="up">
       <section className="py-20 bg-[#111726] border-t border-white/10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto p-8 sm:p-12 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-2xl">
           <SectionHeader
@@ -215,6 +217,7 @@ export default function RoomsPage() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
     </div>
   );
 }

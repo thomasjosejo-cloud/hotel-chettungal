@@ -21,6 +21,8 @@ import WhatsAppCta from "@/components/shared/WhatsAppCta";
 import TiltCard3D from "@/components/3d/TiltCard3D";
 import { EVENTS_CONTENT } from "@/content/events";
 import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
+import ScrollReveal from "@/components/motion/ScrollReveal";
+import StaggerChildren from "@/components/motion/StaggerChildren";
 
 export default function BoardRoomContent() {
   const { boardRoom } = EVENTS_CONTENT;
@@ -62,9 +64,9 @@ export default function BoardRoomContent() {
             priority
           />
           {/* Natural Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.45)_0%,transparent_75%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.2)_0%,transparent_75%)]" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
@@ -81,10 +83,6 @@ export default function BoardRoomContent() {
 
           <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             &ldquo;A room built for focus.&rdquo;
-          </p>
-
-          <p className="max-w-2xl text-sm sm:text-base md:text-lg text-slate-100 font-light leading-relaxed mb-8 px-2 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-            Quiet, well-equipped, and ready for presentations, interviews, or closed-door discussions — a dedicated meeting room, not a converted corner.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -106,15 +104,17 @@ export default function BoardRoomContent() {
 
       {/* 2. SPECIFICATIONS & TECH MATRIX WITH 3D TILT */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <SectionHeader
-          eyebrow="Facilities & Setup"
-          title="Boardroom-Style Seating For 12"
-          subtitle="A dedicated corporate environment equipped with presentation displays and executive hospitality."
-          align="center"
-          theme="dark"
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader
+            eyebrow="Facilities & Setup"
+            title="Boardroom-Style Seating For 12"
+            subtitle="A dedicated corporate environment equipped with presentation displays and executive hospitality."
+            align="center"
+            theme="dark"
+          />
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {boardRoom.specs.map((spec, i) => (
             <TiltCard3D key={i} maxTilt={8} className="rounded-sm">
               <div className="p-6 rounded-sm bg-[#121824] border border-white/10 hover:border-[#D4AF37]/50 transition-colors h-full flex flex-col justify-between shadow-lg">
@@ -132,21 +132,23 @@ export default function BoardRoomContent() {
               </div>
             </TiltCard3D>
           ))}
-        </div>
+        </StaggerChildren>
       </section>
 
       {/* 3. REAL BOARDROOM GALLERY */}
       <section className="py-20 bg-[#111726] border-y border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Corporate Ambiance"
-            title="The Meeting Suite"
-            subtitle="Explore the boardroom table, grey executive ergonomic armchairs, and acoustic lighting."
-            align="center"
-            theme="dark"
-          />
+          <ScrollReveal direction="up">
+            <SectionHeader
+              eyebrow="Corporate Ambiance"
+              title="The Meeting Suite"
+              subtitle="Explore the boardroom table, grey executive ergonomic armchairs, and acoustic lighting."
+              align="center"
+              theme="dark"
+            />
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-white/10 shadow-2xl group">
               <Image
                 src="/images/board-room/boardroom-hero.webp"
@@ -198,12 +200,13 @@ export default function BoardRoomContent() {
                 Distraction-Free Setting for Strategic Decisions
               </div>
             </div>
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* 4. CORPORATE ENQUIRY FORM */}
       <section id="corporate-enquiry" className="py-24 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+        <ScrollReveal direction="up">
         <div className="p-8 sm:p-10 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-2xl">
           <div className="text-center mb-8">
             <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold">
@@ -317,6 +320,7 @@ export default function BoardRoomContent() {
             </button>
           </form>
         </div>
+        </ScrollReveal>
       </section>
     </div>
   );
