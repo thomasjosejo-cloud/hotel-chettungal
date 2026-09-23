@@ -52,50 +52,49 @@ export default function TownHallContent() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. HERO SECTION WITH REAL TOWN HALL PHOTO */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* 1. HERO SECTION - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
+      <section className="relative min-h-[92vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/town-hall/hall-lighting.webp"
             alt="Town Hall Banquet Arena at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-95 contrast-105"
+            className="object-cover object-center brightness-100"
             priority
           />
-          {/* Natural Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.2)_0%,transparent_75%)]" />
+          {/* Subtle top header gradient & deep bottom gradient for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/85 to-transparent h-3/5 sm:h-1/2" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-lg">
+        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-4 shadow-lg">
             <Users className="w-3.5 h-3.5 text-[#E5C158]" />
             <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               Indoor Venue · Up to 120 Guests · NH 544, Angamaly
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             Town Hall
           </h1>
 
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
             &ldquo;Where the whole guest list fits.&rdquo;
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <a
               href="#enquiry-form"
-              className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-lg"
+              className="inline-flex items-center justify-center px-7 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-xl"
             >
               Check Date & Get Quotation
             </a>
             <WhatsAppCta
               intent="Town Hall Quick Banquet Enquiry"
-              label={`WhatsApp Banquet Team (${SITE_CONFIG.phone})`}
+              label="WhatsApp Banquet Team"
               variant="dark"
-              className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest border border-white/20"
+              className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/60 backdrop-blur-md shadow-lg"
             />
           </div>
         </div>

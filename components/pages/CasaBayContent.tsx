@@ -38,58 +38,59 @@ export default function CasaBayContent() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. CINEMATIC CASABAY HERO - REAL COCKTAIL DECK PHOTO */}
-      <section className="relative min-h-[94vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* 1. CINEMATIC CASABAY HERO - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
+      <section className="relative min-h-[94vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/casabay/casa-cocktail-deck.webp"
             alt="CasaBay Rooftop Restobar at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-95 contrast-105"
+            className="object-cover object-center brightness-100"
             priority
           />
-          {/* Natural Photographic Vignette - Zero artificial dot grid */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.2)_0%,transparent_75%)]" />
+          {/* Subtle top header gradient & deep bottom gradient for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/80 to-transparent h-3/5 sm:h-1/2" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#E5C158]/40 shadow-lg backdrop-blur-md mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 shadow-lg backdrop-blur-md mb-4">
             <Wine className="w-3.5 h-3.5 text-[#E5C158]" />
             <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               Rooftop Resto-Bar · NH 544, Angamaly
             </span>
           </div>
 
+          <h1 className="sr-only">CasaBay Rooftop Resto-Bar</h1>
+
           {/* Master CasaBay Logo Image */}
-          <div className="relative w-72 sm:w-96 md:w-[480px] h-28 sm:h-36 mb-4 filter drop-shadow-[0_6px_20px_rgba(229,193,88,0.25)]">
+          <div className="relative w-64 sm:w-80 md:w-[420px] h-20 sm:h-28 mb-3 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
             <Image
               src="/branding/casabay-logo.webp"
               alt="CasaBay Wordmark"
               fill
-              className="object-contain"
+              className="object-contain object-left"
               priority
             />
           </div>
 
           {/* Brochure Tagline */}
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             &ldquo;Take the evening upstairs.&rdquo;
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <WhatsAppCta
               intent="CasaBay Rooftop Reservation"
-              label={`Reserve Table on WhatsApp (${SITE_CONFIG.phone})`}
+              label="Reserve Table on WhatsApp"
               variant="gold"
-              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest shadow-2xl font-bold"
+              className="px-7 py-3.5 text-xs uppercase tracking-widest shadow-2xl font-bold"
             />
             <a
               href="#rooftop-menu"
-              className="w-full sm:w-auto px-7 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-semibold text-slate-100 hover:text-white border border-[#E5C158]/50 hover:border-[#E5C158] rounded-sm transition-all bg-black/60 backdrop-blur-md shadow-xl"
+              className="inline-flex items-center justify-center px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-100 hover:text-white border border-[#E5C158]/50 hover:border-[#E5C158] rounded-sm transition-all bg-black/60 backdrop-blur-md shadow-xl"
             >
               Explore Drinks & Tapas
             </a>
@@ -291,14 +292,14 @@ export default function CasaBayContent() {
 
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
               <Image
-                src="/images/casabay/casa-cozy-corner.webp"
-                alt="CasaBay Cozy Corner Seating"
+                src="/images/casabay/casa-cabana.webp"
+                alt="CasaBay Private Cabana Seating"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-4 left-4 text-xs font-serif text-slate-200">
-                Intimate Corner Seating & Murals
+                Private Cabana Lounging & Twilight
               </div>
             </div>
 
@@ -335,7 +336,7 @@ export default function CasaBayContent() {
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <WhatsAppCta
               intent="CasaBay Evening Table Booking"
-              label={`WhatsApp: ${SITE_CONFIG.phone}`}
+              label="Chat on WhatsApp"
               variant="gold"
               className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest shadow-lg font-bold"
             />

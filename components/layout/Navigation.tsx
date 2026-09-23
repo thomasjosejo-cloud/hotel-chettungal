@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { href: "/fishtown", label: "Fish Town", badge: "Dining" },
   { href: "/town-hall", label: "Town Hall", badge: "120 Pax" },
   { href: "/board-room", label: "Board Room", badge: "Meeting" },
-  { href: "/rooms", label: "Rooms", badge: "10 Suites" },
+  { href: "/rooms", label: "Rooms", badge: "10 Rooms" },
   { href: "/about", label: "About" },
   { href: "/enquire", label: "Enquire", isCta: true },
 ];
@@ -112,7 +112,7 @@ export default function Navigation() {
             <Phone className="w-4 h-4" />
           </a>
           <a
-            href={buildWhatsAppLink("Navigation Quick Contact")}
+            href={buildWhatsAppLink("General Hotel Enquiry")}
             target="_blank"
             rel="noopener noreferrer"
             className="p-2.5 text-[#E5C158] hover:text-white border border-[#E5C158]/30 rounded-sm hover:bg-[#E5C158]/10 transition-colors"
@@ -174,13 +174,13 @@ export default function Navigation() {
 
           <div className="pt-4 flex flex-col gap-3">
             <a
-              href={buildWhatsAppLink("Mobile Menu Direct Enquiry")}
+              href={buildWhatsAppLink("General Hotel Enquiry")}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B]"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>WhatsApp: {SITE_CONFIG.phone}</span>
+              <span>Chat on WhatsApp</span>
             </a>
             <a
               href={`tel:${SITE_CONFIG.phoneRaw}`}

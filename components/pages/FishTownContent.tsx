@@ -50,58 +50,59 @@ export default function FishTownContent() {
 
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. CINEMATIC FISH TOWN HERO - NATURAL PHOTOGRAPHIC WARMTH */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* 1. CINEMATIC FISH TOWN HERO - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
+      <section className="relative min-h-[92vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/fishtown/restaurant-hero.webp"
             alt="Fish Town Restaurant Interior at Chettungal New Town Hotel"
             fill
-            className="object-cover brightness-95 contrast-105"
+            className="object-cover object-center brightness-100"
             priority
           />
-          {/* Natural Photographic Vignette: Dark at header and floor, glowing clarity in center */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.2)_0%,transparent_75%)]" />
+          {/* Subtle top header gradient & deep bottom gradient for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/80 to-transparent h-3/5 sm:h-1/2" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#E5C158]/40 shadow-lg backdrop-blur-md mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 shadow-lg backdrop-blur-md mb-4">
             <Utensils className="w-3.5 h-3.5 text-[#E5C158]" />
             <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
               Multi-Cuisine Dining · NH 544, Angamaly
             </span>
           </div>
 
-          {/* Fish Town Master Logo */}
-          <div className="relative w-72 sm:w-96 md:w-[480px] h-28 sm:h-32 mb-4 filter drop-shadow-[0_6px_20px_rgba(229,193,88,0.25)]">
+          <h1 className="sr-only">Fish Town Multi-Cuisine Restaurant</h1>
+
+          {/* Fish Town Master Logo - Clean Transparent Ivory & Gold */}
+          <div className="relative w-64 sm:w-80 md:w-[420px] h-20 sm:h-28 mb-3 filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
             <Image
-              src="/branding/fishtown-logo.webp"
+              src="/branding/fishtown-logo-ivory.png"
               alt="Fish Town Restaurant Logo"
               fill
-              className="object-contain"
+              className="object-contain object-left"
               priority
             />
           </div>
 
           {/* Brochure Tagline */}
-          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          <p className="font-serif text-2xl sm:text-3xl text-[#F5D061] italic mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             &ldquo;Fresh catch. Local soul.&rdquo;
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <WhatsAppCta
               intent="Fish Town Table Booking"
-              label={`Reserve Table on WhatsApp (${SITE_CONFIG.phone})`}
+              label="Reserve Table on WhatsApp"
               variant="gold"
-              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest shadow-2xl font-bold"
+              className="px-7 py-3.5 text-xs uppercase tracking-widest shadow-2xl font-bold"
             />
             <a
               href="#dining-menu"
-              className="w-full sm:w-auto px-7 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-semibold text-slate-100 hover:text-white border border-[#E5C158]/50 hover:border-[#E5C158] rounded-sm transition-all bg-black/60 backdrop-blur-md shadow-xl"
+              className="inline-flex items-center justify-center px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-100 hover:text-white border border-[#E5C158]/50 hover:border-[#E5C158] rounded-sm transition-all bg-black/60 backdrop-blur-md shadow-xl"
             >
               Explore The Menu
             </a>
@@ -165,79 +166,58 @@ export default function FishTownContent() {
             })}
           </div>
 
-          {/* Dish Grid */}
-          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredDishes.map((dish, idx) => (
-              <TiltCard3D key={dish.id} maxTilt={6} className="rounded-sm shadow-md">
-                <div className="flex flex-col bg-[#131A2B] rounded-sm overflow-hidden border border-[#E5C158]/20 hover:border-[#E5C158]/50 transition-colors h-full">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/60">
-                    <Image
-                      src={
-                        [
-                          "/images/fishtown/restaurant-wave-wall.webp",
-                          "/images/fishtown/restaurant-intimate.webp",
-                          "/images/fishtown/restaurant-buffet.webp",
-                          "/images/fishtown/restaurant-wide.webp",
-                          "/images/fishtown/restaurant-2.webp",
-                          "/images/fishtown/restaurant-4.webp",
-                        ][idx % 6]
-                      }
-                      alt={dish.name}
-                      fill
-                      className="object-cover transition-transform duration-500 hover:scale-105 brightness-95"
-                    />
-                    {dish.badge && (
-                      <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/30 rounded-sm shadow">
-                          {dish.badge}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute bottom-3 right-3">
-                      <span className="px-2 py-0.5 text-[10px] font-medium tracking-wide bg-[#0C101B]/90 text-slate-200 border border-white/10 rounded-sm">
-                        {dish.cuisine}
+          {/* Curated Signature Dishes Grid */}
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredDishes.map((dish) => (
+              <div
+                key={dish.id}
+                className="flex flex-col justify-between p-6 sm:p-7 bg-[#131A2B]/90 rounded-sm border border-[#E5C158]/25 hover:border-[#E5C158]/60 transition-all duration-300 shadow-lg group hover:translate-y-[-2px]"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    {dish.badge ? (
+                      <span className="px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-[#E5C158]/15 text-[#E5C158] border border-[#E5C158]/30 rounded-sm">
+                        {dish.badge}
                       </span>
-                    </div>
+                    ) : <span />}
+                    <span
+                      className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded-sm border ${
+                        dish.dietary === "Veg"
+                          ? "text-emerald-400 border-emerald-500/30 bg-emerald-950/40"
+                          : dish.dietary === "Seafood"
+                          ? "text-cyan-400 border-cyan-500/30 bg-cyan-950/40"
+                          : "text-amber-400 border-amber-500/30 bg-amber-950/40"
+                      }`}
+                    >
+                      {dish.dietary}
+                    </span>
                   </div>
 
-                  <div className="p-6 flex flex-col justify-between flex-grow">
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-1.5">
-                        <h3 className="font-serif text-2xl text-white">
-                          {dish.name}
-                        </h3>
-                        <span
-                          className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded-sm border ${
-                            dish.dietary === "Veg"
-                              ? "text-emerald-400 border-emerald-500/30 bg-emerald-950/40"
-                              : dish.dietary === "Seafood"
-                              ? "text-cyan-400 border-cyan-500/30 bg-cyan-950/40"
-                              : "text-amber-400 border-amber-500/30 bg-amber-950/40"
-                          }`}
-                        >
-                          {dish.dietary}
-                        </span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed mb-4">
-                        {dish.description}
-                      </p>
-                    </div>
+                  <h3 className="font-serif text-2xl text-white group-hover:text-[#E5C158] transition-colors mb-1">
+                    {dish.name}
+                  </h3>
+                  <span className="text-[11px] uppercase tracking-widest text-[#E5C158]/80 font-mono block mb-3">
+                    {dish.cuisine}
+                  </span>
 
-                    <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                      <span>Service: {dish.timing}</span>
-                      <a
-                        href={buildWhatsAppLink(`Dish Order Enquiry: ${dish.name}`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#E5C158] hover:underline font-semibold flex items-center gap-1"
-                      >
-                        <span>Reserve on WhatsApp</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </a>
-                    </div>
-                  </div>
+                  <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed mb-6">
+                    {dish.description}
+                  </p>
                 </div>
-              </TiltCard3D>
+
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                  <span className="font-mono text-[11px] text-slate-400">{dish.timing}</span>
+                  <a
+                    href={buildWhatsAppLink("Fish Town Table Booking", { Dish: dish.name })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#E5C158] hover:text-white font-semibold flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>Reserve Dish</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
             ))}
           </StaggerChildren>
 

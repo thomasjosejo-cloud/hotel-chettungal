@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import TownHallContent from "@/components/pages/TownHallContent";
 
 export const metadata: Metadata = {
-  title: "Town Hall — 120 Pax Banquet & Event Arena | Chettungal",
+  title: "Town Hall Banquet Venue",
   description: "Host weddings, corporate events, and celebrations for up to 120 guests at Town Hall, Hotel New Town by Chettungal, Angamaly.",
   openGraph: {
     title: "Town Hall — 120 Pax Banquet & Event Arena | Chettungal",

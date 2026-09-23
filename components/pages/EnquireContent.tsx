@@ -48,6 +48,7 @@ export default function EnquireContent() {
   return (
     <div className="bg-[#0C101B] text-slate-100 min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
+        <h1 className="sr-only">Enquire & Reservations — Hotel New Town by Chettungal</h1>
         <SectionHeader
           eyebrow="Direct Host Enquiries"
           title="Connect with Chettungal"

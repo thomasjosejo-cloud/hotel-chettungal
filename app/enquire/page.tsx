@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import EnquireContent from "@/components/pages/EnquireContent";
 
 export const metadata: Metadata = {
-  title: "Enquire — Book a Table, Plan an Event | Chettungal",
+  title: "Enquire & Reservations",
   description: "Send your enquiry for dining reservations, banquet events, meeting room bookings, or room stays at Hotel New Town by Chettungal.",
   openGraph: {
     title: "Enquire — Book a Table, Plan an Event | Chettungal",

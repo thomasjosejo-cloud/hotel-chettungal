@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import FishTownContent from "@/components/pages/FishTownContent";
 
 export const metadata: Metadata = {
-  title: "Fish Town Restaurant | Hotel New Town by Chettungal",
+  title: "Fish Town Restaurant",
   description:
     "Fresh catch. Local soul. Multi-cuisine dining featuring coastal fish curries, tandoor, biryani, Chinese & continental favorites in Angamaly, Kerala.",
   openGraph: {

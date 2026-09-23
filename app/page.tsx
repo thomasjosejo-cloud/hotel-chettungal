@@ -82,67 +82,62 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 1. CINEMATIC LUXURY HERO SECTION */}
-      <section className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* 1. CINEMATIC LUXURY HERO SECTION - BOTTOM-ALIGNED EDITORIAL LAYOUT */}
+      <section className="relative min-h-[96vh] sm:min-h-screen flex items-end justify-start pt-32 pb-14 sm:pb-20 px-6 sm:px-10 lg:px-16">
         {/* Full Vibrancy Reception Counter Photo */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/location/reception-counter.webp"
             alt="Hotel New Town by Chettungal Reception & Front Desk"
             fill
-            className="object-cover object-center brightness-95 contrast-105"
+            className="object-cover object-center brightness-100"
             priority
           />
-          {/* Natural Vignette: Dark at header and floor, soft glow in center, zero opaque box */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent h-44" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/35 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(12,16,27,0.25)_0%,transparent_75%)]" />
+          {/* Subtle top header gradient & deep bottom gradient for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent h-36" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/85 to-transparent h-3/5 sm:h-1/2" />
         </div>
 
-        {/* Hero Content Container - Floating directly with high-contrast text shadows, NO clunky box */}
-        <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-          {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-[#E5C158]/40 backdrop-blur-md mb-6 shadow-lg">
-            <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-              Stay · Dine · Meet · Celebrate
-            </span>
-          </div>
+        {/* Hero Content Container - Bottom-Left Aligned */}
+        <div className="relative z-10 max-w-3xl text-left flex flex-col items-start">
+          <ScrollReveal direction="up">
+            {/* Eyebrow Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-4 shadow-lg">
+              <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
+                Stay · Dine · Meet · Celebrate
+              </span>
+            </div>
 
-          {/* Clean, Punchy Headline with High Contrast Text Shadows */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-white tracking-tight leading-[1.08] mb-4 sm:mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-            One Address, <br />
-            <span className="italic font-light text-[#F5D061] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">Every Occasion.</span>
-          </h1>
+            {/* Clean, Punchy Headline */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif text-white tracking-tight leading-[1.08] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+              One Address, <br />
+              <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
+            </h1>
 
+            {/* Crisp One-Line Subtitle */}
+            <p className="text-sm sm:text-base font-light text-slate-200 max-w-xl leading-relaxed mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+              Rooms, rooftop resto-bar, multi-cuisine dining, and 120-guest banquet hall on NH 544, Angamaly.
+            </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <a
-              href="#hotel-venues"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-2xl hover:scale-102 duration-300"
-            >
-              <Compass className="w-4 h-4" />
-              <span>Explore The Hotel</span>
-            </a>
+            {/* Action CTAs */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto">
+              <a
+                href="#hotel-venues"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl"
+              >
+                <Compass className="w-4 h-4" />
+                <span>Explore The Hotel</span>
+              </a>
 
-            <WhatsAppCta
-              intent="General Hotel Enquiry"
-              label={`WhatsApp: ${SITE_CONFIG.phone}`}
-              variant="dark"
-              className="w-full sm:w-auto px-6 py-3.5 sm:py-4 text-xs uppercase tracking-widest border border-[#E5C158]/40 bg-black/60 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-xl"
-            />
-          </div>
-
-          {/* Smooth Scroll Cue */}
-          <a
-            href="#hotel-venues"
-            aria-label="Scroll down"
-            className="mt-12 sm:mt-16 text-slate-300 hover:text-[#E5C158] transition-colors flex flex-col items-center gap-1.5 opacity-80 hover:opacity-100 drop-shadow-md"
-          >
-            <span className="text-[10px] uppercase tracking-widest font-mono">Discover</span>
-            <ChevronDown className="w-4 h-4 animate-bounce" />
-          </a>
+              <WhatsAppCta
+                intent="General Hotel Enquiry"
+                label="Chat on WhatsApp"
+                variant="dark"
+                className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/60 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-lg"
+              />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -445,7 +440,7 @@ export default function HomePage() {
               </Link>
               <WhatsAppCta
                 intent="Direct Banner Enquiry"
-                label={`Chat on WhatsApp (${SITE_CONFIG.phone})`}
+                label="Chat on WhatsApp"
                 variant="dark"
                 className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest border-white/20"
               />

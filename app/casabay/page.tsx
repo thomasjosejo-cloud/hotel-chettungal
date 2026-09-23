@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import CasaBayContent from "@/components/pages/CasaBayContent";
 
 export const metadata: Metadata = {
-  title: "CasaBay Rooftop Restobar | Hotel New Town by Chettungal",
+  title: "CasaBay Rooftop Resto-Bar",
   description:
     "Take the evening upstairs. Open-air rooftop resto-bar for conversations, cocktails, grills, small plates & live music nights in Angamaly, Kerala.",
   openGraph: {

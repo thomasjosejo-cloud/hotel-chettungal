@@ -35,13 +35,13 @@ export default function Footer() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <a
-                href={buildWhatsAppLink("Footer Quick Chat")}
+                href={buildWhatsAppLink("General Hotel Enquiry")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold tracking-wider rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all w-full sm:w-auto shadow-md"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                <span>WhatsApp: {SITE_CONFIG.phone}</span>
+                <span>Chat on WhatsApp</span>
               </a>
               <a
                 href={`tel:${SITE_CONFIG.phoneRaw}`}

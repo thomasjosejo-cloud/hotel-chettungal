@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import BoardRoomContent from "@/components/pages/BoardRoomContent";
 
 export const metadata: Metadata = {
-  title: "The Boardroom — Executive Meeting Suite for 12 | Chettungal",
+  title: "The Boardroom — Meeting Suite for 12",
   description: "A dedicated, quiet meeting suite for 12 with presentation-ready setup at Hotel New Town by Chettungal, Angamaly.",
   openGraph: {
     title: "The Boardroom — Executive Meeting Suite for 12 | Chettungal",

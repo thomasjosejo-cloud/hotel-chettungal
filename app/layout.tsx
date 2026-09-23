@@ -110,7 +110,7 @@ export default function RootLayout({
             <span>Call</span>
           </a>
           <a
-            href={buildWhatsAppLink("Mobile Floating Dock")}
+            href={buildWhatsAppLink("General Hotel Enquiry")}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 text-xs font-semibold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B]"
