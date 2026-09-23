@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function EnquirePage() {
   const hero = PHOTOS.location[1];
   return (
-    <div className="bg-paper text-charcoal">
+    <div className="bg-night text-ivory">
       <PageHero image={hero.src} alt={hero.alt} height="medium">
         <Eyebrow className="text-brass-light">Enquire</Eyebrow>
         <h1 className="display mt-6 max-w-3xl">Tell us what you have in mind.</h1>
@@ -27,34 +27,34 @@ export default function EnquirePage() {
           </div>
 
           <aside className="md:col-span-4 md:col-start-9">
-            <Eyebrow className="text-brass-text">Prefer to talk?</Eyebrow>
+            <Eyebrow className="text-brass-light">Prefer to talk?</Eyebrow>
             <ul className="mt-5">
-              <li className="border-t border-charcoal/15">
+              <li className="border-t border-ivory/15">
                 <a href={SITE.phoneHref} className="group block py-5">
-                  <span className="eyebrow block text-muted">Call</span>
-                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass-text">{SITE.phone}</span>
+                  <span className="eyebrow block text-smoke">Call</span>
+                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass-light">{SITE.phone}</span>
                 </a>
               </li>
-              <li className="border-t border-charcoal/15">
+              <li className="border-t border-ivory/15">
                 <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer" className="group block py-5">
-                  <span className="eyebrow flex items-center gap-2 text-muted">
+                  <span className="eyebrow flex items-center gap-2 text-smoke">
                     <WhatsAppIcon className="h-3.5 w-3.5" /> WhatsApp
                   </span>
-                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass-text">Message us</span>
+                  <span className="mt-1 block font-serif text-3xl transition-colors group-hover:text-brass-light">Message us</span>
                 </a>
               </li>
               {SITE.email && (
-                <li className="border-t border-charcoal/15">
+                <li className="border-t border-ivory/15">
                   <a href={`mailto:${SITE.email}`} className="group block py-5">
-                    <span className="eyebrow block text-muted">Email</span>
-                    <span className="mt-1 block font-serif text-2xl transition-colors group-hover:text-brass-text">{SITE.email}</span>
+                    <span className="eyebrow block text-smoke">Email</span>
+                    <span className="mt-1 block font-serif text-2xl transition-colors group-hover:text-brass-light">{SITE.email}</span>
                   </a>
                 </li>
               )}
-              <li className="border-y border-charcoal/15">
+              <li className="border-y border-ivory/15">
                 <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="group block py-5">
-                  <span className="eyebrow block text-muted">Visit</span>
-                  <span className="mt-1 block text-[1.0625rem] leading-relaxed transition-colors group-hover:text-brass-text">
+                  <span className="eyebrow block text-smoke">Visit</span>
+                  <span className="mt-1 block text-[1.0625rem] leading-relaxed transition-colors group-hover:text-brass-light">
                     {SITE.address.line}
                     <br />
                     {SITE.address.region} {SITE.address.pincode} ↗

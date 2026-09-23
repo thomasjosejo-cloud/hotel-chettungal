@@ -1,5 +1,6 @@
 import { Button, WhatsAppIcon } from "@/components/ui";
 import { SITE, WA, whatsapp } from "@/content/site";
+import SplitText from "@/components/motion/SplitText";
 
 export default function EnquiryBand({
   title = "Plan something.",
@@ -9,11 +10,11 @@ export default function EnquiryBand({
   body?: string;
 }) {
   return (
-    <section className="bg-charcoal py-24 text-ivory md:py-32">
+    <section className="bg-night-2 py-24 text-ivory md:py-32">
       <div className="container-x grid gap-10 md:grid-cols-12 md:items-end">
         <div className="md:col-span-7" data-reveal>
-          <h2 className="display">{title}</h2>
-          <p className="lede mt-6 max-w-xl text-mist">{body}</p>
+          <SplitText className="display">{title}</SplitText>
+          <p className="lede mt-6 max-w-xl text-smoke">{body}</p>
         </div>
         <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9" data-reveal>
           <Button href="/enquire">Send an enquiry</Button>

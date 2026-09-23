@@ -4,6 +4,7 @@ import Gallery from "@/components/Gallery";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Button, Eyebrow, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
+import SplitText from "@/components/motion/SplitText";
 
 export const metadata: Metadata = {
   title: "Rooms",
@@ -26,7 +27,7 @@ const IN_ROOM = [
 export default function RoomsPage() {
   const p = PHOTOS.rooms;
   return (
-    <div className="bg-paper text-charcoal">
+    <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt}>
         <Eyebrow className="text-brass-light">Stay · Hotel New Town</Eyebrow>
         <h1 className="display mt-6">Ten rooms.</h1>
@@ -48,14 +49,14 @@ export default function RoomsPage() {
           <div className="md:col-span-6" data-reveal>
             <p className="statement">
               A small hotel on purpose. Ten rooms for wedding guests, visiting teams and{" "}
-              <em className="text-brass-text">anyone who stayed for one more at CasaBay.</em>
+              <em className="text-brass-light">anyone who stayed for one more at CasaBay.</em>
             </p>
           </div>
           <div className="md:col-span-5 md:col-start-8" data-reveal>
-            <Eyebrow className="text-brass-text">In the rooms</Eyebrow>
+            <Eyebrow className="text-brass-light">In the rooms</Eyebrow>
             <ul className="mt-5 grid gap-3">
               {IN_ROOM.map((f) => (
-                <li key={f} className="border-t border-charcoal/15 pt-3 text-[1.0625rem]">
+                <li key={f} className="border-t border-ivory/15 pt-3 text-[1.0625rem]">
                   {f}
                 </li>
               ))}
@@ -66,28 +67,28 @@ export default function RoomsPage() {
 
       <section className="pb-24 md:pb-32">
         <div className="container-x">
-          <Gallery photos={p} tone="light" />
+          <Gallery photos={p} />
         </div>
       </section>
 
-      <section className="bg-ink py-24 text-ivory md:py-32">
+      <section className="bg-night py-24 text-ivory md:py-32">
         <div className="container-x grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7" data-reveal>
             <Eyebrow className="text-brass-light">Also in the hotel</Eyebrow>
-            <h2 className="h2 mt-4">The Executive Bar.</h2>
+            <SplitText className="h2 mt-4">The Executive Bar.</SplitText>
           </div>
-          <p className="text-[1.0625rem] leading-relaxed text-mist md:col-span-4 md:col-start-9" data-reveal>
+          <p className="text-[1.0625rem] leading-relaxed text-smoke md:col-span-4 md:col-start-9" data-reveal>
             A second bar inside the hotel, alongside CasaBay on the roof and Fish Town for meals.
           </p>
         </div>
       </section>
 
-      <section id="enquire" className="scroll-mt-20 bg-charcoal py-24 text-ivory md:py-32">
+      <section id="enquire" className="scroll-mt-20 bg-night-2 py-24 text-ivory md:py-32">
         <div className="container-x grid gap-14 md:grid-cols-12">
           <div className="md:col-span-4" data-reveal>
             <Eyebrow className="text-brass-light">Book direct</Eyebrow>
-            <h2 className="h2 mt-4">Rooms are booked with the front desk.</h2>
-            <p className="mt-6 text-mist">
+            <SplitText className="h2 mt-4">Rooms are booked with the front desk.</SplitText>
+            <p className="mt-6 text-smoke">
               Send your dates here, WhatsApp us, or call{" "}
               <a href={SITE.phoneHref} className="text-ivory underline underline-offset-4">
                 {SITE.phone}

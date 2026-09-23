@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
 import RevealObserver from "@/components/RevealObserver";
+import SiteMotion from "@/components/motion/SiteMotion";
 import { SITE } from "@/content/site";
 import "./globals.css";
 
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <MobileDock />
         <RevealObserver />
+        <SiteMotion />
       </body>
     </html>
   );

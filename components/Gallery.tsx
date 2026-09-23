@@ -53,7 +53,7 @@ export default function Gallery({
     };
   }, [index, close, step]);
 
-  const caption = tone === "dark" ? "text-mist" : "text-muted";
+  const caption = tone === "dark" ? "text-smoke" : "text-smoke";
 
   return (
     <>
@@ -93,7 +93,7 @@ export default function Gallery({
           onClick={close}
         >
           <div className="container-x flex items-center justify-between py-5" onClick={(e) => e.stopPropagation()}>
-            <p className="text-sm text-mist">
+            <p className="text-sm text-smoke">
               {index + 1} / {photos.length} — {photos[index].caption}
             </p>
             <button

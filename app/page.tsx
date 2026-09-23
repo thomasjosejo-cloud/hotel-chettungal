@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import PageHero from "@/components/PageHero";
-import EnquiryBand from "@/components/EnquiryBand";
-import { Button, Eyebrow, Numeral, WhatsAppIcon } from "@/components/ui";
-import { PHOTOS, SITE, VENUES, WA, whatsapp } from "@/content/site";
+import HomeJourney from "@/components/home/HomeJourney";
+import HeroEmbers from "@/components/motion/HeroEmbers";
+import { Button, WhatsAppIcon } from "@/components/ui";
+import { PHOTOS, SITE, VENUES, WA, whatsapp, type Photo } from "@/content/site";
 import { blurFor } from "@/content/blur";
 
-// Each venue keeps its own colour world on the dark home page.
-const WORLD: Record<string, { band: string; accent: string }> = {
-  casabay: { band: "bg-night", accent: "text-ember" },
-  fishtown: { band: "bg-navy", accent: "text-brass-light" },
-  "town-hall": { band: "bg-[#2a2118]", accent: "text-brass-light" },
-  "board-room": { band: "bg-charcoal", accent: "text-brass-light" },
-};
-
+// Home page: the approved prototype (docs/prototype-home.html), built in React.
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const jsonLd = {
@@ -40,144 +32,179 @@ const jsonLd = {
   ],
 };
 
-export default function Home() {
+const venue = (slug: string) => VENUES.find((v) => v.slug === slug)!;
+const CUISINES = ["Kerala & seafood", "North Indian", "Chinese", "Continental"];
+
+/** Chapter photo for the static layout (hidden in the WebGL journey). */
+function ChapterImage({ photo }: { photo: Photo }) {
+  const blur = blurFor(photo.src);
   return (
-    <>
+    <div className="ch-img">
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        fill
+        sizes="(min-width: 800px) 760px, 100vw"
+        placeholder={blur ? "blur" : "empty"}
+        blurDataURL={blur}
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
+export default function Home() {
+  const cb = PHOTOS.casabay;
+  const heroBlur = blurFor(cb[0].src);
+  return (
+    <div className="proto">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <PageHero image={PHOTOS.casabay[0].src} alt={PHOTOS.casabay[0].alt} position="50% 60%">
-        <Eyebrow className="text-brass-light">Angamaly · Kerala</Eyebrow>
-        <h1 className="display mt-6 max-w-4xl">
-          The table, the roof,
-          <br />
-          <em className="text-brass-light">the hall.</em>
-        </h1>
-        <p className="lede mt-7 max-w-xl text-ivory/85">
-          A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten
-          rooms. One address on NH 544.
-        </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button href="/casabay">Discover CasaBay</Button>
-          <Button href="/town-hall" tone="outline-light">
-            Plan an event
+      {/* 1. Hero: CasaBay at night */}
+      <section className="hero" aria-label="CasaBay rooftop restobar">
+        <Image
+          src={cb[0].src}
+          alt={cb[0].alt}
+          fill
+          priority
+          sizes="100vw"
+          placeholder={heroBlur ? "blur" : "empty"}
+          blurDataURL={heroBlur}
+          className="-z-20 object-cover"
+          style={{ objectPosition: "center 60%" }}
+        />
+        <div className="hero-scrim" aria-hidden />
+        <HeroEmbers className="-z-10" />
+        <div className="hero-copy">
+          <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
+          <h1 className="wordmark neon-glow ignite">CasaBay</h1>
+          <p className="tag">Take the evening upstairs.</p>
+          <p className="body">
+            A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten rooms.
+            One address on NH&nbsp;544.
+          </p>
+          <div className="row">
+            <Button href={whatsapp(WA.casabay)} tone="ember">
+              <WhatsAppIcon /> Reserve a table
+            </Button>
+            <Button href="#journey" tone="outline-light">
+              See the evening
+            </Button>
+          </div>
+        </div>
+        <div className="cue" aria-hidden>
+          Scroll
+        </div>
+      </section>
+
+      {/* 2. Journey */}
+      <HomeJourney>
+        <article className="chapter" data-ch="0">
+          <ChapterImage photo={PHOTOS.fishtown[0]} />
+          <p className="numeral">I</p>
+          <h2>
+            <span className="sr-only">Fish Town</span>
+            <Image src="/branding/fishtown-logo-ivory.png" alt="" width={1184} height={678} sizes="190px" className="ft-logo" />
+          </h2>
+          <p className="tag">{venue("fishtown").line}</p>
+          <p className="body">{venue("fishtown").body}</p>
+          <ul className="cuisines">
+            {CUISINES.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+          <Button href={whatsapp(WA.fishtown)} tone="outline-light">
+            Reserve at Fish Town
+          </Button>
+        </article>
+
+        <article className="chapter" data-ch="1">
+          <ChapterImage photo={PHOTOS.townhall[0]} />
+          <p className="numeral">II</p>
+          <h2>Town Hall</h2>
+          <p className="count">
+            <span data-count aria-hidden>
+              120
+            </span>
+            <span className="sr-only">120 guests</span>
+          </p>
+          <p className="count-label">Guests, at capacity</p>
+          <p className="tag">{venue("town-hall").line}</p>
+          <Button href={whatsapp(WA.townhall)} tone="outline-light">
+            Check a date
+          </Button>
+        </article>
+
+        <article className="chapter" data-ch="2">
+          <ChapterImage photo={PHOTOS.boardroom[0]} />
+          <p className="numeral">III</p>
+          <h2>The Board Room</h2>
+          <p className="tag">{venue("board-room").line}</p>
+          <p className="body">{venue("board-room").body}</p>
+          <Button href={whatsapp(WA.boardroom)} tone="outline-light">
+            Book the room
+          </Button>
+        </article>
+
+        <article className="chapter finale" data-ch="3">
+          <ChapterImage photo={cb[1]} />
+          <p className="numeral">IV</p>
+          <h2 className="neon-glow">CasaBay</h2>
+          <p className="tag">Back on the roof.</p>
+          <p className="body">{venue("casabay").body}</p>
+          <Button href={whatsapp(WA.casabay)} tone="ember">
+            Reserve a table
+          </Button>
+        </article>
+      </HomeJourney>
+
+      {/* 3. Quiet close: Rooms */}
+      <section className="close" aria-label="Rooms">
+        <figure>
+          <Image
+            src={PHOTOS.rooms[0].src}
+            alt={PHOTOS.rooms[0].alt}
+            fill
+            sizes="(min-width: 761px) 55vw, 100vw"
+            placeholder={blurFor(PHOTOS.rooms[0].src) ? "blur" : "empty"}
+            blurDataURL={blurFor(PHOTOS.rooms[0].src)}
+            className="object-cover"
+          />
+        </figure>
+        <div>
+          <p className="p-eyebrow">Stay</p>
+          <h2>For when the evening runs long.</h2>
+          <p className="body">Ten air-conditioned rooms with a work desk, television, tea station and en-suite shower.</p>
+          <Button href={whatsapp(WA.rooms)} tone="outline-light">
+            Check availability
           </Button>
         </div>
-      </PageHero>
+      </section>
 
-      {/* Statement */}
-      <section className="bg-ink py-24 text-ivory md:py-36">
-        <div className="container-x grid gap-10 md:grid-cols-12">
-          <Eyebrow className="text-brass-light md:col-span-3 md:pt-3">More than a stay</Eyebrow>
-          <p className="statement md:col-span-9" data-reveal>
-            Hotel New Town is built around the table, not the bed. Four spaces for eating, drinking, meeting and
-            celebrating, <span className="italic text-brass-light">and ten rooms for when the evening runs long.</span>
+      {/* 4. Find us */}
+      <section className="find" aria-label="Find us">
+        <div>
+          <p className="p-eyebrow">Find us</p>
+          <h3>{SITE.address.line}</h3>
+          <p>
+            {SITE.address.region} {SITE.address.pincode}
+          </p>
+          <p>
+            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
+              Get directions ↗
+            </a>
+          </p>
+        </div>
+        <div>
+          <p className="p-eyebrow">Call or WhatsApp</p>
+          <p className="phone">{SITE.phone}</p>
+          <p>
+            <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer">
+              Message us on WhatsApp ↗
+            </a>
           </p>
         </div>
       </section>
-
-      {/* The four venues — each in its own colour world */}
-      <div aria-label="Venues" role="region">
-        {VENUES.map((v, i) => {
-          const flip = i % 2 === 1;
-          const w = WORLD[v.slug];
-          return (
-            <section key={v.slug} className={`${w.band} py-20 text-ivory md:py-32`}>
-              <article className="container-x grid items-center gap-8 md:grid-cols-12 md:gap-12">
-                <Link
-                  href={v.href}
-                  className={`group relative block aspect-[4/3] overflow-hidden md:col-span-7 ${flip ? "md:order-2 md:col-start-6" : ""}`}
-                  data-reveal
-                  tabIndex={-1}
-                  aria-hidden
-                >
-                  <Image
-                    src={v.image.src}
-                    alt={v.image.alt}
-                    fill
-                    sizes="(min-width: 768px) 58vw, 100vw"
-                    placeholder={blurFor(v.image.src) ? "blur" : "empty"}
-                    blurDataURL={blurFor(v.image.src)}
-                    className="img-zoom object-cover"
-                  />
-                </Link>
-                <div
-                  className={`md:col-span-5 ${flip ? "md:order-1 md:col-start-1 md:row-start-1 md:pr-6" : "md:pl-6"}`}
-                  data-reveal
-                  style={{ ["--reveal-delay" as string]: "120ms" }}
-                >
-                  <Numeral n={v.numeral} className={w.accent} />
-                  <Eyebrow className="mt-8 text-mist">{v.kind}</Eyebrow>
-                  {v.slug === "casabay" ? (
-                    <h2 className="mt-3 font-casa text-[clamp(3rem,2.2rem+3vw,4.75rem)] leading-none text-ember">{v.name}</h2>
-                  ) : (
-                    <h2 className="h2 mt-3">{v.name}</h2>
-                  )}
-                  <p className={`mt-3 font-serif text-2xl italic ${w.accent}`}>{v.line}</p>
-                  <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-ivory/75">{v.body}</p>
-                  <Link href={v.href} className="link-arrow mt-9 text-ivory">
-                    Explore {v.name.replace(/^The /, "")} <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </article>
-            </section>
-          );
-        })}
-      </div>
-
-      {/* Stay */}
-      <section className="bg-ink text-ivory">
-        <div className="grid lg:grid-cols-2">
-          <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[640px]">
-            <Image src={PHOTOS.rooms[0].src} alt={PHOTOS.rooms[0].alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-          </div>
-          <div className="flex items-center px-5 py-20 md:px-10 md:py-24 lg:px-16 xl:px-24">
-            <div className="max-w-md" data-reveal>
-              <Eyebrow className="text-brass-light">Stay</Eyebrow>
-              <h2 className="h2 mt-5">Ten rooms, and the Executive Bar.</h2>
-              <p className="mt-6 text-[1.0625rem] leading-relaxed text-mist">
-                Air-conditioned rooms with a work desk, television, tea station and en-suite shower. For wedding
-                guests, visiting teams and anyone passing through Angamaly.
-              </p>
-              <div className="mt-10 flex flex-col flex-wrap gap-3 sm:flex-row">
-                <Button href="/rooms" tone="outline-light">
-                  See the rooms
-                </Button>
-                <Button href={whatsapp(WA.rooms)} tone="solid-light">
-                  <WhatsAppIcon /> Check availability
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Location */}
-      <section className="bg-night-2 py-24 text-ivory md:py-32">
-        <div className="container-x grid items-end gap-12 md:grid-cols-12">
-          <div className="md:col-span-5" data-reveal>
-            <Eyebrow className="text-brass-light">Find us</Eyebrow>
-            <h2 className="h2 mt-5">On NH 544, in Angamaly.</h2>
-            <address className="mt-6 not-italic text-[1.0625rem] leading-relaxed text-mist">
-              {SITE.address.line}
-              <br />
-              {SITE.address.region} {SITE.address.pincode}
-            </address>
-            <div className="mt-9 flex flex-wrap gap-x-10 gap-y-4">
-              <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="link-arrow text-ivory">
-                Get directions <span aria-hidden>↗</span>
-              </a>
-              <Link href="/about" className="link-arrow text-ivory">
-                About the hotel <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </div>
-          <div className="relative aspect-[6/5] overflow-hidden md:col-span-6 md:col-start-7" data-reveal>
-            <Image src={PHOTOS.location[0].src} alt={PHOTOS.location[0].alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-          </div>
-        </div>
-      </section>
-
-      <EnquiryBand />
-    </>
+    </div>
   );
 }

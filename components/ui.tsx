@@ -3,15 +3,17 @@ import type { ReactNode } from "react";
 
 type Tone = "solid-light" | "solid-dark" | "outline-light" | "outline-dark" | "ember" | "navy";
 
+// The whole site sits on the night ground, so every tone is built for dark.
+// "-dark" and "navy" are kept as aliases so existing call sites keep working.
+const SOLID = "bg-brass-light text-ink hover:bg-ivory";
+const OUTLINE = "border border-ivory/40 text-ivory hover:border-ivory hover:bg-ivory hover:text-ink";
 const TONES: Record<Tone, string> = {
-  // on dark backgrounds
-  "solid-light": "bg-brass-light text-ink hover:bg-ivory",
-  "outline-light": "border border-ivory/40 text-ivory hover:border-ivory hover:bg-ivory hover:text-ink",
+  "solid-light": SOLID,
+  "outline-light": OUTLINE,
   ember: "bg-ember text-night hover:bg-ivory",
-  // on light backgrounds
-  "solid-dark": "bg-charcoal text-ivory hover:bg-brass",
-  "outline-dark": "border border-charcoal/30 text-charcoal hover:border-charcoal hover:bg-charcoal hover:text-ivory",
-  navy: "bg-navy text-ivory hover:bg-ft-brass",
+  "solid-dark": SOLID,
+  "outline-dark": OUTLINE,
+  navy: SOLID,
 };
 
 const BASE =
@@ -34,13 +36,13 @@ export function Button({
   if (external || href.startsWith("http") || href.startsWith("tel:")) {
     const isHttp = href.startsWith("http");
     return (
-      <a href={href} className={cls} {...(isHttp ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+      <a href={href} className={cls} data-magnetic {...(isHttp ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
         {children}
       </a>
     );
   }
   return (
-    <Link href={href} className={cls}>
+    <Link href={href} className={cls} data-magnetic>
       {children}
     </Link>
   );

@@ -4,15 +4,17 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * Marks the document as JS-enabled and reveals [data-reveal] elements as
- * they scroll into view. Without JS everything simply stays visible.
+ * Marks the document as JS-enabled and reveals [data-reveal] elements and
+ * [data-split] headings (word-by-word, see SplitText) as they scroll into
+ * view. Only toggles [data-shown]; never touches server-rendered text.
+ * Without JS everything simply stays visible.
  */
 export default function RevealObserver() {
   const pathname = usePathname();
 
   useEffect(() => {
     document.documentElement.classList.add("js");
-    const els = document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown])");
+    const els = document.querySelectorAll<HTMLElement>(":is([data-reveal], [data-split]):not([data-shown])");
     if (!("IntersectionObserver" in window)) {
       els.forEach((el) => el.setAttribute("data-shown", ""));
       return;

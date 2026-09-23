@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   Design tokens
-   House:     charcoal / ivory / brass  (Chettungal)
-   CasaBay:   night / ember              (rooftop, after dark)
-   Fish Town: ivory / navy               (daylight, from the logo)
+   Design tokens (from the approved prototype, docs/prototype-home.html)
+   One night ground everywhere. Colour comes from the photographs;
+   brass is the house accent; ember is for CasaBay only.
    ------------------------------------------------------------------ */
 @theme {
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
@@ -13,7 +12,7 @@
 
   --color-charcoal: #1e1e1c;
   --color-ink: #141412;
-  --color-ivory: #f5f1ea;
+  --color-ivory: #f3ece0;
   --color-paper: #fbf8f3;
   --color-stone: #e6ded1;
   --color-brass: #8b6b4a;
@@ -21,11 +20,12 @@
   /* Brass for text on light backgrounds (AA contrast). #8b6b4a / #a8793f are for lines and decoration only. */
   --color-brass-text: #7a5c3d;
   --color-muted: #5f5a51;
-  --color-mist: #b8b0a3;
+  --color-mist: #a39a8c;
+  --color-smoke: #a39a8c;
 
-  --color-night: #0e0b08;
-  --color-night-2: #1a140e;
-  --color-ember: #e3a55a;
+  --color-night: #0b0907;
+  --color-night-2: #14100c;
+  --color-ember: #e8a95c;
 
   --color-navy: #0d2232;
   --color-ft-brass: #a8793f;
@@ -35,13 +35,14 @@
 
 @layer base {
   html {
-    background: var(--color-charcoal);
+    background: var(--color-night);
+    color-scheme: dark;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
     font-family: var(--font-sans);
-    background: var(--color-charcoal);
+    background: var(--color-night);
     color: var(--color-ivory);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -175,17 +176,6 @@
     transform: none;
   }
 
-  .ken-burns {
-    animation: ken-burns 18s var(--ease-out-soft) both;
-  }
-  @keyframes ken-burns {
-    from {
-      transform: scale(1.08);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
 }
 
 .img-zoom {
@@ -193,4 +183,507 @@
 }
 .group:hover .img-zoom {
   transform: scale(1.04);
+}
+
+/* ==================================================================
+   Home page, ported from the approved prototype (docs/prototype-home.html).
+   Scoped under .proto. Numbers are the prototype's.
+
+   One difference: the prototype hides the chapters by default and adds a
+   static class from script. Here the STATIC layout is the default (no JS,
+   reduced motion, or no WebGL via [data-static]) and the scroll journey is
+   switched on only under html.js with motion allowed. So no content is ever
+   parked at opacity 0 without JS, and there is no layout shift.
+   ================================================================== */
+.proto {
+  --gutter: clamp(16px, 5vw, 72px);
+  --line: rgb(243 236 224 / 0.14);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Phones: clear the fixed bottom dock (56px) as well as the safe area. */
+  --dock: 0px;
+  background: var(--color-night);
+  color: var(--color-ivory);
+  font-size: 16px;
+  line-height: 1.6;
+}
+@media (max-width: 767px) {
+  .proto {
+    --dock: 56px;
+  }
+}
+.proto h1,
+.proto h2,
+.proto h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  margin: 0;
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+.proto .p-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-brass-light);
+}
+.proto .tag {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(26px, 2.2vw + 14px, 40px);
+  line-height: 1.15;
+}
+.proto .body {
+  color: var(--color-smoke);
+  max-width: 34ch;
+  font-size: 17px;
+}
+.proto .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Hero: CasaBay at night */
+.proto .hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-night);
+}
+.proto .hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to top, var(--color-night) 2%, rgb(11 9 7 / 0.55) 38%, rgb(11 9 7 / 0.15) 70%, rgb(11 9 7 / 0.55)),
+    linear-gradient(to right, rgb(11 9 7 / 0.7), rgb(11 9 7 / 0) 60%);
+}
+.proto .hero-copy {
+  padding: 140px var(--gutter) calc(clamp(56px, 9vh, 96px) + var(--dock));
+  max-width: 900px;
+}
+.proto .wordmark {
+  font-family: var(--font-casa);
+  font-weight: 400;
+  line-height: 0.9;
+  margin: 14px 0 10px;
+  font-size: clamp(88px, 13vw, 190px);
+  letter-spacing: 0;
+}
+.proto .hero .tag {
+  margin-bottom: 18px;
+}
+.proto .hero .body {
+  max-width: 44ch;
+  color: rgb(243 236 224 / 0.82);
+  margin-bottom: 32px;
+}
+.proto .cue {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(56px, 9vh, 96px);
+  writing-mode: vertical-rl;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-smoke);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.proto .cue::after {
+  content: "";
+  width: 1px;
+  height: 64px;
+  background: linear-gradient(var(--color-brass-light), transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .proto .cue::after {
+    animation: drip 2.4s var(--ease) infinite;
+  }
+}
+@keyframes drip {
+  from { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  to { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* CasaBay neon: the prototype's glow and ignite keyframes (1.7s, ends lit).
+   Used on the home wordmark, the finale and the CasaBay page h1. */
+.neon-glow {
+  color: var(--color-ember);
+  text-shadow:
+    0 0 18px rgb(232 169 92 / 0.55),
+    0 0 60px rgb(232 169 92 / 0.35),
+    0 0 120px rgb(232 120 40 / 0.25);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ignite {
+    animation: ignite 1.7s steps(1, end) both;
+  }
+}
+@keyframes ignite {
+  0% { opacity: 0.35; text-shadow: none; }
+  12% { opacity: 1; }
+  18% { opacity: 0.4; text-shadow: none; }
+  30% { opacity: 1; }
+  36% { opacity: 0.55; text-shadow: none; }
+  46%, 100% { opacity: 1; }
+}
+
+/* Journey: static layout (the default) */
+.proto .journey {
+  position: relative;
+}
+.proto .stage {
+  position: relative;
+  padding-bottom: 72px;
+}
+.proto .gl {
+  display: none;
+}
+.proto .chapter {
+  position: relative;
+  z-index: 2;
+  padding: 72px var(--gutter) 0;
+  max-width: 760px;
+}
+.proto .ch-img {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.proto .numeral {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-brass-light);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.proto .numeral::after {
+  content: "";
+  width: 44px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.proto .chapter h2 {
+  font-size: clamp(44px, 4.4vw + 12px, 84px);
+  line-height: 0.98;
+  margin: 22px 0 12px;
+}
+.proto .chapter .tag {
+  color: var(--color-brass-light);
+  margin-bottom: 18px;
+  font-size: clamp(24px, 1.6vw + 12px, 32px);
+}
+.proto .chapter .body {
+  margin-bottom: 26px;
+}
+.proto .ft-logo {
+  width: 190px;
+  height: auto;
+  margin: 22px 0 16px;
+}
+.proto .cuisines {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+}
+.proto .cuisines li {
+  font-size: 15px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  color: var(--color-ivory);
+}
+.proto .count {
+  font-family: var(--font-serif);
+  font-size: clamp(96px, 9vw + 20px, 168px);
+  line-height: 0.85;
+  color: var(--color-brass-light);
+  font-variant-numeric: tabular-nums;
+  margin: 18px 0 6px;
+}
+.proto .count-label {
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-smoke);
+  margin-bottom: 22px;
+}
+.proto .finale h2 {
+  font-family: var(--font-casa);
+  font-size: clamp(72px, 7vw + 20px, 140px);
+  letter-spacing: 0;
+  line-height: 0.9;
+}
+.proto .finale .tag {
+  color: var(--color-ivory);
+}
+.proto .rail {
+  display: none;
+}
+
+/* Journey: the scroll-driven stage (JS on, motion allowed, WebGL not ruled out) */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .proto .journey:not([data-static]) {
+    height: 560vh;
+  }
+  html.js .proto .journey:not([data-static]) .stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    padding: 0;
+  }
+  html.js .proto .journey:not([data-static]) .gl {
+    display: block;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s var(--ease);
+  }
+  html.js .proto .journey:not([data-static]) .gl[data-ready] {
+    opacity: 1;
+  }
+  html.js .proto .journey:not([data-static]) .stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to right, rgb(11 9 7 / 0.88) 0%, rgb(11 9 7 / 0.45) 34%, rgb(11 9 7 / 0) 58%);
+  }
+  html.js .proto .journey:not([data-static]) .chapter {
+    position: absolute;
+    left: var(--gutter);
+    top: 50%;
+    width: min(440px, 40vw);
+    max-width: none;
+    padding: 0;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  html.js .proto .journey:not([data-static]) .chapter[data-on] {
+    pointer-events: auto;
+  }
+  html.js .proto .journey:not([data-static]) .ch-img {
+    display: none;
+  }
+  html.js .proto .journey:not([data-static]) .rail {
+    position: absolute;
+    z-index: 3;
+    left: var(--gutter);
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    gap: 28px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  html.js .proto .journey:not([data-static]) {
+    height: 520vh;
+  }
+  html.js .proto .journey:not([data-static]) .stage::after {
+    background: linear-gradient(to top, rgb(11 9 7 / 0.96) 0%, rgb(11 9 7 / 0.75) 42%, rgb(11 9 7 / 0) 70%);
+  }
+  html.js .proto .journey:not([data-static]) .chapter {
+    top: auto;
+    bottom: calc(28px + var(--dock) + env(safe-area-inset-bottom, 0px));
+    right: var(--gutter);
+    width: auto;
+    transform: none;
+  }
+  html.js .proto .journey:not([data-static]) .chapter h2 {
+    margin: 12px 0 8px;
+  }
+  html.js .proto .journey:not([data-static]) .ft-logo {
+    width: 150px;
+    margin: 14px 0 10px;
+  }
+  html.js .proto .journey:not([data-static]) .chapter .body {
+    display: none;
+  }
+  html.js .proto .journey:not([data-static]) .count {
+    margin: 8px 0 4px;
+  }
+  html.js .proto .journey:not([data-static]) .rail {
+    display: none;
+  }
+}
+.proto .rail button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-smoke);
+  min-height: 44px;
+}
+.proto .rail button::after {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s var(--ease);
+}
+.proto .rail button[aria-current="true"] {
+  color: var(--color-ivory);
+}
+.proto .rail button[aria-current="true"]::after {
+  width: 44px;
+  background: var(--color-brass-light);
+}
+.proto .rail button:focus-visible {
+  outline: 2px solid var(--color-brass-light);
+  outline-offset: 4px;
+}
+
+/* Quiet close */
+.proto .close {
+  padding-block: clamp(96px, 14vh, 160px);
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: clamp(40px, 6vw, 96px);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+}
+.proto .close figure {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  overflow: hidden;
+}
+.proto .close h2 {
+  font-size: clamp(40px, 3.4vw + 14px, 72px);
+  line-height: 1;
+  margin: 18px 0 16px;
+}
+.proto .close .body {
+  margin-bottom: 30px;
+}
+.proto .find {
+  border-top: 1px solid var(--line);
+  padding-block: 64px;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.proto .find h3 {
+  font-size: 30px;
+  line-height: 1.1;
+  margin-top: 12px;
+}
+.proto .find p {
+  color: var(--color-smoke);
+  margin-top: 10px;
+}
+.proto .find a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-ivory);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgb(243 236 224 / 0.35);
+}
+.proto .phone {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  color: var(--color-ivory);
+  user-select: all;
+  font-variant-numeric: tabular-nums;
+  margin-top: 12px;
+}
+@media (max-width: 760px) {
+  .proto .cue {
+    display: none;
+  }
+  .proto .close {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==================================================================
+   Site-wide motion
+   ================================================================== */
+
+/* Heading reveals: words rise into place (SplitText + RevealObserver).
+   Visible by default; only moved when JS is on and motion is allowed. */
+.split-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.08em 0.14em 0;
+  margin: 0 -0.08em -0.14em 0;
+}
+.split-w > .w {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-split]:not([data-shown]) .w {
+    transform: translateY(110%);
+  }
+  html.js [data-split] .w {
+    transition: transform 0.9s var(--ease-out-soft);
+    transition-delay: calc(var(--i, 0) * 40ms);
+  }
+}
+
+/* Magnetic buttons (pointer: fine only; the transform is set by script). */
+[data-magnetic] {
+  transition:
+    transform 0.45s var(--ease-out-soft),
+    color 0.3s,
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+/* Page transition: a brass curtain lifts off the new page. */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  pointer-events: none;
+  background: var(--color-brass);
+  transform-origin: top;
+  animation: curtain-lift 400ms var(--ease-out-soft) forwards;
+}
+@keyframes curtain-lift {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-curtain {
+    display: none;
+  }
+}
+
+/* Venue heroes: the WebGL plane fades in over the poster. */
+.hero-fx {
+  opacity: 0;
+  transition: opacity 1s var(--ease-out-soft);
+}
+.hero-fx[data-ready] {
+  opacity: 1;
 }

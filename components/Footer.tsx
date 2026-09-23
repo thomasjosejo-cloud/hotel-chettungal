@@ -7,7 +7,7 @@ const LINK = "inline-flex min-h-11 items-center py-2.5 text-ivory/85 transition-
 
 export default function Footer() {
   return (
-    <footer className="bg-ink pb-28 pt-20 text-ivory md:pb-12">
+    <footer className="bg-night pb-28 pt-20 text-ivory md:pb-12">
       <div className="container-x">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
@@ -17,7 +17,7 @@ export default function Footer() {
               <br />
               <em className="text-brass-light">the hall.</em>
             </p>
-            <p className="mt-5 max-w-sm text-mist">
+            <p className="mt-5 max-w-sm text-smoke">
               A rooftop restobar, a multi-cuisine restaurant, a banquet hall and ten rooms at one address in Angamaly.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-mist sm:flex-row sm:justify-between">
+        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-smoke sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} {SITE.name}</p>
           <p>Angamaly, Kerala</p>
         </div>

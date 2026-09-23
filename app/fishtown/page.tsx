@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import { Button, Eyebrow, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
+import SplitText from "@/components/motion/SplitText";
 
 export const metadata: Metadata = {
   title: "Fish Town Restaurant",
@@ -29,8 +30,8 @@ export default function FishTownPage() {
   ];
 
   return (
-    <div className="bg-paper text-navy">
-      <PageHero image={p[0].src} alt={p[0].alt} tint="navy">
+    <div className="bg-night text-ivory">
+      <PageHero image={p[0].src} alt={p[0].alt} fx="wave">
         <Eyebrow className="text-brass-light">Multi-cuisine restaurant · Hotel New Town</Eyebrow>
         <h1 className="mt-8">
           <span className="sr-only">Fish Town</span>
@@ -58,28 +59,28 @@ export default function FishTownPage() {
 
       <section className="py-24 md:py-36">
         <div className="container-x grid gap-10 md:grid-cols-12">
-          <Eyebrow className="text-brass-text md:col-span-3 md:pt-3">The restaurant</Eyebrow>
+          <Eyebrow className="text-brass-light md:col-span-3 md:pt-3">The restaurant</Eyebrow>
           <div className="md:col-span-9">
             <p className="statement" data-reveal>
               The food Kerala knows best: fresh fish, generous portions and familiar spices, served in a room lit by
-              its <em className="text-brass-text">glowing wave walls.</em>
+              its <em className="text-brass-light">glowing wave walls.</em>
             </p>
-            <p className="mt-8 max-w-2xl text-[1.0625rem] leading-relaxed text-navy/70" data-reveal>
+            <p className="mt-8 max-w-2xl text-[1.0625rem] leading-relaxed text-ivory/70" data-reveal>
               From a quick lunch to a business meal or a table full of family and friends, Fish Town is the
               hotel&apos;s everyday kitchen.
             </p>
-            {SITE.hours.fishtown && <p className="mt-6 text-sm text-brass-text">Open {SITE.hours.fishtown}</p>}
+            {SITE.hours.fishtown && <p className="mt-6 text-sm text-brass-light">Open {SITE.hours.fishtown}</p>}
           </div>
         </div>
       </section>
 
       {/* Kitchen */}
-      <section className="bg-navy py-24 text-ivory md:py-32">
+      <section className="bg-night-2 py-24 text-ivory md:py-32">
         <div className="container-x">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
             <div>
               <Eyebrow className="text-brass-light">The kitchen</Eyebrow>
-              <h2 className="h2 mt-4">Four cuisines, one kitchen.</h2>
+              <SplitText className="h2 mt-4">Four cuisines, one kitchen.</SplitText>
             </div>
             <a href={whatsapp(WA.fishtownMenu)} target="_blank" rel="noopener noreferrer" className="link-arrow self-start text-ivory md:self-auto">
               Get the menu on WhatsApp <span aria-hidden>↗</span>
@@ -87,7 +88,7 @@ export default function FishTownPage() {
           </div>
           <ol className="mt-16 grid gap-px bg-white/15 sm:grid-cols-2 lg:grid-cols-4">
             {KITCHEN.map((k, i) => (
-              <li key={k.t} className="bg-navy py-8 sm:px-8 lg:first:pl-0" data-reveal style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}>
+              <li key={k.t} className="bg-night-2 py-8 sm:px-8 lg:first:pl-0" data-reveal style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}>
                 <span className="font-serif text-lg italic text-brass-light">{k.n}</span>
                 <h3 className="h3 mt-5">{k.t}</h3>
                 <p className="mt-3 leading-relaxed text-ivory/70">{k.d}</p>
@@ -101,8 +102,8 @@ export default function FishTownPage() {
       <section className="py-24 md:py-32">
         <div className="container-x">
           <div data-reveal>
-            <Eyebrow className="text-brass-text">At the table</Eyebrow>
-            <h2 className="h2 mt-4 max-w-2xl">A table for every kind of meal.</h2>
+            <Eyebrow className="text-brass-light">At the table</Eyebrow>
+            <SplitText className="h2 mt-4 max-w-2xl">A table for every kind of meal.</SplitText>
           </div>
           <ul className="mt-14 grid gap-10 md:grid-cols-3 md:gap-6">
             {occasions.map((o, i) => (
@@ -111,28 +112,28 @@ export default function FishTownPage() {
                   <Image src={o.img.src} alt={o.img.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
                 </div>
                 <h3 className="h3 mt-6">{o.t}</h3>
-                <p className="mt-2 text-navy/70">{o.d}</p>
+                <p className="mt-2 text-ivory/70">{o.d}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="bg-ivory py-24 md:py-32">
+      <section className="bg-night-2 py-24 md:py-32">
         <div className="container-x">
           <div className="mb-14 md:mb-20" data-reveal>
-            <Eyebrow className="text-brass-text">The room</Eyebrow>
-            <h2 className="h2 mt-4">Inside Fish Town</h2>
+            <Eyebrow className="text-brass-light">The room</Eyebrow>
+            <SplitText className="h2 mt-4">Inside Fish Town</SplitText>
           </div>
-          <Gallery photos={[p[1], p[5], p[6], p[7], p[0], p[2]]} tone="light" />
+          <Gallery photos={[p[1], p[5], p[6], p[7], p[0], p[2]]} />
         </div>
       </section>
 
-      <section className="bg-navy py-24 text-ivory md:py-32">
+      <section className="bg-night-2 py-24 text-ivory md:py-32">
         <div className="container-x grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7" data-reveal>
             <Image src="/branding/fishtown-logo-ivory.png" alt="Fish Town" width={1184} height={678} className="h-auto w-40" />
-            <h2 className="display mt-10">Come hungry.</h2>
+            <SplitText className="display mt-10">Come hungry.</SplitText>
           </div>
           <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9" data-reveal>
             <Button href={whatsapp(WA.fishtown)}>

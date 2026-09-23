@@ -37,7 +37,7 @@ const DATE_LABEL: Record<Purpose, string> = {
 export default function EnquiryForm({
   defaultPurpose = "Dining at CasaBay",
   lockPurpose = false,
-  tone = "light",
+  tone = "dark",
 }: {
   defaultPurpose?: Purpose;
   lockPurpose?: boolean;
@@ -52,10 +52,10 @@ export default function EnquiryForm({
 
   const dark = tone === "dark";
   const field = `w-full border-0 border-b bg-transparent px-0 py-3 text-base outline-none transition-colors focus:ring-0 ${
-    dark ? "border-ivory/25 text-ivory placeholder:text-mist/70 focus:border-brass-light" : "border-charcoal/25 text-charcoal placeholder:text-muted/70 focus:border-brass"
+    dark ? "border-ivory/25 text-ivory placeholder:text-smoke/70 focus:border-brass-light" : "border-ivory/25 text-ivory placeholder:text-smoke/70 focus:border-brass-light"
   }`;
   // 44px touch target on mobile via padding; tight to the field from md up
-  const label = `eyebrow block min-h-11 pt-3 pb-3 md:min-h-0 md:pt-0 md:pb-0 ${dark ? "text-mist" : "text-muted"}`;
+  const label = `eyebrow block min-h-11 pt-3 pb-3 md:min-h-0 md:pt-0 md:pb-0 ${dark ? "text-smoke" : "text-smoke"}`;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -84,10 +84,10 @@ export default function EnquiryForm({
                     on
                       ? dark
                         ? "border-brass-light bg-brass-light text-ink"
-                        : "border-charcoal bg-charcoal text-ivory"
+                        : "border-ivory bg-night-2 text-ivory"
                       : dark
                         ? "border-ivory/25 text-ivory hover:border-ivory/60"
-                        : "border-charcoal/20 text-charcoal hover:border-charcoal/60"
+                        : "border-ivory/20 text-ivory hover:border-ivory/60"
                   }`}
                 >
                   <input
@@ -126,13 +126,13 @@ export default function EnquiryForm({
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`max-w-sm text-sm ${dark ? "text-mist" : "text-muted"}`}>
+        <p className={`max-w-sm text-sm ${dark ? "text-smoke" : "text-smoke"}`}>
           This opens WhatsApp with your message ready to send. Our team replies directly.
         </p>
         <button
           type="submit"
           className={`inline-flex min-h-12 items-center justify-center gap-3 px-8 py-3.5 text-[0.8125rem] font-medium uppercase tracking-[0.18em] transition-colors ${
-            dark ? "bg-brass-light text-ink hover:bg-ivory" : "bg-charcoal text-ivory hover:bg-brass"
+            dark ? "bg-brass-light text-ink hover:bg-ivory" : "bg-night-2 text-ivory hover:bg-brass"
           }`}
         >
           <WhatsAppIcon /> Send on WhatsApp

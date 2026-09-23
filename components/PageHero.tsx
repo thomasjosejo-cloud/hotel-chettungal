@@ -1,40 +1,47 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import HeroFx from "@/components/HeroFx";
+import HeroEmbers from "@/components/motion/HeroEmbers";
 import { blurFor } from "@/content/blur";
 
+/** "50% 60%" / "center" -> [0.5, 0.6] for the WebGL plane's object-position. */
+function toXY(position: string): [number, number] {
+  const [x = "50%", y = x] = position.replace(/center/g, "50%").split(/\s+/);
+  return [parseFloat(x) / 100, parseFloat(y) / 100];
+}
+
 /**
- * Full-bleed photographic hero. Copy sits low and left (editorial), never a
- * centred stack. The section paints its own dark ground and a blurred preview
- * of the photo on first paint, so there is no light flash while the photo
- * loads. `tint` sets the colour the image fades into at the bottom so each
- * sub-brand hands off into its own page ground.
+ * Full-bleed photographic hero on the night ground. Copy sits low and left
+ * (editorial), never a centred stack. The section paints the dark ground and
+ * a blurred preview on first paint, so there is no light flash while the
+ * poster loads. The poster is always the LCP element; after load, HeroFx fades
+ * a WebGL copy of it in on top (mouse tilt, scroll-out fade).
+ *
+ * `fx`: "embers" adds the CasaBay ember canvas, "wave" the Fish Town
+ * wave-wall glow.
  */
 export default function PageHero({
   image,
   alt,
-  tint = "charcoal",
   height = "tall",
   position = "center",
+  fx,
   children,
 }: {
   image: string;
   alt: string;
+  /** Kept for existing call sites; every hero now sits on the one night ground. */
   tint?: "charcoal" | "night" | "navy";
   height?: "tall" | "medium";
   position?: string;
+  fx?: "embers" | "wave";
   children: ReactNode;
 }) {
-  const ground = { charcoal: "bg-charcoal", night: "bg-night", navy: "bg-navy" }[tint];
-  const fade = {
-    charcoal: "from-charcoal via-charcoal/45",
-    night: "from-night via-night/50",
-    navy: "from-navy via-navy/45",
-  }[tint];
   const blur = blurFor(image);
 
   return (
     <section
-      className={`relative isolate flex items-end overflow-hidden text-ivory ${ground} ${
+      className={`relative isolate flex items-end overflow-hidden bg-night text-ivory ${
         height === "tall" ? "min-h-[100svh]" : "min-h-[78svh]"
       }`}
     >
@@ -47,11 +54,13 @@ export default function PageHero({
           sizes="100vw"
           placeholder={blur ? "blur" : "empty"}
           blurDataURL={blur}
-          className="ken-burns object-cover"
+          className="object-cover"
           style={{ objectPosition: position }}
         />
-        <div className={`absolute inset-0 bg-gradient-to-t ${fade} to-transparent`} />
+        <HeroFx src={image} position={toXY(position)} wave={fx === "wave"} />
+        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/45 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
+        {fx === "embers" && <HeroEmbers />}
       </div>
       <div className="container-x relative pb-28 pt-36 md:pb-20 md:pt-40 lg:pb-24">{children}</div>
     </section>

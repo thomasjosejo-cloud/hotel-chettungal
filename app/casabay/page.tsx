@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import { Button, Eyebrow, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
+import SplitText from "@/components/motion/SplitText";
 
 export const metadata: Metadata = {
   title: "CasaBay Rooftop Restobar",
@@ -23,10 +24,10 @@ export default function CasaBayPage() {
   const photos = PHOTOS.casabay;
   return (
     <div className="bg-night text-ivory">
-      <PageHero image={photos[1].src} alt={photos[1].alt} tint="night" position="50% 45%">
+      <PageHero image={photos[1].src} alt={photos[1].alt} position="50% 45%" fx="embers">
         <Eyebrow className="text-ember">Rooftop restobar · Hotel New Town</Eyebrow>
         <h1
-          className="mt-4 font-casa text-[clamp(4.5rem,3rem+9vw,10rem)] leading-[0.95] text-ember [text-shadow:0_0_40px_rgba(227,165,90,0.35),0_4px_24px_rgba(0,0,0,0.6)]"
+          className="neon-glow ignite mt-4 font-casa text-[clamp(4.5rem,3rem+9vw,10rem)] leading-[0.95]"
         >
           CasaBay
         </h1>
@@ -50,7 +51,7 @@ export default function CasaBayPage() {
             <em className="text-ember">late conversations.</em>
           </h2>
           <div className="md:col-span-4 md:col-start-9 md:pt-3" data-reveal>
-            <p className="text-[1.0625rem] leading-relaxed text-mist">
+            <p className="text-[1.0625rem] leading-relaxed text-smoke">
               CasaBay is the hotel&apos;s rooftop resto-bar for cocktails, conversation and unhurried evenings. Come
               for the view, stay for the food, and raise a glass to the night.
             </p>
@@ -84,9 +85,9 @@ export default function CasaBayPage() {
           <div className="mb-14 flex flex-col justify-between gap-6 md:mb-20 md:flex-row md:items-end">
             <div data-reveal>
               <Eyebrow className="text-ember">After dark</Eyebrow>
-              <h2 className="h2 mt-4">Around the roof</h2>
+              <SplitText className="h2 mt-4">Around the roof</SplitText>
             </div>
-            <p className="max-w-sm text-mist" data-reveal>
+            <p className="max-w-sm text-smoke" data-reveal>
               Onyx, lattice and murals under the lamps. Select any photo to see it larger.
             </p>
           </div>
@@ -100,8 +101,8 @@ export default function CasaBayPage() {
           <div className="flex items-center px-5 py-20 md:px-10 md:py-24 lg:px-16 xl:px-24">
             <div className="max-w-md" data-reveal>
               <Eyebrow className="text-ember">Private evenings</Eyebrow>
-              <h2 className="h2 mt-5">Make the roof yours for a night.</h2>
-              <p className="mt-6 text-[1.0625rem] leading-relaxed text-mist">
+              <SplitText className="h2 mt-5">Make the roof yours for a night.</SplitText>
+              <p className="mt-6 text-[1.0625rem] leading-relaxed text-smoke">
                 Birthdays, team nights and small celebrations. Tell us the date and how many are coming, and we&apos;ll
                 work out the rest with you.
               </p>
@@ -118,8 +119,8 @@ export default function CasaBayPage() {
 
       <section className="py-28 text-center md:py-40">
         <div className="container-x" data-reveal>
-          <p className="font-casa text-5xl text-ember md:text-6xl">CasaBay</p>
-          <h2 className="display mx-auto mt-6 max-w-3xl">Take the evening upstairs.</h2>
+          <p className="neon-glow font-casa text-5xl md:text-6xl">CasaBay</p>
+          <SplitText className="display mx-auto mt-6 max-w-3xl">Take the evening upstairs.</SplitText>
           <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
             <Button href={whatsapp(WA.casabay)} tone="ember">
               <WhatsAppIcon /> Reserve a table

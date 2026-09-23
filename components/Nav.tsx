@@ -34,7 +34,7 @@ export default function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 text-ivory transition-[background-color,padding,border-color] duration-500 ${
         solid
-          ? "border-b border-white/10 bg-charcoal/95 py-3 backdrop-blur-md"
+          ? "border-b border-white/10 bg-night/95 py-3 backdrop-blur-md"
           : "border-b border-transparent bg-gradient-to-b from-black/55 to-transparent py-5 md:py-7"
       }`}
     >
@@ -94,12 +94,12 @@ export default function Nav() {
           className="relative -mr-2 flex h-11 w-11 items-center justify-center xl:hidden"
         >
           <span
-            className={`absolute h-px w-6 bg-ivory transition-transform duration-300 ${
+            className={`absolute h-px w-6 bg-night-2 transition-transform duration-300 ${
               open ? "rotate-45" : "-translate-y-[5px]"
             }`}
           />
           <span
-            className={`absolute h-px w-6 bg-ivory transition-transform duration-300 ${
+            className={`absolute h-px w-6 bg-night-2 transition-transform duration-300 ${
               open ? "-rotate-45" : "translate-y-[5px]"
             }`}
           />
@@ -114,7 +114,7 @@ export default function Nav() {
         hidden={!open}
         // Sibling of <header>, not a child: the header's backdrop-blur would make it
         // the containing block and collapse this fixed panel to 0px tall.
-        className="fixed inset-0 z-[45] overflow-y-auto bg-charcoal pt-[76px] text-ivory xl:hidden"
+        className="fixed inset-0 z-[45] overflow-y-auto bg-night-2 pt-[76px] text-ivory xl:hidden"
       >
         <nav aria-label="Mobile" className="container-x flex min-h-full flex-col pb-10 pt-8">
           <ol className="flex flex-col">
