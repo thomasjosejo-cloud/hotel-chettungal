@@ -27,6 +27,7 @@ export default function PageHero({
   height = "tall",
   position = "center",
   fx,
+  posterPriority = true,
   children,
 }: {
   image: string;
@@ -36,6 +37,12 @@ export default function PageHero({
   height?: "tall" | "medium";
   position?: string;
   fx?: "embers" | "wave";
+  /**
+   * The poster is the priority (preloaded) image by default. Pages whose hero
+   * logo is the LCP element pass false: the poster then loads eagerly at normal
+   * priority and the logo takes the priority slot.
+   */
+  posterPriority?: boolean;
   children: ReactNode;
 }) {
   const blur = blurFor(image);
@@ -53,7 +60,8 @@ export default function PageHero({
             src={image}
             alt={alt}
             fill
-            priority
+            preload={posterPriority}
+            loading={posterPriority ? undefined : "eager"}
             sizes="100vw"
             placeholder={blur ? "blur" : "empty"}
             blurDataURL={blur}

@@ -86,7 +86,8 @@ export default function Home() {
             src={cb[0].src}
             alt={cb[0].alt}
             fill
-            priority
+            // Normal priority but eager: the logo holds the priority slot on this hero.
+            loading="eager"
             sizes="100vw"
             placeholder={heroBlur ? "blur" : "empty"}
             blurDataURL={heroBlur}
@@ -100,7 +101,8 @@ export default function Home() {
         <div className="hero-copy hero-copy-k">
           <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
           <h1 className="wordmark ignite">
-            <CasaBayLogo priority sizes="(min-width: 761px) 640px, 80vw" />
+            {/* Same width as .proto .wordmark .casa-logo */}
+            <CasaBayLogo preload sizes="clamp(290px, 46vw, 640px)" />
           </h1>
           <p className="tag">Take the evening upstairs.</p>
           <Fact>{open(SITE.hours.casabay)}</Fact>

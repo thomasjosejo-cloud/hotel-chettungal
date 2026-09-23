@@ -25,10 +25,10 @@ export default function CasaBayPage() {
   const photos = PHOTOS.casabay;
   return (
     <div className="bg-night text-ivory">
-      <PageHero image={photos[1].src} alt={photos[1].alt} position="50% 45%" fx="embers">
+      <PageHero image={photos[1].src} alt={photos[1].alt} position="50% 45%" fx="embers" posterPriority={false}>
         <Eyebrow className="text-ember">Rooftop restobar · Chettungal New Town</Eyebrow>
         <h1 className="ignite mt-5">
-          <CasaBayLogo priority className="w-[clamp(260px,45vw,620px)]" sizes="(min-width: 761px) 620px, 80vw" />
+          <CasaBayLogo preload className="w-[clamp(260px,45vw,620px)]" sizes="clamp(260px, 45vw, 620px)" />
         </h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Take the evening upstairs.
