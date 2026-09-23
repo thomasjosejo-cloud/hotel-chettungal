@@ -9,7 +9,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "Rooms",
   description:
-    "Ten air-conditioned rooms at Hotel New Town by Chettungal on NH 544, Angamaly, booked directly by phone or WhatsApp.",
+    "Ten air-conditioned rooms at Chettungal New Town Hotel on NH 544, Angamaly, booked directly by phone or WhatsApp.",
   alternates: { canonical: "/rooms" },
   openGraph: { images: [{ url: PHOTOS.rooms[0].src, width: 1448, height: 1086, alt: PHOTOS.rooms[0].alt }] },
 };
@@ -29,7 +29,7 @@ export default function RoomsPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt}>
-        <Eyebrow className="text-brass-light">Stay · Hotel New Town</Eyebrow>
+        <Eyebrow className="text-brass-light">Stay · Chettungal New Town</Eyebrow>
         <h1 className="display mt-6">Ten rooms.</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Each built for a proper night&apos;s rest.

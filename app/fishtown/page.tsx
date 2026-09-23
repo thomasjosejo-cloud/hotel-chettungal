@@ -9,7 +9,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "Fish Town Restaurant",
   description:
-    "Fish Town is the multi-cuisine restaurant at Hotel New Town by Chettungal, Angamaly. Kerala seafood, North Indian, Chinese and Continental. Fresh catch, local soul.",
+    "Fish Town is the multi-cuisine restaurant at Chettungal New Town Hotel, Angamaly. Kerala seafood, North Indian, Chinese and Continental. Fresh catch, local soul.",
   alternates: { canonical: "/fishtown" },
   openGraph: { images: [{ url: PHOTOS.fishtown[0].src, width: 1536, height: 1024, alt: PHOTOS.fishtown[0].alt }] },
 };
@@ -32,7 +32,7 @@ export default function FishTownPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt} fx="wave">
-        <Eyebrow className="text-brass-light">Multi-cuisine restaurant · Hotel New Town</Eyebrow>
+        <Eyebrow className="text-brass-light">Multi-cuisine restaurant · Chettungal New Town</Eyebrow>
         <h1 className="mt-8">
           <span className="sr-only">Fish Town</span>
           <Image

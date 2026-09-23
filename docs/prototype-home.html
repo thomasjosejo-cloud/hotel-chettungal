@@ -1,8 +1,8 @@
 <title>Chettungal After Dark</title>
-<meta name="description" content="Home page prototype for Hotel New Town by Chettungal, Angamaly.">
+<meta name="description" content="Home page prototype for Chettungal New Town Hotel, Angamaly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chewy&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap">
 <link rel="preload" as="image" href="img/hero.webp">
 <style>
   /* One night ground for the whole page. Colour comes from the photographs,
@@ -18,7 +18,6 @@
     --line: rgba(243, 236, 224, 0.14);
     --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
     --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --casa: "Chewy", "Cooper Black", "Arial Rounded MT Bold", cursive;
     --gutter: clamp(16px, 5vw, 72px);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -62,8 +61,8 @@
   }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .brand img { height: 32px; width: auto; }
-  .brand b { display: block; font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
-  .brand small { display: block; margin-top: 4px; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brass); }
+  .brand b { display: block; margin-top: 4px; font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
+  .brand small { display: block; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brass); }
   .bar .btn { min-height: 42px; padding: 10px 18px; }
 
   /* Hero: CasaBay at night */
@@ -86,18 +85,15 @@
   }
   #embers { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
   .hero-copy { padding: 140px var(--gutter) clamp(56px, 9vh, 96px); max-width: 900px; }
-  .wordmark {
-    font-family: var(--casa); font-weight: 400; line-height: 0.9; margin: 14px 0 10px;
-    font-size: clamp(88px, 13vw, 190px); color: var(--ember); letter-spacing: 0;
-    text-shadow: 0 0 18px rgba(232, 169, 92, 0.55), 0 0 60px rgba(232, 169, 92, 0.35), 0 0 120px rgba(232, 120, 40, 0.25);
-    animation: ignite 1.7s steps(1, end) both;
-  }
+  .casa-logo { display: block; max-width: 100%; height: auto; filter: drop-shadow(0 0 28px rgba(232, 150, 70, 0.28)); }
+  .wordmark { margin: 18px 0 14px; line-height: 0; animation: ignite 1.7s steps(1, end) both; }
+  .wordmark .casa-logo { width: clamp(290px, 46vw, 640px); margin-left: -0.6%; }
   @keyframes ignite {
-    0% { opacity: 0.35; text-shadow: none; }
+    0% { opacity: 0.35 }
     12% { opacity: 1; }
-    18% { opacity: 0.4; text-shadow: none; }
+    18% { opacity: 0.4 }
     30% { opacity: 1; }
-    36% { opacity: 0.55; text-shadow: none; }
+    36% { opacity: 0.55 }
     46%, 100% { opacity: 1; }
   }
   .hero .tag { margin-bottom: 18px; }
@@ -133,8 +129,8 @@
   .cuisines li { font-size: 15px; border-top: 1px solid var(--line); padding-top: 8px; color: var(--ivory); }
   .count { font-family: var(--serif); font-size: clamp(96px, 9vw + 20px, 168px); line-height: 0.85; color: var(--brass); font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1, "tnum" 1; margin: 18px 0 6px; }
   .count-label { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--smoke); margin-bottom: 22px; }
-  .chapter.finale h2 { font-family: var(--casa); color: var(--ember); font-size: clamp(72px, 7vw + 20px, 140px); letter-spacing: 0; line-height: 0.9;
-    text-shadow: 0 0 18px rgba(232, 169, 92, 0.55), 0 0 70px rgba(232, 120, 40, 0.3); }
+  .chapter.finale h2 { line-height: 0; margin-bottom: 14px; }
+  .chapter.finale h2 .casa-logo { width: clamp(250px, 24vw + 80px, 480px); }
   .chapter.finale .tag { color: var(--ivory); }
   .ch-img { display: none; }
 
@@ -197,9 +193,9 @@
 </style>
 
 <header class="bar">
-  <a class="brand" href="#top" aria-label="Hotel New Town by Chettungal">
+  <a class="brand" href="#top" aria-label="Chettungal New Town Hotel">
     <img src="img/crest.png" alt="" width="344" height="260">
-    <span><b>Hotel New Town</b><small>by Chettungal</small></span>
+    <span><small>Chettungal</small><b>New Town Hotel</b></span>
   </a>
   <a class="btn ember" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20reserve%20a%20table%20at%20CasaBay." target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>
@@ -213,7 +209,7 @@
     <canvas id="embers" aria-hidden="true"></canvas>
     <div class="hero-copy">
       <p class="eyebrow">Rooftop restobar · Angamaly</p>
-      <h1 class="wordmark">CasaBay</h1>
+      <h1 class="wordmark"><img class="casa-logo" src="img/casabay-logo.webp" alt="CasaBay" width="1600" height="496"></h1>
       <p class="tag">Take the evening upstairs.</p>
       <p class="body">A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten rooms. One address on NH 544.</p>
       <div class="row">
@@ -224,7 +220,7 @@
     <div class="cue" aria-hidden="true">Scroll</div>
   </section>
 
-  <section class="journey" id="journey" aria-label="The evening at Hotel New Town">
+  <section class="journey" id="journey" aria-label="The evening at Chettungal New Town">
     <div class="stage">
       <canvas id="gl" aria-hidden="true"></canvas>
 
@@ -262,7 +258,7 @@
       <article class="chapter finale" data-ch="3">
         <img class="ch-img" src="img/cb-bar.webp" alt="Cocktails on the CasaBay bar" loading="lazy">
         <p class="numeral">IV</p>
-        <h2>CasaBay</h2>
+        <h2><img class="casa-logo" src="img/casabay-logo.webp" alt="CasaBay" width="1600" height="496" loading="lazy"></h2>
         <p class="tag">Back on the roof.</p>
         <p class="body">An open-air deck and a covered bar at the top of the hotel. Cocktails, food from the kitchen, and an evening that ends late.</p>
         <a class="btn ember" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20reserve%20a%20table%20at%20CasaBay." target="_blank" rel="noopener">Reserve a table</a>
@@ -297,12 +293,12 @@
     <div>
       <p class="eyebrow">Call or WhatsApp</p>
       <p class="phone">+91 99611 34364</p>
-      <p><a href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20know%20more%20about%20Hotel%20New%20Town%20by%20Chettungal." target="_blank" rel="noopener">Message us on WhatsApp ↗</a></p>
+      <p><a href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20know%20more%20about%20Chettungal%20New%20Town%20Hotel." target="_blank" rel="noopener">Message us on WhatsApp ↗</a></p>
     </div>
   </section>
 </main>
 
-<p class="note">Home page prototype for Hotel New Town by Chettungal · HOSTORY. All photographs are the property's own.</p>
+<p class="note">Home page prototype for Chettungal New Town Hotel · HOSTORY. All photographs are the property's own.</p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>

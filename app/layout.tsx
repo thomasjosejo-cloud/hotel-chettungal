@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter, Chewy } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
@@ -19,14 +19,6 @@ const cormorant = Cormorant_Garamond({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-// CasaBay's signage face — used only for the CasaBay wordmark.
-const chewy = Chewy({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-chewy",
   display: "swap",
 });
 
@@ -57,7 +49,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${cormorant.variable} ${inter.variable} ${chewy.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${cormorant.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* Enables scroll-reveal before first paint; without JS content stays visible. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

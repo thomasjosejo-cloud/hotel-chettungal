@@ -135,7 +135,7 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       ref={root}
       className="journey"
       id="journey"
-      aria-label="The evening at Hotel New Town"
+      aria-label="The evening at Chettungal New Town"
       data-static={staticMode ? "" : undefined}
     >
       {CENTERS.map((_, i) => (

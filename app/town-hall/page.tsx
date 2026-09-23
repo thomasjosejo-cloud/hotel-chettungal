@@ -10,7 +10,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "Town Hall Banquet Hall",
   description:
-    "Town Hall at Hotel New Town by Chettungal, Angamaly: a banquet hall for up to 120 guests with a stage, podium and buffet space. Weddings, receptions, conferences and family occasions.",
+    "Town Hall at Chettungal New Town Hotel, Angamaly: a banquet hall for up to 120 guests with a stage, podium and buffet space. Weddings, receptions, conferences and family occasions.",
   alternates: { canonical: "/town-hall" },
   openGraph: { images: [{ url: PHOTOS.townhall[0].src, width: 1536, height: 1024, alt: PHOTOS.townhall[0].alt }] },
 };
@@ -33,7 +33,7 @@ export default function TownHallPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt}>
-        <Eyebrow className="text-brass-light">Banquet hall · Hotel New Town</Eyebrow>
+        <Eyebrow className="text-brass-light">Banquet hall · Chettungal New Town</Eyebrow>
         <h1 className="display mt-6">Town Hall</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Where the whole guest list fits.

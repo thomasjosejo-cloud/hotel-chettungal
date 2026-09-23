@@ -10,7 +10,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "The Board Room",
   description:
-    "A private board room at Hotel New Town by Chettungal, Angamaly, for board meetings, interviews, client presentations and training.",
+    "A private board room at Chettungal New Town Hotel, Angamaly, for board meetings, interviews, client presentations and training.",
   alternates: { canonical: "/board-room" },
   openGraph: { images: [{ url: PHOTOS.boardroom[0].src, width: 1536, height: 1024, alt: PHOTOS.boardroom[0].alt }] },
 };
@@ -30,7 +30,7 @@ export default function BoardRoomPage() {
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt} position="50% 65%">
         <Eyebrow className="text-brass-light">
-          Private meeting room · {SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : "Hotel New Town"}
+          Private meeting room · {SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : SITE.shortName}
         </Eyebrow>
         <h1 className="display mt-6">The Board Room</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">

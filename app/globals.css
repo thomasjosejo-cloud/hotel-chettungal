@@ -8,7 +8,6 @@
 @theme {
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
-  --font-casa: var(--font-chewy), "Chewy", cursive;
 
   --color-charcoal: #1e1e1c;
   --color-ink: #141412;
@@ -280,12 +279,12 @@
   max-width: 900px;
 }
 .proto .wordmark {
-  font-family: var(--font-casa);
-  font-weight: 400;
-  line-height: 0.9;
-  margin: 14px 0 10px;
-  font-size: clamp(88px, 13vw, 190px);
-  letter-spacing: 0;
+  margin: 18px 0 14px;
+  line-height: 0;
+}
+.proto .wordmark .casa-logo {
+  width: clamp(290px, 46vw, 640px);
+  margin-left: -0.6%;
 }
 .proto .hero .tag {
   margin-bottom: 18px;
@@ -326,14 +325,13 @@
   to { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* CasaBay neon: the prototype's glow and ignite keyframes (1.7s, ends lit).
-   Used on the home wordmark, the finale and the CasaBay page h1. */
-.neon-glow {
-  color: var(--color-ember);
-  text-shadow:
-    0 0 18px rgb(232 169 92 / 0.55),
-    0 0 60px rgb(232 169 92 / 0.35),
-    0 0 120px rgb(232 120 40 / 0.25);
+/* CasaBay logo: the supplied artwork already glows; a soft ember halo sits
+   behind it, and "ignite" flickers it on (1.7s, ends lit). Used on the home
+   hero, the journey finale and the CasaBay page. */
+.casa-logo {
+  display: block;
+  max-width: 100%;
+  filter: drop-shadow(0 0 28px rgb(232 150 70 / 0.28));
 }
 @media (prefers-reduced-motion: no-preference) {
   .ignite {
@@ -341,11 +339,11 @@
   }
 }
 @keyframes ignite {
-  0% { opacity: 0.35; text-shadow: none; }
+  0% { opacity: 0.35; }
   12% { opacity: 1; }
-  18% { opacity: 0.4; text-shadow: none; }
+  18% { opacity: 0.4; }
   30% { opacity: 1; }
-  36% { opacity: 0.55; text-shadow: none; }
+  36% { opacity: 0.55; }
   46%, 100% { opacity: 1; }
 }
 
@@ -440,11 +438,12 @@
   color: var(--color-smoke);
   margin-bottom: 22px;
 }
-.proto .finale h2 {
-  font-family: var(--font-casa);
-  font-size: clamp(72px, 7vw + 20px, 140px);
-  letter-spacing: 0;
-  line-height: 0.9;
+.proto .finale .casa-mark {
+  line-height: 0;
+  margin-bottom: 14px;
+}
+.proto .finale .casa-mark .casa-logo {
+  width: clamp(250px, 24vw + 80px, 480px);
 }
 .proto .finale .tag {
   color: var(--color-ivory);

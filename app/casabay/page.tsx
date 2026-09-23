@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import CasaBayLogo from "@/components/CasaBayLogo";
 import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import { Button, Eyebrow, WhatsAppIcon } from "@/components/ui";
@@ -9,7 +10,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "CasaBay Rooftop Restobar",
   description:
-    "CasaBay is the rooftop restobar at Hotel New Town by Chettungal, Angamaly. An open-air deck, a full bar and food from the kitchen. Take the evening upstairs.",
+    "CasaBay is the rooftop restobar at Chettungal New Town Hotel, Angamaly. An open-air deck, a full bar and food from the kitchen. Take the evening upstairs.",
   alternates: { canonical: "/casabay" },
   openGraph: { images: [{ url: PHOTOS.casabay[1].src, width: 1536, height: 1024, alt: PHOTOS.casabay[1].alt }] },
 };
@@ -25,11 +26,9 @@ export default function CasaBayPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={photos[1].src} alt={photos[1].alt} position="50% 45%" fx="embers">
-        <Eyebrow className="text-ember">Rooftop restobar · Hotel New Town</Eyebrow>
-        <h1
-          className="neon-glow ignite mt-4 font-casa text-[clamp(4.5rem,3rem+9vw,10rem)] leading-[0.95]"
-        >
-          CasaBay
+        <Eyebrow className="text-ember">Rooftop restobar · Chettungal New Town</Eyebrow>
+        <h1 className="ignite mt-5">
+          <CasaBayLogo priority className="w-[clamp(260px,45vw,620px)]" sizes="(min-width: 761px) 620px, 80vw" />
         </h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Take the evening upstairs.
@@ -122,7 +121,9 @@ export default function CasaBayPage() {
 
       <section className="py-28 text-center md:py-40">
         <div className="container-x" data-reveal>
-          <p className="neon-glow font-casa text-5xl md:text-6xl">CasaBay</p>
+          <p>
+            <CasaBayLogo className="mx-auto w-[200px] md:w-[260px]" sizes="260px" />
+          </p>
           <SplitText className="display mx-auto mt-6 max-w-3xl">Take the evening upstairs.</SplitText>
           <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
             <Button href={whatsapp(WA.casabay)} tone="ember">

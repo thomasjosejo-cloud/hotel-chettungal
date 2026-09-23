@@ -7,7 +7,7 @@ import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
 export const metadata: Metadata = {
   title: "Enquire",
   description:
-    "Reserve a table at CasaBay or Fish Town, plan an event at Town Hall, book the Board Room or a room at Hotel New Town by Chettungal, Angamaly.",
+    "Reserve a table at CasaBay or Fish Town, plan an event at Town Hall, book the Board Room or a room at Chettungal New Town Hotel, Angamaly.",
   alternates: { canonical: "/enquire" },
 };
 

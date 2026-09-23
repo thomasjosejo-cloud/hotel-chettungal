@@ -11,8 +11,8 @@ export type Photo = { src: string; alt: string; caption: string };
 
 export const SITE = {
   url: "https://hotelchettungal.com",
-  name: "Hotel New Town by Chettungal",
-  shortName: "Hotel New Town",
+  name: "Chettungal New Town Hotel",
+  shortName: "Chettungal New Town",
   house: "Chettungal",
   phone: "+91 99611 34364",
   phoneHref: "tel:+919961134364",
@@ -23,6 +23,7 @@ export const SITE = {
     region: "Ernakulam, Kerala",
     pincode: "683572",
   },
+  // Maps search still uses the Google listing's current name; update once the listing is renamed.
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hotel+New+Town+Chettungal+Angamaly",
   mapsEmbed: "https://www.google.com/maps?q=Hotel+New+Town+Chettungal+Angamaly&output=embed",
   // Confirmed by the property. Days were not given: never add days or "daily".
@@ -46,7 +47,7 @@ export function whatsapp(message: string): string {
 }
 
 export const WA = {
-  general: "Hello, I'd like to know more about Hotel New Town by Chettungal.",
+  general: "Hello, I'd like to know more about Chettungal New Town Hotel.",
   casabay: "Hello, I'd like to reserve a table at CasaBay.",
   casabayMenu: "Hello, could you send me the CasaBay menu?",
   casabayPrivate: "Hello, I'm planning a private evening at CasaBay and would like to discuss it.",
@@ -127,10 +128,10 @@ export const PHOTOS = {
     { src: rm("room-2-angle"), alt: "Guest room seen from the desk", caption: "The room from the desk" },
   ] satisfies Photo[],
   location: [
-    { src: lc("facade"), alt: "Hotel New Town by Chettungal facade on NH 544, Angamaly", caption: "On NH 544, Angamaly" },
-    { src: lc("reception-counter"), alt: "The reception desk at Hotel New Town", caption: "Reception" },
-    { src: lc("reception-1"), alt: "Lobby seating at Hotel New Town", caption: "The lobby" },
-    { src: lc("reception-entrance"), alt: "Hotel New Town entrance and reception", caption: "The entrance" },
+    { src: lc("facade"), alt: "Chettungal New Town Hotel facade on NH 544, Angamaly", caption: "On NH 544, Angamaly" },
+    { src: lc("reception-counter"), alt: "The reception desk at Chettungal New Town", caption: "Reception" },
+    { src: lc("reception-1"), alt: "Lobby seating at Chettungal New Town", caption: "The lobby" },
+    { src: lc("reception-entrance"), alt: "Chettungal New Town entrance and reception", caption: "The entrance" },
   ] satisfies Photo[],
 };
 

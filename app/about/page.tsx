@@ -10,7 +10,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "About & Location",
   description:
-    "Hotel New Town by Chettungal on NH 544, Angamaly, Kerala: CasaBay, Fish Town, Town Hall, the Board Room and ten rooms. Address and directions.",
+    "Chettungal New Town Hotel on NH 544, Angamaly, Kerala: CasaBay, Fish Town, Town Hall, the Board Room and ten rooms. Address and directions.",
   alternates: { canonical: "/about" },
   openGraph: { images: [{ url: PHOTOS.location[0].src, width: 1131, height: 942, alt: PHOTOS.location[0].alt }] },
 };
@@ -30,7 +30,7 @@ export default function AboutPage() {
         <div className="container-x grid gap-16 md:grid-cols-12">
           <div className="md:col-span-7" data-reveal>
             <p className="statement">
-              Hotel New Town by Chettungal is a hotel in Angamaly built around food, drink and gathering, with ten
+              Chettungal New Town Hotel is an Angamaly address built around food, drink and gathering, with ten
               rooms for the people who come for them.
             </p>
           </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden bg-night-2 md:col-span-7 md:col-start-6" data-reveal>
             <iframe
-              title="Map showing Hotel New Town by Chettungal, Angamaly"
+              title="Map showing Chettungal New Town Hotel, Angamaly"
               src={SITE.mapsEmbed}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

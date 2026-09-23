@@ -3,6 +3,7 @@ import Image from "next/image";
 import HomeJourney from "@/components/home/HomeJourney";
 import HeroEmbers from "@/components/motion/HeroEmbers";
 import HeroParallax from "@/components/motion/HeroParallax";
+import CasaBayLogo from "@/components/CasaBayLogo";
 import { Button, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, VENUES, WA, whatsapp, type Photo } from "@/content/site";
 import { blurFor } from "@/content/blur";
@@ -98,7 +99,9 @@ export default function Home() {
         <HeroEmbers className="-z-10" />
         <div className="hero-copy hero-copy-k">
           <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
-          <h1 className="wordmark neon-glow ignite">CasaBay</h1>
+          <h1 className="wordmark ignite">
+            <CasaBayLogo priority sizes="(min-width: 761px) 640px, 80vw" />
+          </h1>
           <p className="tag">Take the evening upstairs.</p>
           <Fact>{open(SITE.hours.casabay)}</Fact>
           <p className="body">
@@ -173,7 +176,9 @@ export default function Home() {
         <article className="chapter finale" data-ch="3">
           <ChapterImage photo={cb[1]} />
           <p className="numeral">IV</p>
-          <h2 className="neon-glow">CasaBay</h2>
+          <h2 className="casa-mark">
+            <CasaBayLogo sizes="(min-width: 761px) 500px, 70vw" />
+          </h2>
           <p className="tag">Back on the roof.</p>
           <Fact>{open(SITE.hours.casabay)}</Fact>
           <p className="body">{venue("casabay").body}</p>
