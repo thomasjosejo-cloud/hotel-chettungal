@@ -179,7 +179,8 @@ export default function Home() {
           <ChapterImage photo={cb[1]} />
           <p className="numeral">IV</p>
           <h2 className="casa-mark">
-            <CasaBayLogo sizes="(min-width: 761px) 500px, 70vw" />
+            {/* Same sizes as the hero logo, so this reuses the hero's download. */}
+            <CasaBayLogo sizes="clamp(290px, 46vw, 640px)" />
           </h2>
           <p className="tag">Back on the roof.</p>
           <Fact>{open(SITE.hours.casabay)}</Fact>

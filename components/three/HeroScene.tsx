@@ -3,9 +3,9 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { isPhone, textureUrl } from "@/lib/motion";
+import { isPhone } from "@/lib/motion";
 import { coverUv, createPlaneMaterial, createWaveMaterial, disableColorManagement } from "./materials";
-import { FrameDriver, lerpAt60, useLazyTexture } from "./parts";
+import { FrameDriver, lerpAt60 } from "./parts";
 
 disableColorManagement();
 
@@ -22,14 +22,14 @@ const clamp1 = (v: number) => Math.max(-1, Math.min(1, v));
  * nudged by device tilt.
  */
 function Hero({
-  src,
+  poster,
   position,
   wave,
   root,
   phone,
   onReady,
 }: {
-  src: string;
+  poster: HTMLImageElement;
   position: [number, number];
   wave: boolean;
   root: RefObject<HTMLElement | null>;
@@ -42,7 +42,16 @@ function Hero({
   const group = useRef<THREE.Group>(null);
   const { material, uniforms } = useMemo(() => createPlaneMaterial(0), []);
   const waveMat = useMemo(() => (wave ? createWaveMaterial() : null), [wave]);
-  const tex = useLazyTexture(textureUrl(src, phone, true));
+  // The poster <img> on the page is the texture: no second download.
+  const tex = useMemo(() => {
+    const t = new THREE.Texture(poster);
+    t.minFilter = THREE.LinearFilter;
+    t.generateMipmaps = false;
+    t.needsUpdate = true;
+    return t;
+  }, [poster]);
+  useEffect(() => () => tex.dispose(), [tex]);
+  const imageAspect = poster.naturalWidth / Math.max(1, poster.naturalHeight);
   const sim = useRef({ mx: 0, my: 0, hasMouse: false, tiltX: 0, tiltY: 0, bend: 0, lastY: 0, frames: -1, top: 0, h: 1 }).current;
 
   // Overscan so tilt, zoom and drift never show an edge.
@@ -54,11 +63,11 @@ function Hero({
     uniforms.uTex.value = tex;
     uniforms.uReady.value = tex ? 1 : 0;
     uniforms.uReveal.value = 1.1;
-    const { scale, offset } = coverUv(W / H, 1.5, position[0], position[1]);
+    const { scale, offset } = coverUv(W / H, imageAspect, position[0], position[1]);
     uniforms.uCoverScale.value.copy(scale);
     uniforms.uCoverOffset.value.copy(offset);
     if (tex) sim.frames = 0;
-  }, [tex, uniforms, W, H, position, sim]);
+  }, [tex, uniforms, W, H, imageAspect, position, sim]);
   useEffect(() => () => (material.dispose(), waveMat?.dispose()), [material, waveMat]);
 
   // Hero geometry, measured on width changes only (the hero is 100svh).
@@ -148,13 +157,13 @@ function Hero({
 }
 
 export default function HeroScene({
-  src,
+  poster,
   position,
   wave = false,
   root,
   onReady,
 }: {
-  src: string;
+  poster: HTMLImageElement;
   position: [number, number];
   wave?: boolean;
   root: RefObject<HTMLElement | null>;
@@ -195,7 +204,7 @@ export default function HeroScene({
       style={{ pointerEvents: "none" }}
     >
       <FrameDriver active={active} />
-      <Hero src={src} position={position} wave={wave} root={root} phone={phone} onReady={onReady} />
+      <Hero poster={poster} position={position} wave={wave} root={root} phone={phone} onReady={onReady} />
     </Canvas>
   );
 }

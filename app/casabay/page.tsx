@@ -122,7 +122,8 @@ export default function CasaBayPage() {
       <section className="py-28 text-center md:py-40">
         <div className="container-x" data-reveal>
           <p>
-            <CasaBayLogo className="mx-auto w-[200px] md:w-[260px]" sizes="260px" />
+            {/* Same sizes as the hero logo, so this reuses the hero's download. */}
+            <CasaBayLogo className="mx-auto w-[200px] md:w-[260px]" sizes="clamp(260px, 45vw, 620px)" />
           </p>
           <SplitText className="display mx-auto mt-6 max-w-3xl">Take the evening upstairs.</SplitText>
           <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
