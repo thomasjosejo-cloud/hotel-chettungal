@@ -11,10 +11,14 @@ const WIDE = "(min-width: 761px)";
  * Put it inside the heading element so the heading's accessible name is "CasaBay".
  *
  * Below 761px it serves a lighter 700px file; wider screens get the optimised
- * srcset of the full file. On the two CasaBay heroes (/ and /casabay) the logo is
- * the LCP element (Chrome ignores the dark night photo), so `preload` gives it
- * the priority slot: one high-priority preload per screen width, matching what
- * the <picture> will pick, so each device downloads exactly one logo file.
+ * srcset of the full file. On the CasaBay heroes the logo is the LCP element
+ * (Chrome ignores the dark night photo), so `preload` marks it high priority
+ * and eager; the browser's preload scanner finds it in the initial HTML.
+ *
+ * It deliberately does NOT emit a <link rel="preload">. React hoists those into
+ * the document, and Next prefetches /casabay from the nav on every page, which
+ * applied the hint everywhere and had phones downloading the logo on pages that
+ * never show it.
  */
 export default function CasaBayLogo({
   className = "",
@@ -31,13 +35,6 @@ export default function CasaBayLogo({
 
   return (
     <>
-      {preload && (
-        <>
-          {/* React hoists these into <head>. */}
-          <link rel="preload" as="image" href={LOGO_SM} media={PHONE} fetchPriority="high" />
-          <link rel="preload" as="image" imageSrcSet={srcSet} imageSizes={sizes} media={WIDE} fetchPriority="high" />
-        </>
-      )}
       <picture>
         <source media={PHONE} srcSet={`${LOGO_SM} 700w`} sizes={sizes} />
         <source media={WIDE} srcSet={srcSet} sizes={sizes} />
