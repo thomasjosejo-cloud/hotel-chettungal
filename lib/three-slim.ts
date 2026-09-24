@@ -31,6 +31,7 @@ export * from "three/src/constants.js";
 export { MathUtils } from "three/src/math/MathUtils.js";
 export { Matrix4 } from "three/src/math/Matrix4.js";
 export { Texture } from "three/src/textures/Texture.js";
+export { CanvasTexture } from "three/src/textures/CanvasTexture.js";
 export { TextureLoader } from "three/src/loaders/TextureLoader.js";
 export { ShaderMaterial } from "three/src/materials/ShaderMaterial.js";
 export { BufferGeometry } from "three/src/core/BufferGeometry.js";
