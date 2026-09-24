@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import HomeJourney from "@/components/home/HomeJourney";
-import HeroEmbers from "@/components/motion/HeroEmbers";
 import HeroParallax from "@/components/motion/HeroParallax";
 import CasaBayLogo from "@/components/CasaBayLogo";
 import PhotoFrame from "@/components/home/PhotoFrame";
 import PhotoMarks from "@/components/home/PhotoMarks";
-import { CHAPTER_NAMES, CHAPTER_SETS, ROOMS_SET } from "@/components/home/sets";
+import { byFile, CHAPTER_NAMES, CHAPTER_SETS, ROOMS_SET } from "@/components/home/sets";
 import { Button, WhatsAppIcon } from "@/components/ui";
 import { PHOTOS, SITE, VENUES, WA, whatsapp } from "@/content/site";
 import { blurFor } from "@/content/blur";
 
 // Home page: the approved prototype (docs/prototype-home.html), built in React.
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+const RECEPTION = byFile(PHOTOS.location, "reception-counter");
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    images: [{ url: RECEPTION.src, width: 1536, height: 1024, alt: "The reception desk at Chettungal New Town Hotel" }],
+  },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -76,47 +82,44 @@ function Marks({ i }: { i: number }) {
 }
 
 export default function Home() {
-  const cb = PHOTOS.casabay;
-  const heroBlur = blurFor(cb[0].src);
+  const heroBlur = blurFor(RECEPTION.src);
   return (
     <div className="proto">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* 1. Hero: CasaBay at night */}
-      <section className="hero" aria-label="CasaBay rooftop restobar">
-        {/* Poster stays the LCP image; the parallax transform is on its wrapper. */}
+      {/* 1. Hero: the reception — one address, every occasion */}
+      <section className="hero" aria-label={SITE.name}>
+        {/* Poster is the LCP image; the parallax transform is on its wrapper.
+            The priority slot is spelled `preload` in Next 16, not `priority`. */}
         <div className="hero-bg absolute inset-0 -z-20">
           <Image
-            src={cb[0].src}
-            alt={cb[0].alt}
+            src={RECEPTION.src}
+            alt="The reception desk at Chettungal New Town Hotel"
             fill
-            // Normal priority but eager: the logo holds the priority slot on this hero.
-            loading="eager"
+            preload
             sizes="100vw"
             placeholder={heroBlur ? "blur" : "empty"}
             blurDataURL={heroBlur}
             className="object-cover"
-            style={{ objectPosition: "center 60%" }}
+            style={{ objectPosition: "center 55%" }}
           />
         </div>
         <HeroParallax />
         <div className="hero-scrim" aria-hidden />
-        <HeroEmbers className="-z-10" />
         <div className="hero-copy hero-copy-k">
-          <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
-          <h1 className="wordmark ignite">
-            {/* Same width as .proto .wordmark .casa-logo */}
-            <CasaBayLogo preload sizes="clamp(290px, 46vw, 640px)" />
+          <p className="p-eyebrow">NH&nbsp;544 · Angamaly</p>
+          <h1 className="house">
+            <span className="house-top">{SITE.house}</span>{" "}
+            <span className="house-name">New Town Hotel</span>
           </h1>
-          <p className="tag">Take the evening upstairs.</p>
-          <Fact>{open(SITE.hours.casabay)}</Fact>
+          <p className="tag">One address, every occasion.</p>
           <p className="body">
             A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten rooms.
             One address on NH&nbsp;544.
           </p>
           <div className="row">
-            <Button href={whatsapp(WA.casabay)} tone="ember">
-              <WhatsAppIcon /> Reserve a table
+            <Button href={whatsapp(WA.general)}>
+              <WhatsAppIcon /> WhatsApp us
             </Button>
             <Button href="#journey" tone="outline-light">
               See the evening
@@ -130,10 +133,25 @@ export default function Home() {
 
       {/* 2. Journey */}
       <HomeJourney>
-        <article className="chapter" data-ch="0">
+        <article className="chapter finale" data-ch="0">
           <ChapterPhotos i={0} />
           <p className="numeral">I</p>
           <Marks i={0} />
+          <h2 className="casa-mark">
+            <CasaBayLogo sizes="clamp(290px, 46vw, 640px)" />
+          </h2>
+          <p className="tag">Take the evening upstairs.</p>
+          <Fact>{open(SITE.hours.casabay)}</Fact>
+          <p className="body">{venue("casabay").body}</p>
+          <Button href={whatsapp(WA.casabay)} tone="ember">
+            Reserve a table
+          </Button>
+        </article>
+
+        <article className="chapter" data-ch="1">
+          <ChapterPhotos i={1} />
+          <p className="numeral">II</p>
+          <Marks i={1} />
           <h2>
             <span className="sr-only">Fish Town</span>
             <Image src="/branding/fishtown-logo-ivory.png" alt="" width={1184} height={678} sizes="190px" className="ft-logo" />
@@ -151,10 +169,10 @@ export default function Home() {
           </Button>
         </article>
 
-        <article className="chapter" data-ch="1">
-          <ChapterPhotos i={1} />
-          <p className="numeral">II</p>
-          <Marks i={1} />
+        <article className="chapter" data-ch="2">
+          <ChapterPhotos i={2} />
+          <p className="numeral">III</p>
+          <Marks i={2} />
           <h2>Town Hall</h2>
           <p className="count">
             <span data-count aria-hidden>
@@ -169,32 +187,16 @@ export default function Home() {
           </Button>
         </article>
 
-        <article className="chapter" data-ch="2">
-          <ChapterPhotos i={2} />
-          <p className="numeral">III</p>
-          <Marks i={2} />
+        <article className="chapter" data-ch="3">
+          <ChapterPhotos i={3} />
+          <p className="numeral">IV</p>
+          <Marks i={3} />
           <h2>The Board Room</h2>
           <p className="tag">{venue("board-room").line}</p>
           <Fact>{SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : null}</Fact>
           <p className="body">{venue("board-room").body}</p>
           <Button href={whatsapp(WA.boardroom)} tone="outline-light">
             Book the room
-          </Button>
-        </article>
-
-        <article className="chapter finale" data-ch="3">
-          <ChapterPhotos i={3} />
-          <p className="numeral">IV</p>
-          <Marks i={3} />
-          <h2 className="casa-mark">
-            {/* Same sizes as the hero logo, so this reuses the hero's download. */}
-            <CasaBayLogo sizes="clamp(290px, 46vw, 640px)" />
-          </h2>
-          <p className="tag">Back on the roof.</p>
-          <Fact>{open(SITE.hours.casabay)}</Fact>
-          <p className="body">{venue("casabay").body}</p>
-          <Button href={whatsapp(WA.casabay)} tone="ember">
-            Reserve a table
           </Button>
         </article>
       </HomeJourney>

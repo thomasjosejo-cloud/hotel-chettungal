@@ -2,6 +2,7 @@
  * The journey timeline, from the prototype. One scroll-progress ref is written
  * by the DOM controller (HomeJourney) and read by the WebGL scene in useFrame.
  */
+import { CHAPTER } from "./sets";
 
 // Where each chapter sits in the journey's scroll (0..1) and how long it holds.
 export const CENTERS = [0.12, 0.38, 0.62, 0.88];
@@ -43,5 +44,6 @@ export function chapterMix(p: number): number {
  * Fills 0 -> 120 on the way in and lands on 120 before the chapter centre.
  */
 export function seatsProgress(p: number): number {
-  return Math.max(0, Math.min(1, (p - (CENTERS[1] - HALF * 1.6)) / (HALF * 1.5)));
+  const centre = CENTERS[CHAPTER.townhall];
+  return Math.max(0, Math.min(1, (p - (centre - HALF * 1.6)) / (HALF * 1.5)));
 }

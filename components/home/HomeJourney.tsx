@@ -11,7 +11,7 @@ import { attachSwipe } from "./swipe";
 // three.js + R3F: never on the server, and only requested once the page is idle.
 const HomeScene = dynamic(() => import("./HomeScene"), { ssr: false });
 
-const RAIL = ["Fish Town", "Town Hall", "Board Room", "CasaBay"];
+const RAIL = ["CasaBay", "Fish Town", "Town Hall", "Board Room"];
 
 /**
  * The journey section. Chapters are server-rendered HTML (children). This
