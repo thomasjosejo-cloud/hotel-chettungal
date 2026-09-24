@@ -10,7 +10,7 @@ import SplitText from "@/components/motion/SplitText";
 export const metadata: Metadata = {
   title: "Town Hall Banquet Hall",
   description:
-    "Town Hall at Chettungal New Town Hotel, Angamaly: a banquet hall for up to 120 guests with a stage, podium and buffet space. Weddings, receptions, conferences and family occasions.",
+    "Town Hall at Chettungal New Town Hotel, Angamaly: a banquet hall for up to 120 guests with a stage, podium and buffet space, for weddings and conferences.",
   alternates: { canonical: "/town-hall" },
   openGraph: { images: [{ url: PHOTOS.townhall[0].src, width: 1536, height: 1024, alt: PHOTOS.townhall[0].alt }] },
 };
@@ -113,7 +113,7 @@ export default function TownHallPage() {
             <SplitText className="h2 mt-4">Check a date for Town Hall.</SplitText>
             <p className="mt-6 text-smoke">
               Or call the team on{" "}
-              <a href={SITE.phoneHref} className="text-ivory underline underline-offset-4">
+              <a href={SITE.phoneHref} className="tap-line text-ivory underline underline-offset-4">
                 {SITE.phone}
               </a>
               .

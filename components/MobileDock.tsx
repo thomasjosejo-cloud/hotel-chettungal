@@ -20,7 +20,10 @@ export default function MobileDock() {
   const message = CONTEXT[pathname] ?? WA.general;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-white/10 bg-night/95 pb-[env(safe-area-inset-bottom)] text-ivory backdrop-blur-md md:hidden">
+    <nav
+      aria-label="Quick contact"
+      className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-white/10 bg-night/95 pb-[env(safe-area-inset-bottom)] text-ivory backdrop-blur-md md:hidden"
+    >
       <a href={SITE.phoneHref} className="flex min-h-14 items-center justify-center text-[0.8125rem] font-medium uppercase tracking-[0.16em]">
         Call
       </a>
@@ -35,6 +38,6 @@ export default function MobileDock() {
       <Link href="/enquire" className="flex min-h-14 items-center justify-center text-[0.8125rem] font-medium uppercase tracking-[0.16em]">
         Enquire
       </Link>
-    </div>
+    </nav>
   );
 }

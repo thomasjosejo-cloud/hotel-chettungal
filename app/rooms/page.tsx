@@ -69,6 +69,7 @@ export default function RoomsPage() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-5 text-smoke">{SITE.breakfast}</p>
             </div>
             <div>
               <Eyebrow className="text-brass-light">In the hotel</Eyebrow>
@@ -109,7 +110,7 @@ export default function RoomsPage() {
             <SplitText className="h2 mt-4">Rooms are booked with the front desk.</SplitText>
             <p className="mt-6 text-smoke">
               Send your dates here, WhatsApp us, or call{" "}
-              <a href={SITE.phoneHref} className="text-ivory underline underline-offset-4">
+              <a href={SITE.phoneHref} className="tap-line text-ivory underline underline-offset-4">
                 {SITE.phone}
               </a>
               .

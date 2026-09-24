@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { canRunWebGL, prefersReducedMotion, whenIdleAfterLoad } from "@/lib/motion";
 import { CENTERS, chapterMix, createJourneyState, seatsProgress } from "./journey";
@@ -37,13 +37,13 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
     return el && st ? Math.max(1, el.offsetHeight - st.offsetHeight) : 1;
   };
 
-  const goTo = (i: number, smooth = true) => {
+  const goTo = useCallback((i: number, smooth = true) => {
     const el = root.current;
     if (!el) return;
     // Lands exactly on the chapter's snap marker, so snapping never fights it.
     const top = el.getBoundingClientRect().top + scrollY + Math.round(CENTERS[i] * spanOf());
     scrollTo({ top, behavior: smooth && !prefersReducedMotion() ? "smooth" : "auto" });
-  };
+  }, []);
 
   useEffect(() => {
     const el = root.current;
@@ -136,7 +136,7 @@ export default function HomeJourney({ children }: { children: ReactNode }) {
       });
       if (counter) counter.textContent = "120";
     };
-  }, [state, staticMode]);
+  }, [state, staticMode, goTo]);
 
   // Static mode (no WebGL) is also flagged on <html>, where the snap CSS looks for it.
   useEffect(() => {

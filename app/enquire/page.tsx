@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import EnquiryForm from "@/components/EnquiryForm";
 import PageHero from "@/components/PageHero";
 import { Eyebrow, WhatsAppIcon } from "@/components/ui";
+import { byFile } from "@/components/home/sets";
 import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function EnquirePage() {
-  const hero = PHOTOS.location[1];
+  // The facade, not the reception: the home hero already leads on reception.
+  const hero = byFile(PHOTOS.location, "facade");
   return (
     <div className="bg-night text-ivory">
       <PageHero image={hero.src} alt={hero.alt} height="medium">
@@ -26,7 +28,7 @@ export default function EnquirePage() {
             <EnquiryForm />
           </div>
 
-          <aside className="md:col-span-4 md:col-start-9">
+          <div className="md:col-span-4 md:col-start-9">
             <Eyebrow className="text-brass-light">Prefer to talk?</Eyebrow>
             <ul className="mt-5">
               <li className="border-t border-ivory/15">
@@ -65,7 +67,7 @@ export default function EnquirePage() {
                 </a>
               </li>
             </ul>
-          </aside>
+          </div>
         </div>
       </section>
     </div>
