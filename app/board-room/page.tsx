@@ -24,6 +24,8 @@ export default function BoardRoomPage() {
     "One long boardroom table",
     "Executive high-back chairs",
     "Air-conditioned, behind a closed door",
+    "High-speed Wi-Fi",
+    "100% DG power backup",
   ].filter(Boolean) as string[];
 
   return (

@@ -20,6 +20,7 @@ const jsonLd = {
   name: SITE.name,
   url: SITE.url,
   telephone: SITE.phone.replace(/\s/g, ""),
+  ...(SITE.email ? { email: SITE.email } : {}),
   image: `${SITE.url}/images/casabay/casa-ambience-2.webp`,
   numberOfRooms: 10,
   address: {

@@ -19,6 +19,7 @@ const FEATURES = [
   { k: "The deck", v: "Open-air tables under umbrellas and string lights" },
   { k: "The bar", v: "A backlit onyx counter and a full back bar" },
   { k: "The room", v: "Covered dining under wicker lamps and painted murals" },
+  { k: "Live music", v: "Live music on the roof" },
 ];
 
 export default function CasaBayPage() {
@@ -64,7 +65,7 @@ export default function CasaBayPage() {
         </div>
 
         <div className="container-x mt-20 md:mt-28">
-        <dl className="grid gap-px bg-white/10 md:grid-cols-3">
+        <dl className="grid gap-px bg-white/10 md:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (
             <div key={f.k} className="bg-night py-8 md:px-8 md:first:pl-0" data-reveal style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
               <dt className="eyebrow text-ember">{f.k}</dt>
