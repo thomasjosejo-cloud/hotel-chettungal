@@ -13,7 +13,7 @@ import {
 } from "@/components/three/materials";
 import { FrameDriver, lerpAt60 } from "@/components/three/parts";
 import { CENTERS, FLOOR, chapterMix, seatsProgress, type JourneyState } from "./journey";
-import { CHAPTER_SETS } from "./sets";
+import { CHAPTER, CHAPTER_SETS } from "./sets";
 import { getSlides, paintMarks, tick, zoomCurrent, zoomNext } from "./slides";
 
 disableColorManagement();
@@ -25,8 +25,11 @@ const CAMERA_Z = 16;
 // the copy; phones put it up top, full width (width applied as scale). The
 // Board Room and CasaBay frames sit lower, closer to their shorter copy.
 type Layout = [x: number, y: number, z: number, w: number];
-const DESK: Layout[] = [[3.8, 0.6, 0, 10.2], [3.8, 0.8, 0, 10.2], [3.8, 0.5, 0, 9.6], [3.8, 0.7, 0, 10.2]];
-const PHONE: Layout[] = [[0, 3.7, 0, 7.0], [0, 3.8, 0, 7.0], [0, 2.0, 0, 7.0], [0, 2.4, 0, 7.0]];
+// In chapter order: CasaBay, Fish Town, Town Hall, Board Room. Each venue keeps
+// the layout it had; CasaBay and the Board Room sit lower on phones, closer to
+// their shorter copy.
+const DESK: Layout[] = [[3.8, 0.7, 0, 10.2], [3.8, 0.6, 0, 10.2], [3.8, 0.8, 0, 10.2], [3.8, 0.5, 0, 9.6]];
+const PHONE: Layout[] = [[0, 2.4, 0, 7.0], [0, 3.7, 0, 7.0], [0, 3.8, 0, 7.0], [0, 2.0, 0, 7.0]];
 
 /** Per-frame values shared by every object in the scene (never React state). */
 type Sim = {
@@ -228,8 +231,8 @@ function Frame({
     const reveal = Math.max(0, Math.min(1, 1.25 - d * 1.4));
     uniforms.uReveal.value += (reveal * 1.1 - uniforms.uReveal.value) * lerpAt60(0.12, dt);
     uniforms.uLight.value = Math.max(0.25, 1 - d * 0.9);
-    // Board Room (chapter 2) stays still: its bend is multiplied by 0.15.
-    uniforms.uBend.value = sim.bend * (floor === 2 ? 0.15 : 1);
+    // The Board Room stays still: its bend is multiplied by 0.15.
+    uniforms.uBend.value = sim.bend * (floor === CHAPTER.boardroom ? 0.15 : 1);
     // Idle drift around the layout's x.
     const bx = sim.mobile ? px : dx;
     m.position.x += (bx + Math.sin(sim.t * 0.25 + dz) * 0.08 - m.position.x) * lerpAt60(0.05, dt);
@@ -256,8 +259,10 @@ function Wave({ sim }: { sim: Sim }) {
   useEffect(() => () => material.dispose(), [material]);
   useFrame(() => {
     material.uniforms.uTime.value = sim.t;
-    material.uniforms.uAmt.value = Math.max(0, 1 - Math.abs(sim.camY / FLOOR - 0) * 1.3);
-    if (mesh.current) mesh.current.position.y = sim.mobile ? 3 : 0;
+    material.uniforms.uAmt.value = Math.max(0, 1 - Math.abs(sim.camY / FLOOR - CHAPTER.fishtown) * 1.3);
+    // The wall is a fixed piece of scenery, so it has to sit on Fish Town's
+    // floor. It used to be world y=0 only because Fish Town opened the journey.
+    if (mesh.current) mesh.current.position.y = CHAPTER.fishtown * FLOOR + (sim.mobile ? 3 : 0);
   });
   return (
     <mesh ref={mesh} material={material} position={[2, 0, -9]}>
@@ -299,8 +304,9 @@ function Seats({ sim, journey }: { sim: Sim; journey: JourneyState }) {
   useLayoutEffect(() => {
     const g = group.current;
     if (!g) return;
-    if (small) g.position.set(-2.2, FLOOR + 3.9, 0);
-    else g.position.set(0, FLOOR, 0);
+    const y = CHAPTER.townhall * FLOOR;
+    if (small) g.position.set(-2.2, y + 3.9, 0);
+    else g.position.set(0, y, 0);
     g.scale.setScalar(small ? 0.62 : 1);
   }, [small]);
 
@@ -308,7 +314,7 @@ function Seats({ sim, journey }: { sim: Sim; journey: JourneyState }) {
     const u = material.uniforms;
     u.uPx.value = dpr * (height / 900);
     u.uTime.value = sim.t;
-    const visible = Math.max(0, 1 - Math.abs(sim.camY / FLOOR - 1) * 1.2);
+    const visible = Math.max(0, 1 - Math.abs(sim.camY / FLOOR - CHAPTER.townhall) * 1.2);
     u.uLit.value = seatsProgress(journey.p) * 1.02 * (visible > 0.05 ? 1 : 0);
   });
 
@@ -346,8 +352,8 @@ function Embers({ sim }: { sim: Sim }) {
     u.uTime.value = sim.t;
     u.uBaseY.value = sim.camY;
     u.uPx.value = dpr * (height / 900);
-    // Faint on the lower chapters, full on the roof.
-    const roof = Math.max(0, 1 - Math.abs(sim.camY / FLOOR - (CENTERS.length - 1)) * 1.1);
+    // Faint elsewhere, full on the CasaBay roof.
+    const roof = Math.max(0, 1 - Math.abs(sim.camY / FLOOR - CHAPTER.casabay) * 1.1);
     u.uAmt.value = 0.18 + roof * 0.95;
   });
 
