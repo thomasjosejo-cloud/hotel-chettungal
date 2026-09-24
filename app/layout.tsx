@@ -10,7 +10,8 @@ import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  // Only 400 and 500 are used; 300 and 600 were downloaded and never referenced.
+  weight: ["400", "500"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",

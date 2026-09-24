@@ -59,13 +59,3 @@ export function WhatsAppIcon({ className = "h-4 w-4" }: { className?: string }) 
 export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <p className={`eyebrow ${className}`}>{children}</p>;
 }
-
-/** Roman-numeral section marker — the house system from the print menus. */
-export function Numeral({ n, className = "" }: { n: string; className?: string }) {
-  return (
-    <span className={`flex items-center gap-4 font-serif text-lg italic ${className}`}>
-      <span>{n}</span>
-      <span aria-hidden className="h-px w-10 bg-current opacity-50" />
-    </span>
-  );
-}

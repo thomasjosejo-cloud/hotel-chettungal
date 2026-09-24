@@ -741,16 +741,17 @@
    Each is a 44px-tall button; the visible mark is a thin brass line. */
 .proto .ticks {
   display: flex;
-  gap: 6px;
-  margin: 2px 0 -8px -6px;
+  gap: 0;
+  margin: 2px 0 -8px -9px;
 }
 .proto .ticks button {
   all: unset;
   box-sizing: border-box;
   cursor: pointer;
-  width: 30px;
+  width: 44px;
   height: 44px;
-  padding: 0 6px;
+  padding: 0 13px;
+  margin-inline: -4px;
   display: flex;
   align-items: center;
 }
@@ -808,4 +809,62 @@ html.frame-dragging,
 html.frame-dragging * {
   user-select: none;
   cursor: grabbing;
+}
+
+/* A phone-number link inside a sentence is only as tall as its line box. This
+   gives it a 44px touch target without changing where the text sits. */
+.tap-line {
+  position: relative;
+  display: inline-block;
+}
+.tap-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+}
+
+/*
+ * The scrim on the photo page heroes.
+ *
+ * These photos are bright, and the 13px brass eyebrow sits high in the copy
+ * block, spanning almost the full width -- so the depth it needs is a band
+ * across the picture, not a blob behind one word. The stops keep the top of
+ * the photo (ceiling, wave wall, sky) untouched and deepen only from the
+ * eyebrow down, where every line of copy lives. Depths set by measuring the
+ * lightest pixel behind each line at 390 and 1440, not by eye.
+ */
+.page-hero-scrim {
+  background:
+    linear-gradient(
+      to top,
+      var(--color-night) 0%,
+      rgb(11 9 7 / 0.92) 20%,
+      rgb(11 9 7 / 0.86) 40%,
+      rgb(11 9 7 / 0.66) 55%,
+      rgb(11 9 7 / 0.3) 70%,
+      rgb(11 9 7 / 0.08) 84%,
+      rgb(11 9 7 / 0) 100%
+    ),
+    linear-gradient(to right, rgb(11 9 7 / 0.55), rgb(11 9 7 / 0.28) 60%, rgb(11 9 7 / 0.1));
+}
+
+/* Fish Town's lit wave wall and CasaBay's ember deck sit directly behind the
+   eyebrow and measured 2.2:1 and 3.2:1 under the normal scrim. */
+.page-hero-scrim-deep {
+  background:
+    linear-gradient(
+      to top,
+      var(--color-night) 0%,
+      rgb(11 9 7 / 0.94) 22%,
+      rgb(11 9 7 / 0.9) 44%,
+      rgb(11 9 7 / 0.82) 58%,
+      rgb(11 9 7 / 0.52) 72%,
+      rgb(11 9 7 / 0.18) 86%,
+      rgb(11 9 7 / 0) 100%
+    ),
+    linear-gradient(to right, rgb(11 9 7 / 0.62), rgb(11 9 7 / 0.4) 60%, rgb(11 9 7 / 0.22));
 }

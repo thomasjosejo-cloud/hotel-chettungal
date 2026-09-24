@@ -18,7 +18,11 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -39,7 +43,7 @@ export default function Nav() {
       }`}
     >
       <div className="container-x flex items-center justify-between gap-6">
-        <Link href="/" className="group flex items-center gap-3" aria-label={`${SITE.name}, home`}>
+        <Link href="/" className="group flex min-h-11 items-center gap-3" aria-label={`${SITE.name}, home`}>
           <Image
             src="/branding/chettungal_crest_gold.png"
             alt=""

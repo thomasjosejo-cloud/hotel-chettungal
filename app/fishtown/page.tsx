@@ -31,7 +31,7 @@ export default function FishTownPage() {
 
   return (
     <div className="bg-night text-ivory">
-      <PageHero image={p[0].src} alt={p[0].alt} fx="wave">
+      <PageHero image={p[0].src} alt={p[0].alt} fx="wave" scrim="deep" posterPriority={false}>
         <Eyebrow className="text-brass-light">Multi-cuisine restaurant · Chettungal New Town</Eyebrow>
         <h1 className="mt-8">
           <span className="sr-only">Fish Town</span>
@@ -40,7 +40,9 @@ export default function FishTownPage() {
             alt=""
             width={1184}
             height={678}
-            priority
+            preload
+            fetchPriority="high"
+            sizes="min(72vw, 360px)"
             className="h-auto w-[min(72vw,360px)]"
           />
         </h1>
@@ -137,7 +139,7 @@ export default function FishTownPage() {
       <section className="bg-night-2 py-24 text-ivory md:py-32">
         <div className="container-x grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7" data-reveal>
-            <Image src="/branding/fishtown-logo-ivory.png" alt="Fish Town" width={1184} height={678} className="h-auto w-40" />
+            <Image src="/branding/fishtown-logo-ivory.png" alt="Fish Town" width={1184} height={678} sizes="160px" className="h-auto w-40" />
             <SplitText className="display mt-10">Come hungry.</SplitText>
           </div>
           <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9" data-reveal>

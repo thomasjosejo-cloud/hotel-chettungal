@@ -28,6 +28,7 @@ export default function PageHero({
   position = "center",
   fx,
   posterPriority = true,
+  scrim = "normal",
   children,
 }: {
   image: string;
@@ -43,6 +44,8 @@ export default function PageHero({
    * priority and the logo takes the priority slot.
    */
   posterPriority?: boolean;
+  /** "deep" for heroes whose photo is bright right behind the copy. */
+  scrim?: "normal" | "deep";
   children: ReactNode;
 }) {
   const blur = blurFor(image);
@@ -62,7 +65,13 @@ export default function PageHero({
             fill
             preload={posterPriority}
             loading={posterPriority ? undefined : "eager"}
-            sizes="100vw"
+            fetchPriority={posterPriority ? "high" : undefined}
+            // Caps the poster at ~750px on phones instead of the 1080px a 2.6x
+            // DPR would request: it is a full-bleed photo under a heavy scrim,
+            // and it is both the bytes and the decode on the critical path.
+            // (sizes is in CSS pixels, so this is 286 x DPR, not 286 device px.)
+            sizes="(max-width: 760px) 286px, 100vw"
+            quality={50}
             placeholder={blur ? "blur" : "empty"}
             blurDataURL={blur}
             className="object-cover"
@@ -70,9 +79,12 @@ export default function PageHero({
           />
           <HeroFx position={toXY(position)} wave={fx === "wave"} />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
+        {/* Embers sit UNDER the scrim. Over it, a drifting spark crossing the
+            eyebrow dropped its measured contrast from 4.8:1 to 3.6:1 frame to
+            frame; under it they keep full brightness in the open part of the
+            hero and are damped exactly where the copy is. */}
         {fx === "embers" && <HeroEmbers />}
+        <div className={`page-hero-scrim absolute inset-0${scrim === "deep" ? " page-hero-scrim-deep" : ""}`} />
       </div>
       <div className="hero-copy-k container-x relative pb-28 pt-36 md:pb-20 md:pt-40 lg:pb-24">{children}</div>
       <HeroParallax />

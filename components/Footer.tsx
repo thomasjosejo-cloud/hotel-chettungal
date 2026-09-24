@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="container-x">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Image src="/branding/chettungal_crest_gold.png" alt="" width={344} height={260} className="h-12 w-auto" />
+            <Image src="/branding/chettungal_crest_gold.png" alt="" width={344} height={260} sizes="64px" className="h-12 w-auto" />
             <p className="mt-6 font-serif text-[2rem] leading-tight">
               The table, the roof,
               <br />

@@ -118,7 +118,7 @@ export default function BoardRoomPage() {
             <SplitText className="h2 mt-4">Book the Board Room.</SplitText>
             <p className="mt-6 text-smoke">
               Or call{" "}
-              <a href={SITE.phoneHref} className="text-ivory underline underline-offset-4">
+              <a href={SITE.phoneHref} className="tap-line text-ivory underline underline-offset-4">
                 {SITE.phone}
               </a>
               .

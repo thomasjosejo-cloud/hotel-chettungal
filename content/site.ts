@@ -43,6 +43,12 @@ export const SITE = {
     fishtown: { opens: "07:00", closes: "23:00" },
   },
   boardRoomSeats: 12 as number | null,
+  /**
+   * Confirmed by the property: breakfast is NOT included. It comes only with
+   * the CP and MAP plans, so it is never listed as a facility or an amenity —
+   * only ever stated as this sentence, and never alongside EP.
+   */
+  breakfast: "Breakfast available on CP and MAP plans.",
   // Confirmed facility beyond the four venues (named by the client in the original brief).
   executiveBar: "the Executive Bar",
 } as const;
@@ -53,11 +59,7 @@ export const SITE = {
  */
 export const FACILITIES = {
   hotel: ["High-speed Wi-Fi", "On-site parking", "100% DG power backup"],
-  rooms: [
-    "Complimentary breakfast",
-    "Attached bathroom with 24-hour hot water",
-    "In-room dining from Fish Town",
-  ],
+  rooms: ["Attached bathroom with 24-hour hot water", "In-room dining from Fish Town"],
 } as const;
 
 /** WhatsApp deep link with a message written in the guest's own voice. */
