@@ -66,7 +66,11 @@ export default function PageHero({
             preload={posterPriority}
             loading={posterPriority ? undefined : "eager"}
             fetchPriority={posterPriority ? "high" : undefined}
-            sizes="100vw"
+            // Caps the poster at ~750px on phones instead of the 1080px a 2.6x
+            // DPR would request: it is a full-bleed photo under a heavy scrim,
+            // and it is both the bytes and the decode on the critical path.
+            // (sizes is in CSS pixels, so this is 286 x DPR, not 286 device px.)
+            sizes="(max-width: 760px) 286px, 100vw"
             quality={50}
             placeholder={blur ? "blur" : "empty"}
             blurDataURL={blur}
