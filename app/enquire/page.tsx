@@ -47,7 +47,10 @@ export default function EnquirePage() {
                 <li className="border-t border-ivory/15">
                   <a href={`mailto:${SITE.email}`} className="group block py-5">
                     <span className="eyebrow block text-smoke">Email</span>
-                    <span className="mt-1 block font-serif text-2xl transition-colors group-hover:text-brass-light">{SITE.email}</span>
+                    {/* One unbreakable token: it must shrink and wrap in this narrow column. */}
+                    <span className="mt-1 block font-serif text-xl transition-colors [overflow-wrap:anywhere] group-hover:text-brass-light lg:text-2xl">
+                      {SITE.email}
+                    </span>
                   </a>
                 </li>
               )}

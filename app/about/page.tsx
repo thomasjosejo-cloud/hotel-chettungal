@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import EnquiryBand from "@/components/EnquiryBand";
 import { Eyebrow } from "@/components/ui";
-import { PHOTOS, SITE, VENUES } from "@/content/site";
+import { FACILITIES, PHOTOS, SITE, VENUES } from "@/content/site";
 import SplitText from "@/components/motion/SplitText";
 
 export const metadata: Metadata = {
@@ -68,6 +68,20 @@ export default function AboutPage() {
               <br />
               {SITE.address.region} {SITE.address.pincode}
             </address>
+            <dl className="mt-8 grid gap-3 text-[1.0625rem] leading-relaxed">
+              <div className="border-t border-ivory/15 pt-3">
+                <dt className="eyebrow text-brass-light">On the highway</dt>
+                <dd className="mt-1 text-smoke">{SITE.highway}</dd>
+              </div>
+              <div className="border-t border-ivory/15 pt-3">
+                <dt className="eyebrow text-brass-light">Airport</dt>
+                <dd className="mt-1 text-smoke">{SITE.proximity.airport}</dd>
+              </div>
+              <div className="border-t border-ivory/15 pt-3">
+                <dt className="eyebrow text-brass-light">Railway</dt>
+                <dd className="mt-1 text-smoke">{SITE.proximity.railway}</dd>
+              </div>
+            </dl>
             <div className="mt-9 grid gap-4">
               <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="link-arrow justify-self-start text-ivory">
                 Open in Google Maps <span aria-hidden>↗</span>
@@ -75,6 +89,11 @@ export default function AboutPage() {
               <a href={SITE.phoneHref} className="link-arrow justify-self-start text-ivory">
                 Call {SITE.phone}
               </a>
+              {SITE.email && (
+                <a href={`mailto:${SITE.email}`} className="link-arrow justify-self-start text-ivory">
+                  {SITE.email}
+                </a>
+              )}
             </div>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden bg-night-2 md:col-span-7 md:col-start-6" data-reveal>
@@ -91,9 +110,18 @@ export default function AboutPage() {
 
       <section className="py-24 md:py-32">
         <div className="container-x">
-          <div className="mb-14 md:mb-20" data-reveal>
-            <Eyebrow className="text-brass-light">Arriving</Eyebrow>
-            <SplitText className="h2 mt-4">The front of house</SplitText>
+          <div className="mb-14 grid gap-8 md:mb-20 md:grid-cols-12 md:items-end" data-reveal>
+            <div className="md:col-span-7">
+              <Eyebrow className="text-brass-light">Arriving</Eyebrow>
+              <SplitText className="h2 mt-4">The front of house</SplitText>
+            </div>
+            <ul className="grid gap-3 md:col-span-4 md:col-start-9">
+              {FACILITIES.hotel.map((f) => (
+                <li key={f} className="border-t border-ivory/15 pt-3 text-[1.0625rem] text-smoke">
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
           <Gallery photos={[p[0], p[1], p[2]]} />
         </div>

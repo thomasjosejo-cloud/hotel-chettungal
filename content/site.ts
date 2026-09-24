@@ -17,11 +17,17 @@ export const SITE = {
   phone: "+91 99611 34364",
   phoneHref: "tel:+919961134364",
   whatsappNumber: "919961134364",
-  email: null as string | null, // add once the mailbox is confirmed live
+  email: "info@hotelchettungal.com" as string | null,
   address: {
     line: "NH 544, Angamaly",
     region: "Ernakulam, Kerala",
     pincode: "683572",
+  },
+  // Confirmed by the property.
+  highway: "NH 544 (Kochi–Salem Highway)",
+  proximity: {
+    airport: "About 5 km from Cochin International Airport",
+    railway: "About 1 km from Angamaly Railway Station",
   },
   // Maps search still uses the Google listing's current name; update once the listing is renamed.
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hotel+New+Town+Chettungal+Angamaly",
@@ -39,6 +45,19 @@ export const SITE = {
   boardRoomSeats: 12 as number | null,
   // Confirmed facility beyond the four venues (named by the client in the original brief).
   executiveBar: "the Executive Bar",
+} as const;
+
+/**
+ * Facilities the property has confirmed. The single source, as with hours and
+ * capacities: `hotel` is what every guest gets, `rooms` is what comes with a stay.
+ */
+export const FACILITIES = {
+  hotel: ["High-speed Wi-Fi", "On-site parking", "100% DG power backup"],
+  rooms: [
+    "Complimentary breakfast",
+    "Attached bathroom with 24-hour hot water",
+    "In-room dining from Fish Town",
+  ],
 } as const;
 
 /** WhatsApp deep link with a message written in the guest's own voice. */

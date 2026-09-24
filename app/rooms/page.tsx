@@ -3,7 +3,7 @@ import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import EnquiryForm from "@/components/EnquiryForm";
 import { Button, Eyebrow, WhatsAppIcon } from "@/components/ui";
-import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
+import { FACILITIES, PHOTOS, SITE, WA, whatsapp } from "@/content/site";
 import SplitText from "@/components/motion/SplitText";
 import { byFile } from "@/components/home/sets";
 
@@ -28,6 +28,7 @@ const IN_ROOM = [
   "Kettle and tea station",
   "Wardrobe",
   "En-suite bathroom with walk-in shower",
+  ...FACILITIES.rooms,
 ];
 
 export default function RoomsPage() {
@@ -58,15 +59,27 @@ export default function RoomsPage() {
               <em className="text-brass-light">anyone who stayed for one more at CasaBay.</em>
             </p>
           </div>
-          <div className="md:col-span-5 md:col-start-8" data-reveal>
-            <Eyebrow className="text-brass-light">In the rooms</Eyebrow>
-            <ul className="mt-5 grid gap-3">
-              {IN_ROOM.map((f) => (
-                <li key={f} className="border-t border-ivory/15 pt-3 text-[1.0625rem]">
-                  {f}
-                </li>
-              ))}
-            </ul>
+          <div className="grid gap-12 md:col-span-5 md:col-start-8" data-reveal>
+            <div>
+              <Eyebrow className="text-brass-light">In the rooms</Eyebrow>
+              <ul className="mt-5 grid gap-3">
+                {IN_ROOM.map((f) => (
+                  <li key={f} className="border-t border-ivory/15 pt-3 text-[1.0625rem]">
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <Eyebrow className="text-brass-light">In the hotel</Eyebrow>
+              <ul className="mt-5 grid gap-3">
+                {FACILITIES.hotel.map((f) => (
+                  <li key={f} className="border-t border-ivory/15 pt-3 text-[1.0625rem]">
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
