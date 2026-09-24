@@ -126,9 +126,6 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div className="cue" aria-hidden>
-          Scroll
-        </div>
       </section>
 
       {/* 2. Journey */}

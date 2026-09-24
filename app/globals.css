@@ -322,37 +322,6 @@
   color: rgb(243 236 224 / 0.9);
   margin-bottom: 32px;
 }
-.proto .cue {
-  position: absolute;
-  right: var(--gutter);
-  bottom: clamp(56px, 9vh, 96px);
-  writing-mode: vertical-rl;
-  font-size: 13px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-smoke);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.proto .cue::after {
-  content: "";
-  width: 1px;
-  height: 64px;
-  background: linear-gradient(var(--color-brass-light), transparent);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .proto .cue::after {
-    animation: drip 2.4s var(--ease) infinite;
-  }
-}
-@keyframes drip {
-  from { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform-origin: bottom; }
-  to { transform: scaleY(0); transform-origin: bottom; }
-}
-
 /* CasaBay logo: the supplied artwork already glows; a soft ember halo sits
    behind it, and "ignite" flickers it on (1.7s, ends lit). Used on the home
    hero, the journey finale and the CasaBay page. */
@@ -659,9 +628,6 @@
   margin-top: 12px;
 }
 @media (max-width: 760px) {
-  .proto .cue {
-    display: none;
-  }
   .proto .close {
     grid-template-columns: 1fr;
   }
