@@ -1,452 +1,247 @@
-import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowRight,
-  Sparkles,
-  MapPin,
-  Plane,
-  Train,
-  CheckCircle2,
-  Compass,
-  Wine,
-  Utensils,
-  PartyPopper,
-  ShieldCheck,
-  ChevronDown,
-} from "lucide-react";
-import Property3DNavigator from "@/components/3d/Property3DNavigator";
-import WhatsAppCta from "@/components/shared/WhatsAppCta";
-import TiltCard3D from "@/components/3d/TiltCard3D";
-import { SITE_CONFIG } from "@/content/site-config";
-import ScrollReveal from "@/components/motion/ScrollReveal";
-import StaggerChildren from "@/components/motion/StaggerChildren";
+import HomeJourney from "@/components/home/HomeJourney";
+import HeroEmbers from "@/components/motion/HeroEmbers";
+import HeroParallax from "@/components/motion/HeroParallax";
+import CasaBayLogo from "@/components/CasaBayLogo";
+import PhotoFrame from "@/components/home/PhotoFrame";
+import PhotoMarks from "@/components/home/PhotoMarks";
+import { CHAPTER_NAMES, CHAPTER_SETS, ROOMS_SET } from "@/components/home/sets";
+import { Button, WhatsAppIcon } from "@/components/ui";
+import { PHOTOS, SITE, VENUES, WA, whatsapp } from "@/content/site";
+import { blurFor } from "@/content/blur";
 
-export const metadata: Metadata = {
-  title: "Hotel New Town by Chettungal | Stay · Dine · Meet · Celebrate",
-  description:
-    "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly. Hotel New Town by Chettungal.",
-  openGraph: {
-    title: "Hotel New Town by Chettungal — Angamaly",
-    description: "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544, Angamaly.",
-    url: "https://hotelchettungal.com",
-    siteName: "Hotel New Town by Chettungal",
-    images: [
-      {
-        url: "/images/casabay/casa-night-view.webp",
-        width: 1200,
-        height: 630,
-        alt: "Hotel New Town by Chettungal Rooftop Night View",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Hotel New Town by Chettungal — Angamaly",
-    description: "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 — all under one roof on NH 544.",
-    images: ["/images/casabay/casa-night-view.webp"],
-  },
-};
+// Home page: the approved prototype (docs/prototype-home.html), built in React.
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Hotel",
-  name: "Hotel New Town by Chettungal",
-  description: "Rooms, a rooftop bar, a multi-cuisine kitchen, and banquet space for up to 120 under one roof on NH 544, Angamaly.",
-  url: "https://hotelchettungal.com",
-  telephone: "+919961134364",
+  name: SITE.name,
+  url: SITE.url,
+  telephone: SITE.phone.replace(/\s/g, ""),
+  image: `${SITE.url}/images/casabay/casa-ambience-2.webp`,
+  numberOfRooms: 10,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "NH 544",
+    streetAddress: SITE.address.line,
     addressLocality: "Angamaly",
     addressRegion: "Kerala",
-    postalCode: "683572",
+    postalCode: SITE.address.pincode,
     addressCountry: "IN",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "10.1960",
-    longitude: "76.3860",
-  },
-  image: "https://hotelchettungal.com/images/casabay/casa-night-view.webp",
-  priceRange: "$$",
+  containsPlace: [
+    {
+      "@type": "BarOrPub",
+      name: "CasaBay",
+      url: `${SITE.url}/casabay`,
+      openingHoursSpecification: { "@type": "OpeningHoursSpecification", ...SITE.openingHours.casabay },
+    },
+    {
+      "@type": "Restaurant",
+      name: "Fish Town",
+      url: `${SITE.url}/fishtown`,
+      openingHoursSpecification: { "@type": "OpeningHoursSpecification", ...SITE.openingHours.fishtown },
+    },
+    { "@type": "EventVenue", name: "Town Hall", maximumAttendeeCapacity: 120, url: `${SITE.url}/town-hall` },
+  ],
 };
 
-export default function HomePage() {
+const venue = (slug: string) => VENUES.find((v) => v.slug === slug)!;
+
+/** A confirmed fact under a tagline (hours, seats), in the eyebrow style. Hidden while unset. */
+function Fact({ children }: { children: string | null }) {
+  return children ? <p className="fact">{children}</p> : null;
+}
+const open = (hours: string | null) => (hours ? `Open ${hours}` : null);
+const CUISINES = ["Kerala & seafood", "North Indian", "Chinese", "Continental"];
+
+/**
+ * A chapter's photos for the static layout (hidden while the WebGL journey
+ * runs): the same set as the WebGL frame, first photo showing, swapped
+ * instantly by the marks or a sideways swipe; never changes by itself.
+ */
+function ChapterPhotos({ i }: { i: number }) {
   return (
-    <div className="flex flex-col bg-[#0C101B] text-slate-100 overflow-hidden">
-      {/* Schema.org JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className="ch-img">
+      <PhotoFrame id={`ch${i}`} photos={CHAPTER_SETS[i]} auto={false} sizes="(min-width: 800px) 760px, 100vw" />
+    </div>
+  );
+}
 
-      {/* 1. CINEMATIC LUXURY HERO SECTION - NATURAL PHOTOGRAPHIC CLARITY */}
-      <section className="relative min-h-[92vh] sm:min-h-screen flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
-        {/* Full Vibrancy Reception Counter Photo */}
-        <div className="absolute inset-0 z-0">
+/** Photo marks under a chapter's numeral. */
+function Marks({ i }: { i: number }) {
+  return <PhotoMarks id={`ch${i}`} count={CHAPTER_SETS[i].length} label={`${CHAPTER_NAMES[i]} photos`} />;
+}
+
+export default function Home() {
+  const cb = PHOTOS.casabay;
+  const heroBlur = blurFor(cb[0].src);
+  return (
+    <div className="proto">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      {/* 1. Hero: CasaBay at night */}
+      <section className="hero" aria-label="CasaBay rooftop restobar">
+        {/* Poster stays the LCP image; the parallax transform is on its wrapper. */}
+        <div className="hero-bg absolute inset-0 -z-20">
           <Image
-            src="/images/location/reception-counter.webp"
-            alt="Hotel New Town by Chettungal Reception & Front Desk"
+            src={cb[0].src}
+            alt={cb[0].alt}
             fill
-            className="object-cover object-center brightness-95 contrast-105"
-            priority
+            // Normal priority but eager: the logo holds the priority slot on this hero.
+            loading="eager"
+            sizes="100vw"
+            placeholder={heroBlur ? "blur" : "empty"}
+            blurDataURL={heroBlur}
+            className="object-cover"
+            style={{ objectPosition: "center 60%" }}
           />
-          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
-          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
         </div>
+        <HeroParallax />
+        <div className="hero-scrim" aria-hidden />
+        <HeroEmbers className="-z-10" />
+        <div className="hero-copy hero-copy-k">
+          <p className="p-eyebrow">Rooftop restobar · Angamaly</p>
+          <h1 className="wordmark ignite">
+            {/* Same width as .proto .wordmark .casa-logo */}
+            <CasaBayLogo preload sizes="clamp(290px, 46vw, 640px)" />
+          </h1>
+          <p className="tag">Take the evening upstairs.</p>
+          <Fact>{open(SITE.hours.casabay)}</Fact>
+          <p className="body">
+            A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten rooms.
+            One address on NH&nbsp;544.
+          </p>
+          <div className="row">
+            <Button href={whatsapp(WA.casabay)} tone="ember">
+              <WhatsAppIcon /> Reserve a table
+            </Button>
+            <Button href="#journey" tone="outline-light">
+              See the evening
+            </Button>
+          </div>
+        </div>
+        <div className="cue" aria-hidden>
+          Scroll
+        </div>
+      </section>
 
-        {/* Hero Content Bar - Positioned at the bottom, letting the lobby & desk breathe */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <ScrollReveal direction="up" className="max-w-xl">
-            {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-3 shadow-lg">
-              <Sparkles className="w-3.5 h-3.5 text-[#E5C158]" />
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-                NH 544, Angamaly · Cochin Airport 5 km
-              </span>
-            </div>
+      {/* 2. Journey */}
+      <HomeJourney>
+        <article className="chapter" data-ch="0">
+          <ChapterPhotos i={0} />
+          <p className="numeral">I</p>
+          <Marks i={0} />
+          <h2>
+            <span className="sr-only">Fish Town</span>
+            <Image src="/branding/fishtown-logo-ivory.png" alt="" width={1184} height={678} sizes="190px" className="ft-logo" />
+          </h2>
+          <p className="tag">{venue("fishtown").line}</p>
+          <Fact>{open(SITE.hours.fishtown)}</Fact>
+          <p className="body">{venue("fishtown").body}</p>
+          <ul className="cuisines">
+            {CUISINES.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+          <Button href={whatsapp(WA.fishtown)} tone="outline-light">
+            Reserve at Fish Town
+          </Button>
+        </article>
 
-            {/* Clean, Punchy Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-tight mb-2 drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]">
-              One Address, <span className="italic font-light text-[#F5D061]">Every Occasion.</span>
-            </h1>
+        <article className="chapter" data-ch="1">
+          <ChapterPhotos i={1} />
+          <p className="numeral">II</p>
+          <Marks i={1} />
+          <h2>Town Hall</h2>
+          <p className="count">
+            <span data-count aria-hidden>
+              120
+            </span>
+            <span className="sr-only">120 guests</span>
+          </p>
+          <p className="count-label">Guests, at capacity</p>
+          <p className="tag">{venue("town-hall").line}</p>
+          <Button href={whatsapp(WA.townhall)} tone="outline-light">
+            Check a date
+          </Button>
+        </article>
 
-            {/* Crisp Tagline */}
-            <p className="text-xs sm:text-sm font-light text-slate-200 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-              Stay · Dine · Meet · Celebrate — Rooms, Rooftop Resto-Bar, Multi-Cuisine Dining & Banquets.
-            </p>
-          </ScrollReveal>
+        <article className="chapter" data-ch="2">
+          <ChapterPhotos i={2} />
+          <p className="numeral">III</p>
+          <Marks i={2} />
+          <h2>The Board Room</h2>
+          <p className="tag">{venue("board-room").line}</p>
+          <Fact>{SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : null}</Fact>
+          <p className="body">{venue("board-room").body}</p>
+          <Button href={whatsapp(WA.boardroom)} tone="outline-light">
+            Book the room
+          </Button>
+        </article>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <a
-              href="#hotel-venues"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-all shadow-xl"
-            >
-              <Compass className="w-4 h-4" />
-              <span>Explore The Hotel</span>
+        <article className="chapter finale" data-ch="3">
+          <ChapterPhotos i={3} />
+          <p className="numeral">IV</p>
+          <Marks i={3} />
+          <h2 className="casa-mark">
+            {/* Same sizes as the hero logo, so this reuses the hero's download. */}
+            <CasaBayLogo sizes="clamp(290px, 46vw, 640px)" />
+          </h2>
+          <p className="tag">Back on the roof.</p>
+          <Fact>{open(SITE.hours.casabay)}</Fact>
+          <p className="body">{venue("casabay").body}</p>
+          <Button href={whatsapp(WA.casabay)} tone="ember">
+            Reserve a table
+          </Button>
+        </article>
+      </HomeJourney>
+
+      {/* 3. Quiet close: Rooms */}
+      <section className="close" aria-label="Rooms">
+        <div>
+          <figure>
+            <PhotoFrame id="rooms" photos={ROOMS_SET} auto sizes="(min-width: 761px) 55vw, 100vw" />
+          </figure>
+          <PhotoMarks id="rooms" count={ROOMS_SET.length} label="Room photos" />
+        </div>
+        <div>
+          <p className="p-eyebrow">Stay</p>
+          <h2>For when the evening runs long.</h2>
+          <p className="body">
+            Ten air-conditioned rooms with a work desk, television, tea station and en-suite shower. The hotel also has{" "}
+            {SITE.executiveBar}.
+          </p>
+          <Button href={whatsapp(WA.rooms)} tone="outline-light">
+            Check availability
+          </Button>
+        </div>
+      </section>
+
+      {/* 4. Find us */}
+      <section className="find" aria-label="Find us">
+        <div>
+          <p className="p-eyebrow">Find us</p>
+          <h3>{SITE.address.line}</h3>
+          <p>
+            {SITE.address.region} {SITE.address.pincode}
+          </p>
+          <p>
+            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
+              Get directions ↗
             </a>
-
-            <WhatsAppCta
-              intent="General Hotel Enquiry"
-              label="Chat on WhatsApp"
-              variant="dark"
-              className="px-6 py-3.5 text-xs uppercase tracking-widest border border-white/20 bg-black/70 backdrop-blur-md hover:border-[#E5C158] text-slate-100 shadow-lg"
-            />
-          </div>
+          </p>
         </div>
-      </section>
-
-      {/* 2. THE PROPERTY & VENUES EXPLORER */}
-      <section className="bg-gradient-to-b from-[#0C101B] via-[#111726] to-[#0C101B] border-y border-[#E5C158]/20">
-        <ScrollReveal direction="up">
-          <Property3DNavigator />
-        </ScrollReveal>
-      </section>
-
-      {/* 3. ATMOSPHERE & EXPERIENCES: WHY GUESTS CHOOSE CHETTUNGAL */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <ScrollReveal direction="up">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold block mb-2">
-              The Living Property
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight">
-              Crafted for Every Occasion
-            </h2>
-            <p className="text-sm sm:text-base text-slate-300 font-light mt-3 leading-relaxed">
-              Whether arriving from Cochin Airport for a restful stay, gathering family over fresh karimeen, or unwinding on the rooftop under night skies.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {/* Experience Card 1 */}
-          <TiltCard3D maxTilt={6} className="h-full rounded-sm">
-            <div className="h-full flex flex-col rounded-sm overflow-hidden border border-white/10 bg-[#111726]/70 hover:border-[#E5C158]/40 transition-all duration-300 group">
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
-                <Image
-                  src="/images/casabay/casa-sunset.webp"
-                  alt="CasaBay Rooftop Twilight"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent" />
-                <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/30 rounded-sm">
-                    Nightlife & Cocktails
-                  </span>
-                </div>
-              </div>
-              <div className="p-6 flex flex-col justify-between flex-grow">
-                <div>
-                  <div className="flex items-center gap-2 mb-2 text-[#E5C158]">
-                    <Wine className="w-4 h-4" />
-                    <span className="text-xs uppercase tracking-widest font-semibold">Rooftop Resto-Bar</span>
-                  </div>
-                  <h3 className="font-serif text-2xl text-white mb-2 group-hover:text-[#E5C158] transition-colors">
-                    Twilight Skies & Acoustic Music
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-                    Open-sky seating, handcrafted mixology, charcoal grills, and acoustic sessions overlooking Angamaly.
-                  </p>
-                </div>
-                <Link
-                  href="/casabay"
-                  className="mt-6 pt-4 border-t border-white/10 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#E5C158] hover:text-white transition-colors"
-                >
-                  <span>Explore CasaBay</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </TiltCard3D>
-
-          {/* Experience Card 2 */}
-          <TiltCard3D maxTilt={6} className="h-full rounded-sm">
-            <div className="h-full flex flex-col rounded-sm overflow-hidden border border-white/10 bg-[#111726]/70 hover:border-[#E5C158]/40 transition-all duration-300 group">
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
-                <Image
-                  src="/images/fishtown/restaurant-wide.webp"
-                  alt="Fish Town Dining Ambiance"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent" />
-                <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/30 rounded-sm">
-                    Coastal Feasts
-                  </span>
-                </div>
-              </div>
-              <div className="p-6 flex flex-col justify-between flex-grow">
-                <div>
-                  <div className="flex items-center gap-2 mb-2 text-[#E5C158]">
-                    <Utensils className="w-4 h-4" />
-                    <span className="text-xs uppercase tracking-widest font-semibold">Multi-Cuisine Restaurant</span>
-                  </div>
-                  <h3 className="font-serif text-2xl text-white mb-2 group-hover:text-[#E5C158] transition-colors">
-                    Fresh Catch & Family Tables
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-                    Traditional clay-pot fish curries, North Indian tandoor, Chinese and Continental meals served across warm booths.
-                  </p>
-                </div>
-                <Link
-                  href="/fishtown"
-                  className="mt-6 pt-4 border-t border-white/10 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#E5C158] hover:text-white transition-colors"
-                >
-                  <span>Explore Fish Town</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </TiltCard3D>
-
-          {/* Experience Card 3 */}
-          <TiltCard3D maxTilt={6} className="h-full rounded-sm">
-            <div className="h-full flex flex-col rounded-sm overflow-hidden border border-white/10 bg-[#111726]/70 hover:border-[#E5C158]/40 transition-all duration-300 group">
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
-                <Image
-                  src="/images/town-hall/hall-stage.webp"
-                  alt="Town Hall Banquet Staging"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111726] via-transparent to-transparent" />
-                <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider bg-[#0C101B]/90 text-[#E5C158] border border-[#E5C158]/30 rounded-sm">
-                    120-Pax Events
-                  </span>
-                </div>
-              </div>
-              <div className="p-6 flex flex-col justify-between flex-grow">
-                <div>
-                  <div className="flex items-center gap-2 mb-2 text-[#E5C158]">
-                    <PartyPopper className="w-4 h-4" />
-                    <span className="text-xs uppercase tracking-widest font-semibold">Banquets & Celebrations</span>
-                  </div>
-                  <h3 className="font-serif text-2xl text-white mb-2 group-hover:text-[#E5C158] transition-colors">
-                    Weddings & Banquets
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-                    A grand, air-conditioned banquet hall with presentation AV, theatrical stage, and live in-house catering by Fish Town.
-                  </p>
-                </div>
-                <Link
-                  href="/town-hall"
-                  className="mt-6 pt-4 border-t border-white/10 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#E5C158] hover:text-white transition-colors"
-                >
-                  <span>Explore Town Hall</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </TiltCard3D>
-        </StaggerChildren>
-      </section>
-
-      {/* 4. BOUTIQUE ACCOMMODATIONS */}
-      <section className="py-20 bg-[#111726] border-y border-white/10">
-        <ScrollReveal direction="up">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-5 relative aspect-[16/10] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl">
-                <Image
-                  src="/images/rooms/room-hero.webp"
-                  alt="Hotel New Town 10 Air Conditioned Rooms"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-xs text-slate-300 flex items-center justify-between">
-                  <span>10 AC Rooms</span>
-                  <span className="text-[#E5C158] font-medium">Breakfast & WiFi Included</span>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 flex flex-col justify-center">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2">
-                  10 AIR-CONDITIONED ROOMS
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-serif text-white tracking-tight mb-4">
-                  Built for Rest. Connected to the Highway.
-                </h2>
-                <p className="text-sm sm:text-base font-light text-slate-300 leading-relaxed mb-6">
-                  Ten quiet, sound-insulated rooms built for business transit, airport layovers, and wedding parties. Complimentary breakfast and high-speed WiFi included.
-                </p>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-200 mb-8">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                    <span>Complimentary Breakfast</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                    <span>High-Speed WiFi</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                    <span>Airport Transfer</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                    <span>~5 km to Kochi Airport</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                  <Link
-                    href="/rooms"
-                    className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-md"
-                  >
-                    <span>View Room Specs</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <WhatsAppCta
-                    intent="Room Stay Direct Enquiry"
-                    label="Enquire Availability"
-                    variant="outline"
-                    className="px-6 py-3 text-xs uppercase tracking-widest text-slate-200 border-white/25 hover:border-[#E5C158]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* 5. LOCATION & CONNECTIVITY */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <ScrollReveal direction="up">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#E5C158] font-semibold mb-2 block">
-                LOCATION & ARRIVAL
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight mb-4">
-                Directly on NH 544, Angamaly
-              </h2>
-              <p className="text-sm sm:text-base font-light text-slate-300 leading-relaxed mb-6">
-                Effortless access along the primary highway artery connecting Kochi Airport, railway stations, and regional transit corridors.
-              </p>
-
-              <div className="space-y-3.5 text-sm text-slate-300 mb-8 font-light">
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>{SITE_CONFIG.address}, {SITE_CONFIG.cityState} {SITE_CONFIG.pincode}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Plane className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>{SITE_CONFIG.proximity.airport}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Train className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>{SITE_CONFIG.proximity.railway}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ShieldCheck className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Complimentary on-site valet parking & 100% DG power backup</span>
-                </div>
-              </div>
-
-              <a
-                href={SITE_CONFIG.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-widest font-semibold text-[#E5C158] hover:text-white border border-[#E5C158]/30 hover:border-[#E5C158] rounded-sm transition-colors"
-              >
-                <span>Open in Google Maps Navigation</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-            <div className="lg:col-span-6 relative aspect-[1131/942] rounded-sm overflow-hidden border border-[#E5C158]/30 shadow-2xl bg-[#0A0E18]">
-              <Image
-                src="/images/location/facade.webp"
-                alt="Hotel New Town by Chettungal Facade on NH 544 Angamaly"
-                fill
-                className="object-contain sm:object-cover sm:object-top brightness-100"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-              />
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* 6. CONVERSION BANNER */}
-      <section className="py-20 bg-gradient-to-b from-[#111726] to-[#0A0D14] border-t border-[#E5C158]/25 text-center px-4">
-        <ScrollReveal direction="fade">
-          <div className="max-w-3xl mx-auto flex flex-col items-center">
-            <span className="text-xs uppercase tracking-[0.3em] text-[#E5C158] font-semibold mb-3">
-              DIRECT HOST ASSISTANCE
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-serif text-white font-normal mb-4">
-              Reserve a Table or Plan an Event
-            </h2>
-            <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed mb-8 max-w-xl">
-              Whether booking an intimate rooftop evening at CasaBay, a family feast at Fish Town, or a 120-guest banquet at Town Hall, our team responds directly on WhatsApp.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
-              <Link
-                href="/enquire"
-                className="w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-bold rounded-sm bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#0C101B] hover:brightness-110 transition-colors shadow-lg"
-              >
-                Fill Online Enquiry Form
-              </Link>
-              <WhatsAppCta
-                intent="Direct Banner Enquiry"
-                label="Chat on WhatsApp"
-                variant="dark"
-                className="w-full sm:w-auto px-7 py-4 text-xs uppercase tracking-widest border-white/20"
-              />
-            </div>
-          </div>
-        </ScrollReveal>
+        <div>
+          <p className="p-eyebrow">Call or WhatsApp</p>
+          <p className="phone">{SITE.phone}</p>
+          <p>
+            <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer">
+              Message us on WhatsApp ↗
+            </a>
+          </p>
+        </div>
       </section>
     </div>
   );

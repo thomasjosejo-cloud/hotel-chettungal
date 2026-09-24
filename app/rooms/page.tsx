@@ -1,225 +1,112 @@
-import React from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  Bed,
-  Wine,
-  Phone,
-  MessageSquare,
-  CheckCircle2,
-  ShieldCheck,
-  Sparkles,
-  Coffee,
-  Wind,
-  Tv,
-  Wifi,
-  Plane,
-  Train,
-} from "lucide-react";
-import SectionHeader from "@/components/shared/SectionHeader";
-import WhatsAppCta from "@/components/shared/WhatsAppCta";
-import TiltCard3D from "@/components/3d/TiltCard3D";
-import ScrollReveal from "@/components/motion/ScrollReveal";
-import StaggerChildren from "@/components/motion/StaggerChildren";
-import { ROOMS_CONTENT } from "@/content/rooms";
-import { SITE_CONFIG, buildWhatsAppLink } from "@/content/site-config";
+import PageHero from "@/components/PageHero";
+import Gallery from "@/components/Gallery";
+import EnquiryForm from "@/components/EnquiryForm";
+import { Button, Eyebrow, WhatsAppIcon } from "@/components/ui";
+import { PHOTOS, SITE, WA, whatsapp } from "@/content/site";
+import SplitText from "@/components/motion/SplitText";
+import { byFile } from "@/components/home/sets";
+
+// room-hero was added to PHOTOS.rooms for the home slideshow only; this page
+// keeps its own hero and gallery.
+const ROOM_PHOTOS = PHOTOS.rooms.filter((r) => !r.src.endsWith("/room-hero.webp"));
+const HERO = byFile(PHOTOS.rooms, "lux-05");
 
 export const metadata: Metadata = {
-  title: "10 AC Rooms & Stays",
+  title: "Rooms",
   description:
-    "10 air-conditioned rooms, each built for a proper night's rest — complimentary breakfast and high-speed WiFi included on NH 544, Angamaly.",
-  openGraph: {
-    title: "10 Boutique AC Rooms | Hotel New Town by Chettungal",
-    description: "Proper night's rest near Cochin International Airport. Air-conditioned rooms with complimentary breakfast and high-speed WiFi.",
-    url: "https://hotelchettungal.com/rooms",
-    images: [
-      {
-        url: "/images/rooms/room-hero.webp",
-        width: 1200,
-        height: 630,
-        alt: "Hotel New Town by Chettungal Boutique Rooms",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Boutique AC Rooms | Hotel New Town by Chettungal",
-    description: "10 quiet air-conditioned rooms with complimentary breakfast on NH 544, Angamaly.",
-    images: ["/images/rooms/room-hero.webp"],
-  },
+    "Ten air-conditioned rooms at Chettungal New Town Hotel on NH 544, Angamaly, booked directly by phone or WhatsApp.",
+  alternates: { canonical: "/rooms" },
+  openGraph: { images: [{ url: HERO.src, width: 1448, height: 1086, alt: HERO.alt }] },
 };
 
+const IN_ROOM = [
+  "Double bed with a carved headboard",
+  "Air-conditioning",
+  "Work desk and chair",
+  "Television",
+  "Kettle and tea station",
+  "Wardrobe",
+  "En-suite bathroom with walk-in shower",
+];
+
 export default function RoomsPage() {
-  const { amenities } = ROOMS_CONTENT;
-
-  const roomGallery = [
-    { src: "/images/rooms/room-hero.webp", title: "King Pillowtop Bed & Warm Wood Paneling" },
-    { src: "/images/rooms/room-2.webp", title: "Executive Suite Seating & Ambient Reading Lights" },
-    { src: "/images/rooms/lux-03.webp", title: "Quiet Contemporary Layout for Restorative Sleep" },
-    { src: "/images/rooms/lux-05.webp", title: "Dedicated Work Desk & Universal Power Outlets" },
-    { src: "/images/rooms/lux-08.webp", title: "High-Pressure Rain Shower & Botanical Amenities" },
-    { src: "/images/rooms/room-1-bed.webp", title: "Plush Bedding & Integrated Headboard Illumination" },
-  ];
-
+  const p = ROOM_PHOTOS;
   return (
-    <div className="bg-[#0C101B] text-slate-100 min-h-screen">
-      {/* 1. HERO SECTION - NATURAL PHOTOGRAPHIC CLARITY */}
-      <section className="relative min-h-[88vh] sm:min-h-screen flex items-end justify-start pt-28 pb-10 sm:pb-14 px-6 sm:px-10 lg:px-16">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/rooms/room-hero.webp"
-            alt="Chettungal New Town Hotel Boutique Room"
-            fill
-            className="object-cover object-center brightness-100"
-            priority
-          />
-          {/* Natural photographic clarity: subtle top navbar vignette and soft bottom transition */}
-          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-[#0C101B] via-[#0C101B]/60 to-transparent pointer-events-none" />
+    <div className="bg-night text-ivory">
+      <PageHero image={HERO.src} alt={HERO.alt}>
+        <Eyebrow className="text-brass-light">Stay · Chettungal New Town</Eyebrow>
+        <h1 className="display mt-6">Ten rooms.</h1>
+        <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
+          Each built for a proper night&apos;s rest.
+        </p>
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <Button href={whatsapp(WA.rooms)}>
+            <WhatsAppIcon /> Check availability
+          </Button>
+          <Button href={SITE.phoneHref} tone="outline-light">
+            Call {SITE.phone}
+          </Button>
         </div>
+      </PageHero>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 backdrop-blur-md mb-3 shadow-lg">
-              <Bed className="w-3.5 h-3.5 text-[#E5C158]" />
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-[#E5C158]">
-                10 AC Rooms · NH 544, Angamaly
-              </span>
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight mb-2 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-              10 AC Rooms
-            </h1>
-
-            <p className="font-serif text-xl sm:text-2xl text-[#F5D061] italic drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-              &ldquo;Each built for a proper night’s rest.&rdquo;
+      <section className="py-24 md:py-32">
+        <div className="container-x grid gap-16 md:grid-cols-12">
+          <div className="md:col-span-6" data-reveal>
+            <p className="statement">
+              A small hotel on purpose. Ten rooms for wedding guests, visiting teams and{" "}
+              <em className="text-brass-light">anyone who stayed for one more at CasaBay.</em>
             </p>
           </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <WhatsAppCta
-              intent="Room Stay Direct Enquiry"
-              label="Enquire via WhatsApp"
-              variant="gold"
-              className="px-6 py-3.5 text-xs uppercase tracking-widest shadow-xl font-bold"
-            />
-            <a
-              href={`tel:${SITE_CONFIG.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest font-semibold text-slate-200 hover:text-white border border-white/20 hover:border-[#E5C158] rounded-sm transition-colors bg-black/70 backdrop-blur-md shadow-lg"
-            >
-              <Phone className="w-4 h-4 text-[#E5C158]" />
-              <span>Call Front Desk</span>
-            </a>
+          <div className="md:col-span-5 md:col-start-8" data-reveal>
+            <Eyebrow className="text-brass-light">In the rooms</Eyebrow>
+            <ul className="mt-5 grid gap-3">
+              {IN_ROOM.map((f) => (
+                <li key={f} className="border-t border-ivory/15 pt-3 text-[1.0625rem]">
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* 2. BROCHURE INCLUSIONS STRIP */}
-      <ScrollReveal direction="up">
-      <section className="py-10 bg-[#111726] border-y border-[#E5C158]/20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center text-xs text-slate-200">
-            <div className="flex items-center justify-center gap-2">
-              <Coffee className="w-4 h-4 text-[#E5C158]" />
-              <span>Complimentary Breakfast</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Wifi className="w-4 h-4 text-[#E5C158]" />
-              <span>High-Speed WiFi Included</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Plane className="w-4 h-4 text-[#E5C158]" />
-              <span>~5 km from Kochi Airport</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Plane className="w-4 h-4 text-[#E5C158]" />
-              <span>Airport Transfer Available</span>
-            </div>
-          </div>
+      <section className="pb-24 md:pb-32">
+        <div className="container-x">
+          <Gallery photos={p} />
         </div>
       </section>
-      </ScrollReveal>
 
-      {/* 3. REAL ROOM PHOTO GALLERY WITH 3D TILT */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <ScrollReveal direction="up">
-          <SectionHeader
-            eyebrow="Accommodations Gallery"
-            title="Intimate Boutique Comfort"
-            subtitle="Because we operate just ten rooms, your stay receives personal care, quiet privacy, and immediate host service."
-            align="center"
-            theme="dark"
-          />
-        </ScrollReveal>
-
-        <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {roomGallery.map((img, i) => (
-            <TiltCard3D key={i} maxTilt={8} className="rounded-sm">
-              <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/10 shadow-lg group">
-                <Image
-                  src={img.src}
-                  alt={img.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-85" />
-                <div className="absolute bottom-4 left-4 right-4 text-xs font-serif text-white text-base">
-                  {img.title}
-                </div>
-              </div>
-            </TiltCard3D>
-          ))}
-        </StaggerChildren>
+      <section className="bg-night py-24 text-ivory md:py-32">
+        <div className="container-x grid gap-8 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7" data-reveal>
+            <Eyebrow className="text-brass-light">Also in the hotel</Eyebrow>
+            <SplitText className="h2 mt-4">The Executive Bar.</SplitText>
+          </div>
+          <p className="text-[1.0625rem] leading-relaxed text-smoke md:col-span-4 md:col-start-9" data-reveal>
+            A second bar inside the hotel, alongside CasaBay on the roof and Fish Town for meals.
+          </p>
+        </div>
       </section>
 
-      {/* 4. ROOM AMENITIES & DIRECT-RESERVATION PHILOSOPHY */}
-      <ScrollReveal direction="up">
-      <section className="py-20 bg-[#111726] border-t border-white/10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto p-8 sm:p-12 rounded-sm bg-[#131A2B] border border-[#E5C158]/30 shadow-2xl">
-          <SectionHeader
-            eyebrow="Appointments"
-            title="In-Room Amenities"
-            subtitle="Prepared with high-standard furnishings to guarantee sound sleep and quiet relaxation on NH 544."
-            align="left"
-            theme="dark"
-            className="mb-8"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            {amenities.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200">
-                <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0 mt-0.5" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-6 rounded-sm bg-[#0C101B] border border-white/10 text-center">
-            <span className="text-xs uppercase tracking-widest text-[#E5C158] font-semibold block mb-2">
-              Direct Host Booking Only
-            </span>
-            <p className="text-xs sm:text-sm font-light text-slate-300 max-w-xl mx-auto mb-6">
-              To preserve personal hospitality and prioritize wedding/banquet families, room stays are reserved directly via phone or WhatsApp with zero middleman commissions.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <WhatsAppCta
-                intent="Room Booking Enquiry"
-                label="Enquire via WhatsApp"
-                variant="gold"
-                className="w-full sm:w-auto px-6 py-3 text-xs uppercase tracking-widest font-bold"
-              />
-              <a
-                href={`tel:${SITE_CONFIG.phoneRaw}`}
-                className="w-full sm:w-auto px-6 py-3 text-xs uppercase tracking-widest font-semibold text-white border border-white/20 hover:border-[#E5C158] rounded-sm transition-colors"
-              >
-                Call Front Desk
+      <section id="enquire" className="scroll-mt-20 bg-night-2 py-24 text-ivory md:py-32">
+        <div className="container-x grid gap-14 md:grid-cols-12">
+          <div className="md:col-span-4" data-reveal>
+            <Eyebrow className="text-brass-light">Book direct</Eyebrow>
+            <SplitText className="h2 mt-4">Rooms are booked with the front desk.</SplitText>
+            <p className="mt-6 text-smoke">
+              Send your dates here, WhatsApp us, or call{" "}
+              <a href={SITE.phoneHref} className="text-ivory underline underline-offset-4">
+                {SITE.phone}
               </a>
-            </div>
+              .
+            </p>
+          </div>
+          <div className="md:col-span-7 md:col-start-6">
+            <EnquiryForm defaultPurpose="A room stay" lockPurpose tone="dark" />
           </div>
         </div>
       </section>
-      </ScrollReveal>
     </div>
   );
 }

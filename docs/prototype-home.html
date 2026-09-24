@@ -1,0 +1,748 @@
+<title>Chettungal After Dark</title>
+<meta name="description" content="Home page prototype for Chettungal New Town Hotel, Angamaly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap">
+<link rel="preload" as="image" href="img/hero.webp">
+<style>
+  /* One night ground for the whole page. Colour comes from the photographs,
+     brass for the house, ember only for CasaBay. Deliberately single-theme. */
+  :root {
+    color-scheme: dark;
+    --night: #0b0907;
+    --night-2: #14100c;
+    --ivory: #f3ece0;
+    --smoke: #a39a8c;
+    --brass: #c9a57b;
+    --ember: #e8a95c;
+    --line: rgba(243, 236, 224, 0.14);
+    --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --gutter: clamp(16px, 5vw, 72px);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  html { background: var(--night); }
+  body {
+    background: var(--night);
+    color: var(--ivory);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+  .eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); }
+  .tag { font-family: var(--serif); font-style: italic; font-size: clamp(26px, 2.2vw + 14px, 40px); line-height: 1.15; }
+  .body { color: var(--smoke); max-width: 34ch; font-size: 17px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 48px; padding: 12px 26px; white-space: nowrap;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+    border: 1px solid rgba(243, 236, 224, 0.4); color: var(--ivory);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .btn:hover { background: var(--ivory); color: var(--night); border-color: var(--ivory); }
+  .btn.ember { background: var(--ember); border-color: var(--ember); color: var(--night); }
+  .btn.ember:hover { background: var(--ivory); border-color: var(--ivory); }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* Bar */
+  .bar {
+    position: fixed; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: calc(14px + env(safe-area-inset-top, 0px)) var(--gutter) 14px;
+    background: linear-gradient(to bottom, rgba(11, 9, 7, 0.85), rgba(11, 9, 7, 0));
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { height: 32px; width: auto; }
+  .brand b { display: block; margin-top: 4px; font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
+  .brand small { display: block; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brass); }
+  .bar .btn { min-height: 42px; padding: 10px 18px; }
+
+  /* Hero: CasaBay at night */
+  .hero {
+    position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; isolation: isolate;
+    background: var(--night);
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -2;
+    background: var(--night) url("img/hero.webp") center 60% / cover no-repeat;
+    transform: translate3d(0, calc(var(--k, 0) * 8%), 0) scale(calc(1 + var(--k, 0) * 0.1));
+    will-change: transform;
+  }
+  .hero-copy { transform: translate3d(0, calc(var(--k, 0) * -40px), 0); opacity: calc(1 - var(--k, 0) * 0.7); will-change: transform, opacity; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(to top, var(--night) 2%, rgba(11, 9, 7, 0.55) 38%, rgba(11, 9, 7, 0.15) 70%, rgba(11, 9, 7, 0.55)),
+      linear-gradient(to right, rgba(11, 9, 7, 0.7), rgba(11, 9, 7, 0) 60%);
+  }
+  #embers { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+  .hero-copy { padding: 140px var(--gutter) clamp(56px, 9vh, 96px); max-width: 900px; }
+  .casa-logo { display: block; max-width: 100%; height: auto; filter: drop-shadow(0 0 28px rgba(232, 150, 70, 0.28)); }
+  .wordmark { margin: 18px 0 14px; line-height: 0; animation: ignite 1.7s steps(1, end) both; }
+  .wordmark .casa-logo { width: clamp(290px, 46vw, 640px); margin-left: -0.6%; }
+  @keyframes ignite {
+    0% { opacity: 0.35 }
+    12% { opacity: 1; }
+    18% { opacity: 0.4 }
+    30% { opacity: 1; }
+    36% { opacity: 0.55 }
+    46%, 100% { opacity: 1; }
+  }
+  .hero .tag { margin-bottom: 18px; }
+  .hero .body { max-width: 44ch; color: rgba(243, 236, 224, 0.82); margin-bottom: 32px; }
+  .cue {
+    position: absolute; right: var(--gutter); bottom: clamp(56px, 9vh, 96px);
+    writing-mode: vertical-rl; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--smoke);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .cue::after { content: ""; width: 1px; height: 64px; background: linear-gradient(var(--brass), transparent); animation: drip 2.4s var(--ease) infinite; }
+  @keyframes drip { from { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } to { transform: scaleY(0); transform-origin: bottom; } }
+
+  /* Journey: sticky WebGL stage with chapter copy */
+  .journey { position: relative; height: 560vh; }
+  .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .stage::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to right, rgba(11, 9, 7, 0.88) 0%, rgba(11, 9, 7, 0.45) 34%, rgba(11, 9, 7, 0) 58%);
+  }
+  .chapter {
+    position: absolute; z-index: 2; left: var(--gutter); top: 50%; width: min(440px, 40vw);
+    transform: translateY(-50%); opacity: 0; pointer-events: none; transition: none;
+  }
+  .chapter.on { pointer-events: auto; }
+  .chapter .numeral { font-family: var(--serif); font-style: italic; color: var(--brass); font-size: 20px; display: flex; align-items: center; gap: 14px; }
+  .chapter .numeral::after { content: ""; width: 44px; height: 1px; background: currentColor; opacity: 0.6; }
+  .chapter h2 { font-size: clamp(44px, 4.4vw + 12px, 84px); line-height: 0.98; margin: 22px 0 12px; }
+  .chapter .tag { color: var(--brass); margin-bottom: 18px; font-size: clamp(24px, 1.6vw + 12px, 32px); }
+  .chapter .body { margin-bottom: 26px; }
+  .chapter .ft-logo { width: 190px; height: auto; margin: 22px 0 16px; }
+  .cuisines { list-style: none; padding: 0; margin: 0 0 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
+  .cuisines li { font-size: 15px; border-top: 1px solid var(--line); padding-top: 8px; color: var(--ivory); }
+  .count { font-family: var(--serif); font-size: clamp(96px, 9vw + 20px, 168px); line-height: 0.85; color: var(--brass); font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1, "tnum" 1; margin: 18px 0 6px; }
+  .count-label { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--smoke); margin-bottom: 22px; }
+  .chapter.finale h2 { line-height: 0; margin-bottom: 14px; }
+  .chapter.finale h2 .casa-logo { width: clamp(250px, 24vw + 80px, 480px); }
+  .chapter.finale .tag { color: var(--ivory); }
+  .ch-img { display: none; }
+  /* Photo marks: which of the chapter's photos is showing; the active one fills while it holds. */
+  .ticks { display: flex; gap: 6px; margin: 14px 0 0 -6px; }
+  .ticks button { all: unset; cursor: pointer; width: 30px; height: 24px; padding: 0 6px; display: flex; align-items: center; }
+  .ticks button span { position: relative; display: block; width: 100%; height: 2px; background: rgba(243, 236, 224, 0.25); overflow: hidden; }
+  .ticks button span::after { content: ""; position: absolute; inset: 0; background: var(--brass); transform: scaleX(var(--f, 0)); transform-origin: left; }
+  .ticks button.on span { background: rgba(201, 165, 123, 0.35); }
+  .ticks button:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+  .rail { position: absolute; z-index: 3; left: var(--gutter); bottom: calc(28px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 28px; }
+  .rail button {
+    all: unset; cursor: pointer; display: flex; flex-direction: column-reverse; align-items: flex-start; gap: 10px;
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--smoke); min-height: 28px;
+  }
+  .rail button::after { content: ""; width: 18px; height: 1px; background: currentColor; transition: width 0.4s var(--ease); }
+  .rail button.on { color: var(--ivory); }
+  .rail button.on::after { width: 44px; background: var(--brass); }
+  .rail button:focus-visible { outline: 2px solid var(--brass); outline-offset: 4px; }
+
+  /* Quiet close */
+  .close { padding-block: clamp(96px, 14vh, 160px); padding-inline: var(--gutter); display: grid; gap: clamp(40px, 6vw, 96px); grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; }
+  .close figure { margin: 0; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; position: relative; background: var(--night-2); }
+  .close figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+    clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease); z-index: 0; }
+  .close figure img.on { clip-path: inset(0 0 0 0); z-index: 1; }
+  .close figure img.was { clip-path: inset(0 0 0 0); z-index: 0; }
+  .close figure img.on { animation: push 7s linear both; }
+  @keyframes push { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .close .ticks { margin: 16px 0 0 -6px; }
+  .close h2 { font-size: clamp(40px, 3.4vw + 14px, 72px); line-height: 1; margin: 18px 0 16px; }
+  .close .body { margin-bottom: 30px; }
+  .find { border-top: 1px solid var(--line); padding-block: 64px; padding-inline: var(--gutter); display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .find h3 { font-size: 30px; line-height: 1.1; margin-top: 12px; }
+  .find p { color: var(--smoke); margin-top: 10px; }
+  .phone { font-family: var(--serif); font-size: 30px; color: var(--ivory); user-select: all; font-variant-numeric: tabular-nums; margin-top: 12px; }
+  .note { padding: 24px var(--gutter) calc(32px + env(safe-area-inset-bottom, 0px)); font-size: 13px; color: var(--smoke); border-top: 1px solid var(--line); }
+
+  /* Phones */
+  @media (max-width: 760px) {
+    .bar .btn span { display: none; }
+    .bar .btn { padding: 10px 14px; }
+    .brand small { font-size: 11px; }
+    .cue { display: none; }
+    .journey { height: 520vh; }
+    .stage::after { background: linear-gradient(to top, rgba(11, 9, 7, 0.96) 0%, rgba(11, 9, 7, 0.75) 42%, rgba(11, 9, 7, 0) 70%); }
+    .chapter { top: auto; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); right: var(--gutter); width: auto; transform: none; }
+    .chapter h2 { margin: 12px 0 8px; }
+    .chapter .ft-logo { width: 150px; margin: 14px 0 10px; }
+    .chapter .body { display: none; }
+    .count { margin: 8px 0 4px; }
+    .rail { display: none; }
+    .close { grid-template-columns: 1fr; }
+  }
+
+  .snap { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
+  @media (max-width: 760px) and (pointer: coarse) {
+    html:not(.static) { scroll-snap-type: y proximity; }
+    .snap, .hero { scroll-snap-align: start; }
+  }
+
+  /* Static fallback: reduced motion or no WebGL — every chapter shown in order */
+  html.static .journey { height: auto; }
+  html.static .stage { position: relative; height: auto; overflow: visible; }
+  html.static #gl, html.static .stage::after, html.static .rail { display: none; }
+  html.static .chapter { position: relative; left: auto; top: auto; bottom: auto; right: auto; transform: none; opacity: 1; width: auto;
+    padding: 72px var(--gutter) 0; pointer-events: auto; display: grid; gap: 0; max-width: 760px; }
+  html.static .chapter .body { display: block; }
+  html.static .ticks-gl { display: none; }
+  html.static .ch-img { display: block; width: 100%; max-width: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin-bottom: 28px; }
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark, .cue::after, .close figure img.on { animation: none; }
+    .close figure img { transition: none; }
+  }
+</style>
+
+<header class="bar">
+  <a class="brand" href="#top" aria-label="Chettungal New Town Hotel">
+    <img src="img/crest.png" alt="" width="344" height="260">
+    <span><small>Chettungal</small><b>New Town Hotel</b></span>
+  </a>
+  <a class="btn ember" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20reserve%20a%20table%20at%20CasaBay." target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>
+    <span>Reserve a table</span>
+  </a>
+</header>
+
+<main>
+  <section class="hero" id="top" aria-label="CasaBay rooftop restobar">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <canvas id="embers" aria-hidden="true"></canvas>
+    <div class="hero-copy">
+      <p class="eyebrow">Rooftop restobar · Angamaly</p>
+      <h1 class="wordmark"><img class="casa-logo" src="img/casabay-logo.webp" alt="CasaBay" width="1600" height="496"></h1>
+      <p class="tag">Take the evening upstairs.</p>
+      <p class="body">A rooftop restobar, a multi-cuisine restaurant, a banquet hall for 120, a private board room and ten rooms. One address on NH 544.</p>
+      <div class="row">
+        <a class="btn ember" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20reserve%20a%20table%20at%20CasaBay." target="_blank" rel="noopener">Reserve a table</a>
+        <a class="btn" href="#journey">See the evening</a>
+      </div>
+    </div>
+    <div class="cue" aria-hidden="true">Scroll</div>
+  </section>
+
+  <section class="journey" id="journey" aria-label="The evening at Chettungal New Town">
+    <div class="stage">
+      <canvas id="gl" aria-hidden="true"></canvas>
+
+      <article class="chapter" data-ch="0">
+        <img class="ch-img" src="img/ft-a.webp" alt="Fish Town main dining room with illuminated wave walls" loading="lazy">
+        <p class="numeral">I</p>
+        <img class="ft-logo" src="img/fishtown-logo.png" alt="Fish Town" width="520" height="298">
+        <p class="tag">Fresh catch. Local soul.</p>
+        <p class="body">The food Kerala knows best, served under the glowing wave walls. A quick lunch, a business meal or a table for the whole family.</p>
+        <ul class="cuisines">
+          <li>Kerala &amp; seafood</li><li>North Indian</li><li>Chinese</li><li>Continental</li>
+        </ul>
+        <a class="btn" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20reserve%20a%20table%20at%20Fish%20Town." target="_blank" rel="noopener">Reserve at Fish Town</a>
+      </article>
+
+      <article class="chapter" data-ch="1">
+        <img class="ch-img" src="img/th-a.webp" alt="Head table on the carpeted stage at Town Hall" loading="lazy">
+        <p class="numeral">II</p>
+        <h2>Town Hall</h2>
+        <p class="count" aria-label="120 guests"><span id="count">120</span></p>
+        <p class="count-label">Guests, at capacity</p>
+        <p class="tag">Where the whole guest list fits.</p>
+        <a class="btn" href="https://wa.me/919961134364?text=Hello%2C%20I%27m%20planning%20an%20event%20and%20would%20like%20to%20check%20Town%20Hall%20availability." target="_blank" rel="noopener">Check a date</a>
+      </article>
+
+      <article class="chapter" data-ch="2">
+        <img class="ch-img" src="img/br-a.webp" alt="The Board Room from the entrance corner" loading="lazy">
+        <p class="numeral">III</p>
+        <h2>The Board Room</h2>
+        <p class="tag">A room built for focus.</p>
+        <p class="body">One long table behind a closed door. For board meetings, interviews, client presentations and training.</p>
+        <a class="btn" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20check%20availability%20of%20the%20Board%20Room." target="_blank" rel="noopener">Book the room</a>
+      </article>
+
+      <article class="chapter finale" data-ch="3">
+        <img class="ch-img" src="img/cb-a.webp" alt="Cocktails on the CasaBay bar with the winged mural behind" loading="lazy">
+        <p class="numeral">IV</p>
+        <h2><img class="casa-logo" src="img/casabay-logo.webp" alt="CasaBay" width="1600" height="496" loading="lazy"></h2>
+        <p class="tag">Back on the roof.</p>
+        <p class="body">An open-air deck and a covered bar at the top of the hotel. Cocktails, food from the kitchen, and an evening that ends late.</p>
+        <a class="btn ember" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20reserve%20a%20table%20at%20CasaBay." target="_blank" rel="noopener">Reserve a table</a>
+      </article>
+
+      <nav class="rail" aria-label="Chapters">
+        <button type="button" data-go="0">Fish Town</button>
+        <button type="button" data-go="1">Town Hall</button>
+        <button type="button" data-go="2">Board Room</button>
+        <button type="button" data-go="3">CasaBay</button>
+      </nav>
+    </div>
+  </section>
+
+  <section class="close" aria-label="Rooms">
+    <div>
+      <figure id="roomsFig">
+        <img class="on" src="img/rm-a.webp" alt="Guest room with a double bed, desk and wardrobe" loading="lazy" width="1080" height="720">
+        <img src="img/rm-b.webp" alt="Guest room with kettle station, desk and television" loading="lazy" width="1080" height="720">
+        <img src="img/rm-c.webp" alt="Guest room with the bed and window drapes" loading="lazy" width="1080" height="810">
+      </figure>
+      <div class="ticks" id="roomsTicks" role="group" aria-label="Room photos"></div>
+    </div>
+    <div>
+      <p class="eyebrow">Stay</p>
+      <h2>For when the evening runs long.</h2>
+      <p class="body">Ten air-conditioned rooms with a work desk, television, tea station and en-suite shower. The hotel also has the Executive Bar.</p>
+      <a class="btn" href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20check%20room%20availability." target="_blank" rel="noopener">Check availability</a>
+    </div>
+  </section>
+
+  <section class="find" aria-label="Find us">
+    <div>
+      <p class="eyebrow">Find us</p>
+      <h3>NH 544, Angamaly</h3>
+      <p>Ernakulam, Kerala 683572</p>
+      <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+New+Town+Chettungal+Angamaly" target="_blank" rel="noopener">Get directions ↗</a></p>
+    </div>
+    <div>
+      <p class="eyebrow">Call or WhatsApp</p>
+      <p class="phone">+91 99611 34364</p>
+      <p><a href="https://wa.me/919961134364?text=Hello%2C%20I%27d%20like%20to%20know%20more%20about%20Chettungal%20New%20Town%20Hotel." target="_blank" rel="noopener">Message us on WhatsApp ↗</a></p>
+    </div>
+  </section>
+</main>
+
+<p class="note">Home page prototype for Chettungal New Town Hotel · HOSTORY. All photographs are the property's own.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.documentElement;
+
+  /* ---------- Hero embers (2D, cheap) ---------- */
+  (function embers() {
+    if (reduce) return;
+    const c = document.getElementById("embers");
+    const ctx = c.getContext("2d");
+    let w, h, dpr, parts = [], running = true;
+    const sprite = document.createElement("canvas");
+    sprite.width = sprite.height = 64;
+    (function drawSprite() {
+      const s = sprite.getContext("2d");
+      const g = s.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, "rgba(255, 196, 120, 0.9)");
+      g.addColorStop(0.35, "rgba(232, 140, 60, 0.35)");
+      g.addColorStop(1, "rgba(232, 120, 40, 0)");
+      s.fillStyle = g; s.fillRect(0, 0, 64, 64);
+    })();
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = c.clientWidth; h = c.clientHeight;
+      c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = w < 700 ? 60 : 130;
+      parts = Array.from({ length: n }, () => spawn(true));
+    }
+    function spawn(any) {
+      return { x: Math.random() * w, y: any ? Math.random() * h : h + 10, r: 0.6 + Math.random() * 1.8,
+        vy: 0.25 + Math.random() * 0.7, vx: (Math.random() - 0.5) * 0.25, p: Math.random() * 6.28, life: 0.4 + Math.random() * 0.6 };
+    }
+    function tick(t) {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "lighter";
+      for (const q of parts) {
+        q.y -= q.vy; q.x += q.vx + Math.sin(t / 900 + q.p) * 0.25;
+        if (q.y < -10) Object.assign(q, spawn(false));
+        const fade = Math.min(1, q.y / (h * 0.9)) * q.life * (0.6 + 0.4 * Math.sin(t / 240 + q.p));
+        const sz = q.r * 10;
+        ctx.globalAlpha = Math.max(0, fade);
+        ctx.drawImage(sprite, q.x - sz / 2, q.y - sz / 2, sz, sz);
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(tick);
+    }
+    // Ignore height-only resizes (the phone address bar showing/hiding).
+    let lastW = 0;
+    size(); lastW = innerWidth;
+    addEventListener("resize", () => { if (innerWidth !== lastW) { lastW = innerWidth; size(); } });
+    new IntersectionObserver(([e]) => { const was = running; running = e.isIntersecting; if (running && !was) requestAnimationFrame(tick); })
+      .observe(document.querySelector(".hero"));
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------- Hero parallax on scroll (desktop and phones) ---------- */
+  (function heroParallax() {
+    if (reduce) return;
+    const hero = document.querySelector(".hero");
+    let raf = 0;
+    const set = () => { raf = 0; const k = Math.min(1, Math.max(0, scrollY / hero.offsetHeight)); hero.style.setProperty("--k", k.toFixed(4)); };
+    addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(set); }, { passive: true });
+    set();
+  })();
+
+  /* ---------- Rooms: photos take turns in one frame ---------- */
+  (function rooms() {
+    const imgs = [...document.querySelectorAll("#roomsFig img")];
+    const ticks = document.getElementById("roomsTicks");
+    const btns = imgs.map((_, i) => { const b = document.createElement("button"); b.type = "button";
+      b.setAttribute("aria-label", "Room photo " + (i + 1) + " of " + imgs.length); b.innerHTML = "<span></span>"; ticks.appendChild(b); return b; });
+    let cur = 0, age = 0, inView = false, last = 0;
+    const HOLD = 4.6;
+    function show(k) {
+      if (k === cur) return;
+      imgs.forEach((im, i) => { im.classList.toggle("was", i === cur); im.classList.toggle("on", i === k); });
+      cur = k; age = 0;
+    }
+    btns.forEach((b, i) => b.addEventListener("click", () => show(i)));
+    function frame(ts) {
+      const dt = last ? Math.min(0.1, (ts - last) / 1000) : 0; last = ts;
+      if (inView && !reduce && !document.hidden) { age += dt; if (age > HOLD) show((cur + 1) % imgs.length); }
+      btns.forEach((b, i) => { b.classList.toggle("on", i === cur); b.style.setProperty("--f", i === cur ? (reduce ? 1 : Math.min(1, age / HOLD)).toFixed(3) : 0); });
+      if (inView) requestAnimationFrame(frame); else last = 0;
+    }
+    new IntersectionObserver(([e]) => { const was = inView; inView = e.isIntersecting; if (inView && !was) requestAnimationFrame(frame); }, { threshold: 0.35 })
+      .observe(document.getElementById("roomsFig"));
+    frame(0);
+  })();
+
+  /* ---------- Journey ---------- */
+  const journey = document.getElementById("journey");
+  const chapters = [...document.querySelectorAll(".chapter")];
+  const railBtns = [...document.querySelectorAll(".rail button")];
+  const countEl = document.getElementById("count");
+
+  // Where each chapter sits in the scroll (0..1) and how long it holds.
+  const CENTERS = [0.12, 0.38, 0.62, 0.88];
+  const HALF = 0.1;
+
+  const stage = document.querySelector(".stage");
+  // The stage is 100svh, which doesn't change when a phone's address bar
+  // shows or hides; innerHeight does, and made the camera jump.
+  const spanOf = () => Math.max(1, journey.offsetHeight - stage.offsetHeight);
+  function progress() {
+    const r = journey.getBoundingClientRect();
+    const span = spanOf();
+    return Math.min(1, Math.max(0, -r.top / span));
+  }
+  function goTo(i) {
+    const span = spanOf();
+    scrollTo({ top: journey.offsetTop + CENTERS[i] * span, behavior: reduce ? "auto" : "smooth" });
+  }
+  railBtns.forEach((b) => b.addEventListener("click", () => goTo(+b.dataset.go)));
+
+  let gl = null;
+  try {
+    if (!reduce && window.THREE) {
+      const test = document.createElement("canvas");
+      if (test.getContext("webgl") || test.getContext("experimental-webgl")) gl = true;
+    }
+  } catch (e) { gl = null; }
+  if (!gl) { root.classList.add("static"); return; }
+
+  // One snap point per chapter centre (only active on touch phones via CSS).
+  const snaps = CENTERS.map(() => { const d = document.createElement("div"); d.className = "snap"; d.setAttribute("aria-hidden", "true"); journey.appendChild(d); return d; });
+  const placeSnaps = () => snaps.forEach((d, i) => { d.style.top = Math.round(CENTERS[i] * spanOf()) + "px"; });
+  placeSnaps();
+
+  const T = THREE;
+  const canvas = document.getElementById("gl");
+  const renderer = new T.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+  renderer.setClearColor(0x0b0907, 1);
+  const scene = new T.Scene();
+  scene.fog = new T.Fog(0x0b0907, 14, 34);
+  const camera = new T.PerspectiveCamera(42, 1, 0.1, 100);
+  camera.position.set(0, 0, 16);
+
+  const FLOOR = 15; // vertical distance between chapters in world units
+  const loader = new T.TextureLoader();
+
+  const planeVert = `
+    uniform float uBend; varying vec2 vUv;
+    void main(){ vUv = uv; vec3 p = position;
+      p.z += sin(uv.y * 3.14159) * uBend + sin(uv.x * 3.14159) * uBend * 0.4;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`;
+  // One frame per chapter. uTex is the photo showing, uNext the one wiping in
+  // from the top (uMix 0->1) with a thin warm light on the wipe edge; each photo
+  // pushes in slowly (uZa / uZb) while it holds.
+  const planeFrag = `
+    uniform sampler2D uTex; uniform sampler2D uNext; uniform float uMix; uniform float uZa; uniform float uZb;
+    uniform float uReveal; uniform float uLight; uniform float uReady; varying vec2 vUv;
+    void main(){
+      vec3 ca = texture2D(uTex, (vUv - 0.5) / uZa + 0.5).rgb;
+      vec3 cb = texture2D(uNext, (vUv - 0.5) / uZb + 0.5).rgb;
+      float y = 1.0 - vUv.y; float front = uMix * 1.12;
+      float w = 1.0 - smoothstep(front - 0.1, front, y);
+      float line = exp(-pow((y - front + 0.05) * 30.0, 2.0)) * step(0.001, uMix) * step(uMix, 0.999);
+      vec3 c = mix(ca, cb, w) + vec3(1.0, 0.72, 0.4) * line * 0.3;
+      float m = 1.0 - smoothstep(uReveal - 0.08, uReveal, y);
+      float edge = smoothstep(0.0, 0.015, vUv.x) * smoothstep(0.0, 0.015, 1.0 - vUv.x);
+      gl_FragColor = vec4(c * uLight, m * uReady * edge); }`;
+
+  const planes = [];
+  function addFrame(floor, srcs, x, y, z, width, aspect) {
+    const u = { uTex: { value: null }, uNext: { value: null }, uMix: { value: 0 }, uZa: { value: 1 }, uZb: { value: 1 },
+      uReveal: { value: 0 }, uLight: { value: 1 }, uBend: { value: 0 }, uReady: { value: 0 } };
+    const mat = new T.ShaderMaterial({ uniforms: u, vertexShader: planeVert, fragmentShader: planeFrag, transparent: true, depthWrite: false });
+    const mesh = new T.Mesh(new T.PlaneGeometry(width, width / aspect, 24, 24), mat);
+    mesh.position.set(x, floor * FLOOR + y, z);
+    scene.add(mesh);
+    const p = { mesh, u, floor, base: { x, y, z }, srcs, texs: [], cur: 0, next: -1, age: 0, mixT: 0 };
+    planes.push(p);
+    return p;
+  }
+
+  // One frame per chapter, holding that chapter's photos in turn (chosen by the property).
+  const SETS = [["ft-a", "ft-b", "ft-c"], ["th-a", "th-b", "th-c"], ["br-a", "br-b", "br-c"], ["cb-a", "cb-b", "cb-c"]];
+  // [x, y, z, width]: desktop sits right of the copy; phones put it up top, full width.
+  const DESK = [[3.8, 0.6, 0, 10.2], [3.8, 0.8, 0, 10.2], [3.8, 0.5, 0, 9.6], [3.8, 0.7, 0, 10.2]];
+  const PHONE = [[0, 3.7, 0, 7.0], [0, 3.8, 0, 7.0], [0, 2.0, 0, 7.0], [0, 2.4, 0, 7.0]];
+  SETS.forEach((srcs, f) => {
+    const [x, y, z, w] = DESK[f];
+    const pl = addFrame(f, srcs, x, y, z, w, 1.5);
+    const [px, py, pz, pw] = PHONE[f];
+    pl.phone = { x: px, y: py, z: pz, s: pw / w };
+  });
+
+  // Load the first photo of each chapter after the hero has painted, the rest after that.
+  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 400));
+  const load = (p, k, done) => loader.load(`img/${p.srcs[k]}.webp`, (tex) => {
+    tex.minFilter = T.LinearFilter; tex.generateMipmaps = false; p.texs[k] = tex; done && done(tex);
+  });
+  idle(() => {
+    let first = 0;
+    planes.forEach((p) => load(p, 0, (tex) => {
+      p.u.uTex.value = tex; p.u.uNext.value = tex; p.u.uReady.value = 1;
+      if (++first === planes.length) planes.forEach((q) => q.srcs.forEach((_, k) => k && load(q, k)));
+    }));
+  });
+
+  // Photo marks under each chapter's numeral; tap to jump to a photo.
+  planes.forEach((pl) => {
+    const head = chapters[pl.floor].querySelector(".numeral");
+    const box = document.createElement("div");
+    box.className = "ticks ticks-gl"; box.setAttribute("role", "group");
+    box.setAttribute("aria-label", "Photos");
+    pl.btns = pl.srcs.map((_, k) => { const b = document.createElement("button"); b.type = "button";
+      b.setAttribute("aria-label", "Photo " + (k + 1) + " of " + pl.srcs.length); b.innerHTML = "<span></span>";
+      b.addEventListener("click", () => startSwap(pl, k)); box.appendChild(b); return b; });
+    head.after(box);
+  });
+  const HOLD = 4.2, SWAP = 1.25;
+  function startSwap(pl, k) {
+    if (pl.next >= 0 || k === pl.cur || !pl.texs[k]) return;
+    pl.next = k; pl.mixT = 0; pl.u.uNext.value = pl.texs[k];
+  }
+
+  // Fish Town wave-wall glow: warm light bands behind the photos.
+  const waveMat = new T.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uAmt: { value: 0 } }, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+    fragmentShader: `uniform float uTime; uniform float uAmt; varying vec2 vUv;
+      void main(){ float a = 0.0;
+        for (int i = 0; i < 3; i++) { float fi = float(i);
+          float y = 0.3 + fi * 0.2 + sin(vUv.x * (9.0 + fi * 3.0) + uTime * (0.5 + fi * 0.15)) * 0.035 + sin(vUv.x * 23.0 + fi) * 0.012;
+          float d = abs(vUv.y - y); a += exp(-d * d * 2600.0) * 0.9 + exp(-d * d * 180.0) * 0.18; }
+        float fade = smoothstep(0.0, 0.25, vUv.x) * smoothstep(1.0, 0.75, vUv.x);
+        gl_FragColor = vec4(vec3(1.0, 0.72, 0.36) * a * fade * uAmt, 1.0); }`,
+  });
+  const wave = new T.Mesh(new T.PlaneGeometry(40, 14), waveMat);
+  wave.position.set(2, 0, -9);
+  scene.add(wave);
+
+  // Town Hall: 120 seats that light up in order, theatre rows facing the stage.
+  const SEATS = 120, COLS = 12;
+  const seatPos = new Float32Array(SEATS * 3), seatIdx = new Float32Array(SEATS);
+  for (let i = 0; i < SEATS; i++) {
+    const row = Math.floor(i / COLS), col = i % COLS;
+    const aisle = col >= COLS / 2 ? 0.7 : 0;
+    seatPos[i * 3] = -4.6 + col * 0.72 + aisle + 3.2;
+    seatPos[i * 3 + 1] = -5.4 + row * 0.2;
+    seatPos[i * 3 + 2] = 4.2 - row * 0.62;
+    seatIdx[i] = i / SEATS;
+  }
+  const seatGeo = new T.BufferGeometry();
+  seatGeo.setAttribute("position", new T.BufferAttribute(seatPos, 3));
+  seatGeo.setAttribute("aIdx", new T.BufferAttribute(seatIdx, 1));
+  const seatMat = new T.ShaderMaterial({
+    uniforms: { uLit: { value: 0 }, uPx: { value: 1 }, uTime: { value: 0 } }, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+    vertexShader: `attribute float aIdx; uniform float uLit; uniform float uPx; varying float vOn; varying float vIdx;
+      void main(){ vIdx = aIdx; vOn = smoothstep(aIdx, aIdx + 0.02, uLit);
+        vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_PointSize = (10.0 + vOn * 14.0) * uPx * (12.0 / -mv.z);
+        gl_Position = projectionMatrix * mv; }`,
+    fragmentShader: `varying float vOn; varying float vIdx; uniform float uTime;
+      void main(){ float d = length(gl_PointCoord - 0.5); float core = smoothstep(0.5, 0.0, d);
+        float tw = 0.85 + 0.15 * sin(uTime * 2.0 + vIdx * 40.0);
+        vec3 col = mix(vec3(0.35, 0.3, 0.26), vec3(1.0, 0.8, 0.45), vOn);
+        gl_FragColor = vec4(col * core * mix(0.35, 1.0, vOn) * tw, core * mix(0.25, 1.0, vOn)); }`,
+  });
+  const seats = new T.Points(seatGeo, seatMat);
+  seats.position.y = FLOOR;
+  scene.add(seats);
+
+  // Embers through the whole column, thickest on the roof.
+  const EMBERS = innerWidth < 760 ? 160 : 420;
+  const eb = new Float32Array(EMBERS * 3), es = new Float32Array(EMBERS);
+  for (let i = 0; i < EMBERS; i++) {
+    eb[i * 3] = (Math.random() - 0.3) * 26;
+    eb[i * 3 + 1] = Math.random() * 12 - 6;
+    eb[i * 3 + 2] = Math.random() * 10 - 6;
+    es[i] = Math.random();
+  }
+  const emberGeo = new T.BufferGeometry();
+  emberGeo.setAttribute("position", new T.BufferAttribute(eb, 3));
+  emberGeo.setAttribute("aSeed", new T.BufferAttribute(es, 1));
+  const emberMat = new T.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uBaseY: { value: 0 }, uAmt: { value: 0 }, uPx: { value: 1 } }, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+    vertexShader: `attribute float aSeed; uniform float uTime; uniform float uBaseY; uniform float uPx; varying float vA;
+      void main(){ vec3 p = position; float t = uTime * (0.25 + aSeed * 0.5);
+        p.y = uBaseY + mod(p.y + t + 6.0, 12.0) - 6.0; p.x += sin(t * 1.3 + aSeed * 30.0) * 0.4;
+        vA = smoothstep(-6.0, -3.0, p.y - uBaseY) * smoothstep(6.0, 2.0, p.y - uBaseY) * (0.5 + 0.5 * sin(uTime * 3.0 + aSeed * 50.0));
+        vec4 mv = modelViewMatrix * vec4(p, 1.0); gl_PointSize = (4.0 + aSeed * 7.0) * uPx * (12.0 / -mv.z);
+        gl_Position = projectionMatrix * mv; }`,
+    fragmentShader: `uniform float uAmt; varying float vA;
+      void main(){ float d = length(gl_PointCoord - 0.5); float g = smoothstep(0.5, 0.0, d);
+        gl_FragColor = vec4(vec3(1.0, 0.62, 0.28) * g * vA * uAmt, 1.0); }`,
+  });
+  scene.add(new T.Points(emberGeo, emberMat));
+
+  /* ---------- Layout, resize ---------- */
+  let mobile = false;
+  function resize() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    const px = Math.min(window.devicePixelRatio || 1, 1.5);
+    renderer.setPixelRatio(px);
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    mobile = w < 760;
+    camera.fov = mobile ? 58 : 42;
+    camera.updateProjectionMatrix();
+    seatMat.uniforms.uPx.value = px * (h / 900);
+    emberMat.uniforms.uPx.value = px * (h / 900);
+    planes.forEach((p) => {
+      const b = mobile ? p.phone : p.base;
+      p.mesh.position.set(b.x, p.floor * FLOOR + b.y, b.z);
+      p.mesh.scale.setScalar(mobile ? p.phone.s : 1);
+    });
+    if (mobile) { seats.position.set(-2.2, FLOOR + 3.9, 0); seats.scale.setScalar(0.62); }
+    else { seats.position.set(0, FLOOR, 0); seats.scale.setScalar(1); }
+    placeSnaps();
+  }
+  addEventListener("resize", resize);
+  resize();
+
+  /* ---------- Loop ---------- */
+  let camY = 0, bend = 0, lastP = progress(), mx = 0, my = 0, active = false;
+  let hasMouse = false, tiltX = 0, tiltY = 0, lastT = 0;
+  addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") { hasMouse = true; mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; } });
+  // Android sends orientation without a permission prompt; iOS simply won't fire.
+  addEventListener("deviceorientation", (e) => {
+    if (e.gamma == null) return;
+    tiltX = Math.max(-1, Math.min(1, e.gamma / 30)) * 0.3;
+    tiltY = Math.max(-1, Math.min(1, (e.beta - 50) / 30)) * 0.2;
+  });
+  new IntersectionObserver(([e]) => { active = e.isIntersecting; if (active) requestAnimationFrame(loop); }).observe(journey);
+
+  const ease = (x) => x * x * (3 - 2 * x);
+  function chapterMix(p) {
+    // Returns fractional chapter position 0..3 with a hold around each centre.
+    if (p <= CENTERS[0]) return 0;
+    for (let i = 0; i < CENTERS.length - 1; i++) {
+      const a = CENTERS[i] + HALF * 0.6, b = CENTERS[i + 1] - HALF * 0.6;
+      if (p <= a) return i;
+      if (p < b) return i + ease((p - a) / (b - a));
+    }
+    return CENTERS.length - 1;
+  }
+
+  const clock = new T.Clock();
+  function loop() {
+    if (!active) return;
+    const t = clock.getElapsedTime();
+    if (!hasMouse) {
+      // Touch screens: a slow ambient drift keeps the scene alive between swipes.
+      mx += (Math.sin(t * 0.35) * 0.22 + tiltX - mx) * 0.04;
+      my += (Math.cos(t * 0.27) * 0.15 + tiltY - my) * 0.04;
+    }
+    const p = progress();
+    const vel = (p - lastP) * 60; lastP = p;
+    bend += (Math.max(-1.2, Math.min(1.2, vel * 5)) - bend) * 0.08;
+
+    const cm = chapterMix(p);
+    const targetY = cm * FLOOR;
+    camY += (targetY - camY) * 0.09;
+    camera.position.set(mx * 1.2, camY - my * 0.6, 16);
+    camera.lookAt(mx * 0.4, camY, 0);
+
+    const dt = Math.min(0.1, t - lastT); lastT = t;
+    planes.forEach((pl) => {
+      const onCh = Math.abs(cm - pl.floor) < 0.3;
+      if (pl.next >= 0) {
+        pl.mixT += dt / SWAP;
+        const k = Math.min(1, pl.mixT);
+        pl.u.uMix.value = k * k * (3 - 2 * k);
+        pl.u.uZb.value = 1 + 0.05 * Math.min(1, (pl.mixT * SWAP) / (HOLD + SWAP));
+        if (pl.mixT >= 1) {
+          pl.u.uTex.value = pl.u.uNext.value; pl.u.uZa.value = pl.u.uZb.value;
+          pl.cur = pl.next; pl.next = -1; pl.u.uMix.value = 0; pl.age = SWAP;
+        }
+      } else if (onCh) {
+        pl.age += dt;
+        pl.u.uZa.value = 1 + 0.05 * Math.min(1, pl.age / (HOLD + SWAP));
+        if (pl.age > HOLD + SWAP) startSwap(pl, (pl.cur + 1) % pl.srcs.length);
+      }
+      const shown = pl.next >= 0 && pl.u.uMix.value > 0.5 ? pl.next : pl.cur;
+      pl.btns.forEach((b, i) => { b.classList.toggle("on", i === shown);
+        b.style.setProperty("--f", i === shown ? (pl.next >= 0 ? 0 : Math.min(1, Math.max(0, (pl.age - SWAP) / HOLD))).toFixed(3) : 0); });
+      const d = Math.abs(camY / FLOOR - pl.floor);
+      const reveal = Math.max(0, Math.min(1, 1.25 - d * 1.4));
+      pl.u.uReveal.value += (reveal * 1.1 - pl.u.uReveal.value) * 0.12;
+      pl.u.uLight.value = Math.max(0.25, 1 - d * 0.9);
+      pl.u.uBend.value = bend * (pl.base.z === 0 ? 1 : 0.6) * (pl.floor === 2 ? 0.15 : 1); // Board Room stays still
+      const bx = mobile ? pl.phone.x : pl.base.x;
+      pl.mesh.position.x += (bx + Math.sin(t * 0.25 + pl.base.z) * 0.08 - pl.mesh.position.x) * 0.05;
+    });
+
+    waveMat.uniforms.uTime.value = t;
+    waveMat.uniforms.uAmt.value = Math.max(0, 1 - Math.abs(camY / FLOOR - 0) * 1.3);
+    wave.position.y = mobile ? 3 : 0;
+
+    // Fills 0→120 on the way in and lands on 120 before the chapter centre.
+    const thLocal = Math.max(0, Math.min(1, (p - (CENTERS[1] - HALF * 1.6)) / (HALF * 1.5)));
+    seatMat.uniforms.uLit.value = thLocal * 1.02;
+    seatMat.uniforms.uTime.value = t;
+    seatsVisible(Math.max(0, 1 - Math.abs(camY / FLOOR - 1) * 1.2));
+
+    emberMat.uniforms.uTime.value = t;
+    emberMat.uniforms.uBaseY.value = camY;
+    const roof = Math.max(0, 1 - Math.abs(camY / FLOOR - 3) * 1.1);
+    emberMat.uniforms.uAmt.value = 0.18 + roof * 0.95;
+
+    // Copy: cross-fade chapters on the same timeline as the camera.
+    chapters.forEach((el, i) => {
+      const o = Math.max(0, Math.min(1, 1 - Math.abs(cm - i) * 2.2));
+      el.style.opacity = o.toFixed(3);
+      const shift = (cm - i) * -40;
+      el.style.transform = mobile ? `translateY(${shift.toFixed(1)}px)` : `translateY(calc(-50% + ${shift.toFixed(1)}px))`;
+      el.classList.toggle("on", o > 0.6);
+      el.setAttribute("aria-hidden", o > 0.6 ? "false" : "true");
+    });
+    const cur = Math.round(cm);
+    railBtns.forEach((b, i) => b.classList.toggle("on", i === cur));
+    countEl.textContent = String(Math.round(120 * Math.min(1, thLocal)));
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  }
+  function seatsVisible(a) { seatMat.opacity = a; seatMat.uniforms.uLit.value *= a > 0.05 ? 1 : 0; }
+  requestAnimationFrame(loop);
+})();
+</script>
