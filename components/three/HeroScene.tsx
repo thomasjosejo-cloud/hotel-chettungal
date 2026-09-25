@@ -248,7 +248,7 @@ export default function HeroScene({
       flat
       linear
       frameloop="demand"
-      dpr={[1, 1.5]}
+      dpr={[1, 2]}
       gl={{ antialias: false, powerPreference: "high-performance" }}
       // Size from the container only; scrolling never re-measures or re-renders.
       resize={{ scroll: false, debounce: { scroll: 0, resize: 100 } }}
