@@ -53,7 +53,7 @@ export default function Nav() {
             className="h-8 w-auto md:h-9"
           />
           <span className="flex flex-col leading-none">
-            <span className="text-[0.8125rem] font-medium uppercase tracking-[0.34em] text-brass-light">
+            <span className="font-chrome text-[0.8125rem] font-medium uppercase tracking-[0.34em] text-brass-light">
               Chettungal
             </span>
             <span className="mt-1 font-serif text-[1.25rem] tracking-[0.005em] md:text-[1.4375rem]">New Town Hotel</span>
@@ -68,7 +68,7 @@ export default function Nav() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative py-2 text-[0.8125rem] font-medium uppercase tracking-[0.2em] transition-colors hover:text-brass-light ${
+                className={`relative py-2 font-chrome text-[0.8125rem] font-medium uppercase tracking-[0.2em] transition-colors hover:text-brass-light ${
                   active ? "text-brass-light" : "text-ivory/90"
                 }`}
               >
@@ -83,7 +83,7 @@ export default function Nav() {
           })}
           <Link
             href="/enquire"
-            className="border border-brass-light/70 px-5 py-2.5 text-[0.8125rem] font-medium uppercase tracking-[0.2em] text-ivory transition-colors hover:bg-brass-light hover:text-ink"
+            className="border border-brass-light/70 px-5 py-2.5 font-chrome text-[0.8125rem] font-medium uppercase tracking-[0.2em] text-ivory transition-colors hover:bg-brass-light hover:text-ink"
           >
             Enquire
           </Link>

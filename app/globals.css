@@ -6,8 +6,11 @@
    brass is the house accent; ember is for CasaBay only.
    ------------------------------------------------------------------ */
 @theme {
-  --font-serif: var(--font-display), "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-text), "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  /* Header and footer only. */
+  --font-chrome: var(--font-ui), "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --font-chrome-serif: var(--font-ui-serif), "Instrument Serif", "Iowan Old Style", Georgia, serif;
 
   --color-charcoal: #1e1e1c;
   --color-ink: #141412;
@@ -595,32 +598,6 @@
 .proto .close .body {
   margin-bottom: 30px;
 }
-.proto .find {
-  border-top: 1px solid var(--line);
-  padding-block: 64px;
-  padding-inline: var(--gutter);
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-.proto .find h3 {
-  font-size: 30px;
-  line-height: 1.1;
-  margin-top: 12px;
-}
-.proto .find p {
-  color: var(--color-smoke);
-  margin-top: 10px;
-}
-.proto .find a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--color-ivory);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: rgb(243 236 224 / 0.35);
-}
 .proto .phone {
   font-family: var(--font-serif);
   font-size: 30px;
@@ -1136,7 +1113,7 @@ main > * > section:last-child {
 }
 .ftr-col h2 {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-chrome);
   font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -1276,7 +1253,7 @@ main > * > section:last-child {
   top: 2px;
   transform: translateX(-50%);
   white-space: nowrap;
-  font-family: var(--font-sans);
+  font-family: var(--font-chrome);
   font-weight: 600;
   font-size: min(58px, 13.4vw);
   line-height: 1;
@@ -1352,4 +1329,32 @@ main > * > section:last-child {
   .ftr-credit img {
     width: 138px;
   }
+}
+
+/* ==================================================================
+   Header and footer type: Jost for the chrome, Instrument Serif for
+   the footer's one display line. Page content keeps Cormorant + Inter.
+   ================================================================== */
+
+.font-chrome {
+  font-family: var(--font-chrome);
+}
+
+/* Everything in the footer is chrome... */
+.ftr,
+.ftr input,
+.ftr button {
+  font-family: var(--font-chrome);
+}
+
+/* ...except the display line, and the hotel's name, which stay on the page's
+   own serif so the brand reads the same here as in the header. */
+.ftr-line {
+  font-family: var(--font-chrome-serif);
+}
+.ftr-name {
+  font-family: var(--font-serif);
+  /* Cormorant runs small next to Jost at the same size. */
+  font-size: 1.12em;
+  letter-spacing: 0.24em;
 }

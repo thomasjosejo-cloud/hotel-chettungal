@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Jost } from "next/font/google";
+import { Cormorant_Garamond, Instrument_Serif, Inter, Jost } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
@@ -8,21 +8,40 @@ import SiteMotion from "@/components/motion/SiteMotion";
 import { SITE } from "@/content/site";
 import "./globals.css";
 
-// Instrument Serif ships one weight with a true italic, so every serif rule
-// on the site is 400; none asked for more.
-const displaySerif = Instrument_Serif({
+/* The page's own type, unchanged: everything outside the header and footer. */
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: "400",
+  // Only 400 and 500 are used; 300 and 600 were downloaded and never referenced.
+  weight: ["400", "500"],
   style: ["normal", "italic"],
-  variable: "--font-display",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
-const textSans = Jost({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-text",
+  variable: "--font-inter",
   display: "swap",
+});
+
+/* The chrome's type: the header and the footer only. */
+const jost = Jost({
+  subsets: ["latin"],
+  weight: "500",
+  variable: "--font-ui",
+  display: "swap",
+  // The header is above the fold on every page.
+  preload: true,
+});
+
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-ui-serif",
+  display: "swap",
+  // One line, in the footer: never worth blocking the critical path for.
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -52,7 +71,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${displaySerif.variable} ${textSans.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${cormorant.variable} ${inter.variable} ${jost.variable} ${instrument.variable}`} suppressHydrationWarning>
       <head>
         {/* Enables scroll-reveal before first paint; without JS content stays visible. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

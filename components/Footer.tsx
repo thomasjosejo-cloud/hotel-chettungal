@@ -52,8 +52,9 @@ export default function Footer() {
       <div className="ftr-inner">
         <div>
           {/* The house in brass, the hotel in ivory: the header's pairing. */}
+          {/* The house is a Jost label; the hotel's name stays in the page serif. */}
           <p className="ftr-mark">
-            <b>{SITE.house}</b>&nbsp; New Town Hotel
+            <b>{SITE.house}</b>&nbsp; <span className="ftr-name">New Town Hotel</span>
           </p>
           <p className="ftr-line">
             The table, the roof, <i>the hall.</i>
