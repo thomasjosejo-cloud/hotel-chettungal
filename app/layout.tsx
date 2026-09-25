@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Instrument_Serif, Jost } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
@@ -8,18 +8,20 @@ import SiteMotion from "@/components/motion/SiteMotion";
 import { SITE } from "@/content/site";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+// Instrument Serif ships one weight with a true italic, so every serif rule
+// on the site is 400; none asked for more.
+const displaySerif = Instrument_Serif({
   subsets: ["latin"],
-  // Only 400 and 500 are used; 300 and 600 were downloaded and never referenced.
-  weight: ["400", "500"],
+  weight: "400",
   style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-display",
   display: "swap",
 });
 
-const inter = Inter({
+const textSans = Jost({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-text",
   display: "swap",
 });
 
@@ -50,7 +52,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${cormorant.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${displaySerif.variable} ${textSans.variable}`} suppressHydrationWarning>
       <head>
         {/* Enables scroll-reveal before first paint; without JS content stays visible. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

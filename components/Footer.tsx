@@ -1,144 +1,137 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { WhatsAppIcon } from "@/components/ui";
 import { NAV, SITE, WA, whatsapp } from "@/content/site";
 
-/** 44px touch target on phones and tablets via padding; tighter rhythm from lg up. */
-const LINK = "inline-flex min-h-11 items-center py-2.5 text-ivory/85 transition-colors hover:text-brass-light lg:min-h-0 lg:py-0";
+/** Everywhere to go, minus Home: the header and the dock carry that. */
+const EXPLORE = NAV.filter((n) => n.href !== "/");
 
-/** A column heading. Each column below answers exactly one question. */
-function ColumnHeading({ children }: { children: string }) {
-  return <p className="eyebrow text-brass-light">{children}</p>;
+function Visit() {
+  return (
+    <div className="ftr-col">
+      <h2>Visit</h2>
+      <p>
+        {SITE.address.line}
+        <br />
+        {SITE.address.region} {SITE.address.pincode}
+      </p>
+      <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="ftr-go">
+        Directions <span aria-hidden>↗</span>
+      </a>
+    </div>
+  );
 }
 
-/** Everywhere to go, minus Home and Enquire: the header and the dock carry those. */
-const EXPLORE = NAV.filter((n) => n.href !== "/");
+function Hours() {
+  return (
+    <div className="ftr-col">
+      <h2>Hours</h2>
+      {/* The hours the property confirmed, with no days attached. */}
+      <dl className="ftr-hours">
+        {SITE.hours.casabay && (
+          <>
+            <dt>CasaBay</dt>
+            <dd>{SITE.hours.casabay}</dd>
+          </>
+        )}
+        {SITE.hours.fishtown && (
+          <>
+            <dt>Fish Town</dt>
+            <dd>{SITE.hours.fishtown}</dd>
+          </>
+        )}
+      </dl>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
-    // pb-28 keeps the bottom bar clear of the fixed phone dock.
-    <footer className="bg-night pb-28 pt-20 text-ivory md:pb-12">
-      <div className="container-x">
-        <div className="grid gap-12 md:grid-cols-2 md:gap-10 lg:grid-cols-12">
-          {/* Brand: the same lockup the header uses, so there is one of them. */}
-          <div className="md:col-span-2 lg:col-span-3">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/branding/chettungal_crest_gold.png"
-                alt=""
-                width={344}
-                height={260}
-                sizes="48px"
-                className="h-10 w-auto"
-              />
-              <span className="flex flex-col leading-none">
-                <span className="text-[0.8125rem] font-medium uppercase tracking-[0.28em] text-brass-light">
-                  {SITE.house}
-                </span>
-                <span className="mt-1 font-serif text-[1.3rem] tracking-[0.02em]">New Town Hotel</span>
-              </span>
-            </div>
-            <p className="mt-7 font-serif text-[2rem] leading-tight">
-              The table, the roof,
-              <br />
-              <em className="text-brass-light">the hall.</em>
-            </p>
-          </div>
-
-          <div className="lg:col-span-3">
-            <ColumnHeading>Visit</ColumnHeading>
-            <address className="mt-5 not-italic leading-relaxed text-ivory/85">
-              {SITE.name}
-              <br />
-              {SITE.address.line}
-              <br />
-              {SITE.address.region} {SITE.address.pincode}
-            </address>
-            {/* inline-flex makes each child a flex item, which eats the space in the
-                markup, so the gap has to be a real one. */}
-            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className={`${LINK} mt-2 gap-1.5 lg:mt-4`}>
-              Directions <span aria-hidden>↗</span>
+    <footer className="ftr">
+      <div className="ftr-inner">
+        <div>
+          {/* The house in brass, the hotel in ivory: the header's pairing. */}
+          <p className="ftr-mark">
+            <b>{SITE.house}</b>&nbsp; New Town Hotel
+          </p>
+          <p className="ftr-line">
+            The table, the roof, <i>the hall.</i>
+          </p>
+          {/* Desktop only: on a phone the dock already carries both of these. */}
+          <div className="ftr-pills">
+            <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer" className="ftr-pill ftr-pill-solid">
+              <WhatsAppIcon /> WhatsApp
             </a>
-          </div>
-
-          {(SITE.hours.casabay || SITE.hours.fishtown) && (
-            <div className="lg:col-span-3">
-              <ColumnHeading>Hours</ColumnHeading>
-              {/* Two aligned rows: the venue, then the hours the property gave. */}
-              <dl className="mt-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-2 leading-relaxed">
-                {SITE.hours.casabay && (
-                  <>
-                    <dt className="text-ivory/85">CasaBay</dt>
-                    <dd className="whitespace-nowrap text-smoke">{SITE.hours.casabay}</dd>
-                  </>
-                )}
-                {SITE.hours.fishtown && (
-                  <>
-                    <dt className="text-ivory/85">Fish Town</dt>
-                    <dd className="whitespace-nowrap text-smoke">{SITE.hours.fishtown}</dd>
-                  </>
-                )}
-              </dl>
-            </div>
-          )}
-
-          <div className="lg:col-span-3">
-            <ColumnHeading>Contact</ColumnHeading>
-            <div className="mt-2 grid justify-items-start lg:mt-4 lg:gap-3">
-              <a href={SITE.phoneHref} className={LINK}>
-                {SITE.phone}
-              </a>
-              <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer" className={LINK}>
-                WhatsApp us
-              </a>
-              {SITE.email && (
-                <a href={`mailto:${SITE.email}`} className={`${LINK} max-w-full [overflow-wrap:anywhere]`}>
-                  {SITE.email}
-                </a>
-              )}
-            </div>
+            <a href={SITE.phoneHref} className="ftr-pill">
+              Call {SITE.phone}
+            </a>
           </div>
         </div>
 
-        <nav aria-label="Footer" className="mt-14 border-t border-white/10 pt-8">
-          <ColumnHeading>Explore</ColumnHeading>
-          <ul className="mt-2 grid grid-cols-2 gap-x-8 sm:grid-cols-3 lg:mt-4 lg:grid-cols-6 lg:gap-x-6">
-            {EXPLORE.map((n) => (
-              <li key={n.href}>
-                <Link href={n.href} className={LINK}>
+        {/* Direct children of the grid: on a phone they centre and fall into the
+            study's order; on desktop the email auto-places under the pills. */}
+        <div className="ftr-rule" aria-hidden />
+
+        <div className="ftr-cols">
+          <Visit />
+          <Hours />
+          {/* The third column appears from 761px; below that the links stand alone. */}
+          <div className="ftr-col ftr-explore-col">
+            <h2>Explore</h2>
+            <nav className="ftr-explore" aria-label="Explore">
+              {EXPLORE.map((n) => (
+                <Link key={n.href} href={n.href}>
                   {n.label}
                 </Link>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Phones: the same six links, dotted, as two rows of three. */}
+        <nav className="ftr-links" aria-label="Explore">
+          {EXPLORE.map((n, i) => (
+            <Fragment key={n.href}>
+              {i > 0 && i !== 3 && <i aria-hidden>·</i>}
+              <Link href={n.href}>{n.label}</Link>
+            </Fragment>
+          ))}
         </nav>
 
-        <div className="mt-12 flex flex-col gap-6 border-t border-white/10 pt-8 text-sm text-smoke sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {SITE.name}
-          </p>
-          <span className="flex items-center gap-3">
-            {/* 13px, not 12: the site's floor is 14px with an exception for uppercase
-                tracked labels at 13, and 12px failed the text-size check on all
-                eight pages. */}
-            <span className="text-[0.8125rem] uppercase tracking-[0.22em]">Crafted by</span>
-            <a
-              href="https://www.thehostory.in"
-              target="_blank"
-              rel="noopener"
-              title="HOSTORY — Hospitality, Reimagined."
-              className="inline-flex min-h-11 items-center opacity-85 transition-opacity hover:opacity-100 focus-visible:opacity-100"
-            >
-              <Image
-                src="/branding/hostory-compact.png"
-                alt="HOSTORY — Hospitality, Reimagined."
-                width={900}
-                height={209}
-                sizes="(max-width: 760px) 130px, 150px"
-                loading="lazy"
-                className="h-auto w-[130px] md:w-[150px]"
-              />
-            </a>
-          </span>
+        {SITE.email && (
+          <a href={`mailto:${SITE.email}`} className="ftr-mail">
+            {SITE.email}
+          </a>
+        )}
+      </div>
+
+      <div className="ftr-wm" aria-hidden>
+        <span>{SITE.house.toUpperCase()}</span>
+      </div>
+
+      <div className="ftr-strip">
+        <div className="ftr-strip-inner">
+        <span>
+          © {new Date().getFullYear()} {SITE.name}
+        </span>
+        <a
+          href="https://www.thehostory.in"
+          target="_blank"
+          rel="noopener"
+          title="HOSTORY — Hospitality, Reimagined."
+          className="ftr-credit"
+        >
+          Crafted by
+          <Image
+            src="/branding/hostory-compact-dark.png"
+            alt="HOSTORY — Hospitality, Reimagined."
+            width={360}
+            height={84}
+            sizes="(max-width: 760px) 118px, 138px"
+            loading="lazy"
+          />
+        </a>
         </div>
       </div>
     </footer>
