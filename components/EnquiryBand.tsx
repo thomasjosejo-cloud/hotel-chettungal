@@ -18,12 +18,17 @@ export default function EnquiryBand({
         </div>
         <div className="flex flex-col gap-3 md:col-span-4 md:col-start-9" data-reveal>
           <Button href="/enquire">Send an enquiry</Button>
-          <Button href={whatsapp(WA.general)} tone="outline-light">
-            <WhatsAppIcon /> WhatsApp
-          </Button>
-          <Button href={SITE.phoneHref} tone="outline-light">
-            Call {SITE.phone}
-          </Button>
+          {/* Phones get these two from the dock, in the same thumb reach. A
+              wrapper, not `hidden` on the buttons: both are display utilities
+              and the stylesheet order would decide the winner, not the class. */}
+          <div className="hidden md:flex md:flex-col md:gap-3">
+            <Button href={whatsapp(WA.general)} tone="outline-light">
+              <WhatsAppIcon /> WhatsApp
+            </Button>
+            <Button href={SITE.phoneHref} tone="outline-light">
+              Call {SITE.phone}
+            </Button>
+          </div>
         </div>
       </div>
     </section>

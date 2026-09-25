@@ -8,6 +8,9 @@
 @theme {
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  /* Header and footer only. */
+  --font-chrome: var(--font-ui), "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --font-chrome-serif: var(--font-ui-serif), "Instrument Serif", "Iowan Old Style", Georgia, serif;
 
   --color-charcoal: #1e1e1c;
   --color-ink: #141412;
@@ -16,6 +19,8 @@
   --color-stone: #e6ded1;
   --color-brass: #8b6b4a;
   --color-brass-light: #c9a57b;
+  /* The footer strip: ink on this measures 7.2:1. */
+  --color-brass-strip: #bf9a68;
   /* Brass for text on light backgrounds (AA contrast). #8b6b4a / #a8793f are for lines and decoration only. */
   --color-brass-text: #7a5c3d;
   --color-muted: #5f5a51;
@@ -593,32 +598,6 @@
 .proto .close .body {
   margin-bottom: 30px;
 }
-.proto .find {
-  border-top: 1px solid var(--line);
-  padding-block: 64px;
-  padding-inline: var(--gutter);
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-.proto .find h3 {
-  font-size: 30px;
-  line-height: 1.1;
-  margin-top: 12px;
-}
-.proto .find p {
-  color: var(--color-smoke);
-  margin-top: 10px;
-}
-.proto .find a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--color-ivory);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: rgb(243 236 224 / 0.35);
-}
 .proto .phone {
   font-family: var(--font-serif);
   font-size: 30px;
@@ -927,4 +906,455 @@ html.frame-dragging * {
       rgb(11 9 7 / 0) 86%
     );
   }
+}
+
+/* ==================================================================
+   The stage, and the footer it lifts off.
+   ================================================================== */
+
+/*
+ * The last section on every page is a stage: it ends on a big radius with a
+ * warm glow beneath, and the footer tucks up into that curve by the radius.
+ */
+main > * > section:last-child {
+  position: relative;
+  z-index: 2;
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 90px -30px rgb(232 150 70 / 0.45),
+    0 2px 0 0 rgb(201 165 123 / 0.35);
+}
+
+@media (min-width: 761px) {
+  main > * > section:last-child {
+    border-radius: 0 0 48px 48px;
+  }
+}
+
+/* ==================================================================
+   Footer
+   ================================================================== */
+
+.ftr {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-night);
+  margin-top: -32px;
+  padding-top: 42px;
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .ftr {
+    margin-top: -48px;
+    padding-top: 76px;
+    text-align: left;
+  }
+}
+
+.ftr-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (max-width: 760px) {
+  .ftr-inner {
+    gap: 14px;
+  }
+}
+@media (min-width: 1024px) {
+  .ftr-inner {
+    grid-template-columns: 1fr 1.55fr;
+    grid-template-rows: auto 1fr;
+    gap: 16px 56px;
+    align-items: start;
+    justify-items: stretch;
+    padding-inline: 2.5rem;
+  }
+  /*
+   * The columns span both rows so the email can sit directly under the pills
+   * rather than below the tallest thing in the row.
+   */
+  .ftr-inner > .ftr-cols {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+  }
+  .ftr-inner > .ftr-mail {
+    grid-row: 2;
+    grid-column: 1;
+    /* Shrink to the text: the rule under it should not span the column. */
+    justify-self: start;
+  }
+}
+
+/* The two-tone mark: the house in brass, the hotel in ivory. */
+.ftr-mark {
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.ftr-mark b {
+  color: var(--color-brass-light);
+  font-weight: 500;
+}
+@media (min-width: 1024px) {
+  .ftr-mark {
+    font-size: 13px;
+    letter-spacing: 0.34em;
+  }
+}
+
+.ftr-line {
+  font-family: var(--font-serif);
+  font-size: 29px;
+  line-height: 1.08;
+  margin: 6px 0 0;
+  text-wrap: balance;
+}
+.ftr-line i {
+  color: var(--color-brass-light);
+}
+@media (min-width: 1024px) {
+  .ftr-line {
+    font-size: 36px;
+    margin: 14px 0 22px;
+  }
+}
+
+/* A short brass rule under the line, phones only. */
+.ftr-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--color-brass-light);
+  opacity: 0.8;
+}
+@media (min-width: 1024px) {
+  .ftr-rule {
+    display: none;
+  }
+}
+
+/* Pills are desktop only: on a phone the dock already carries Call and WhatsApp. */
+.ftr-pills {
+  display: none;
+}
+@media (min-width: 768px) {
+  .ftr-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+.ftr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgb(243 236 224 / 0.35);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.ftr-pill svg {
+  width: 15px;
+  height: 15px;
+}
+.ftr-pill-solid {
+  background: var(--color-brass-light);
+  border-color: var(--color-brass-light);
+  color: var(--color-ink);
+}
+.ftr-pill:hover {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  border-color: var(--color-ivory);
+}
+
+.ftr-mail {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--color-smoke);
+  font-size: 14px;
+  border-bottom: 1px solid rgb(201 165 123 / 0.18);
+}
+@media (min-width: 1024px) {
+  .ftr-mail {
+    margin-top: 16px;
+  }
+}
+
+/* Visit | Hours on phones; Visit | Hours | Explore from 761. */
+.ftr-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  text-align: left;
+}
+.ftr-col {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding-inline: 12px;
+}
+.ftr-col + .ftr-col {
+  border-left: 1px solid rgb(201 165 123 / 0.18);
+}
+.ftr-col h2 {
+  margin: 0;
+  font-family: var(--font-chrome);
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-brass-light);
+  font-weight: 500;
+}
+.ftr-col p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgb(243 236 224 / 0.88);
+}
+@media (min-width: 1024px) {
+  .ftr-cols {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .ftr-col {
+    padding-inline: 28px;
+    gap: 12px;
+    border-left: 1px solid rgb(201 165 123 / 0.18);
+  }
+  .ftr-col h2 {
+    font-size: 13px;
+  }
+  .ftr-col p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+.ftr-go {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-ivory);
+}
+.ftr-go span {
+  color: var(--color-brass-light);
+}
+
+.ftr-hours {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 6px 10px;
+  justify-content: start;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.ftr-hours dt {
+  color: var(--color-ivory);
+  white-space: nowrap;
+}
+.ftr-hours dd {
+  margin: 0;
+  color: var(--color-smoke);
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  .ftr-hours {
+    gap: 8px 18px;
+    font-size: 15px;
+  }
+}
+
+/*
+ * Explore. On a phone it leaves the column pair and becomes two dotted rows
+ * beneath them; from 761 it is the third column, two-up.
+ */
+.ftr-explore-col {
+  display: none;
+}
+.ftr-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 4px;
+  font-size: 15px;
+  max-width: 330px;
+}
+.ftr-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 6px;
+  color: rgb(243 236 224 / 0.9);
+  white-space: nowrap;
+}
+.ftr-links a:hover {
+  color: var(--color-brass-light);
+}
+.ftr-links i {
+  color: var(--color-brass-light);
+  font-style: normal;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.8;
+}
+@media (min-width: 1024px) {
+  .ftr-links {
+    display: none;
+  }
+  .ftr-explore-col {
+    display: grid;
+  }
+  .ftr-explore {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    font-size: 15px;
+  }
+  .ftr-explore a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    color: rgb(243 236 224 / 0.86);
+    white-space: nowrap;
+  }
+  .ftr-explore a:hover {
+    color: var(--color-brass-light);
+  }
+}
+
+/* The family name rising behind the strip: depth, not height. */
+.ftr-wm {
+  position: relative;
+  z-index: 0;
+  height: 34px;
+  margin-top: 4px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ftr-wm span {
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-chrome);
+  font-weight: 600;
+  font-size: min(58px, 13.4vw);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(201 165 123 / 0.28);
+}
+@media (min-width: 1024px) {
+  .ftr-wm {
+    height: 74px;
+    margin-top: 8px;
+  }
+  .ftr-wm span {
+    font-size: min(146px, 10.5vw);
+    top: 6px;
+  }
+}
+
+/* The brass strip closes the page. Ink on brass measures about 7.2:1. */
+/* The brass spans the full width; only the text inside it is constrained. */
+.ftr-strip {
+  position: relative;
+  z-index: 1;
+  background: var(--color-brass-strip);
+  color: var(--color-ink);
+}
+.ftr-strip-inner {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  /* Room for the fixed dock, so the credit is never covered. */
+  padding: 10px 1.25rem 86px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+@media (min-width: 1024px) {
+  .ftr-strip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 2.5rem;
+    min-height: 52px;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+  }
+}
+
+.ftr-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-size: 13px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.ftr-credit img {
+  width: 118px;
+  height: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+.ftr-credit:hover img,
+.ftr-credit:focus-visible img {
+  opacity: 1;
+}
+@media (min-width: 1024px) {
+  .ftr-credit img {
+    width: 138px;
+  }
+}
+
+/* ==================================================================
+   Header and footer type: Jost for the chrome, Instrument Serif for
+   the footer's one display line. Page content keeps Cormorant + Inter.
+   ================================================================== */
+
+.font-chrome {
+  font-family: var(--font-chrome);
+}
+
+/* Everything in the footer is chrome... */
+.ftr,
+.ftr input,
+.ftr button {
+  font-family: var(--font-chrome);
+}
+
+/* ...except the display line, and the hotel's name, which stay on the page's
+   own serif so the brand reads the same here as in the header. */
+.ftr-line {
+  font-family: var(--font-chrome-serif);
+}
+.ftr-name {
+  font-family: var(--font-serif);
+  /* Cormorant runs small next to Jost at the same size. */
+  font-size: 1.12em;
+  letter-spacing: 0.24em;
 }

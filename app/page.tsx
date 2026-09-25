@@ -219,30 +219,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Find us */}
-      <section className="find" aria-label="Find us">
-        <div>
-          <p className="p-eyebrow">Find us</p>
-          <h3>{SITE.address.line}</h3>
-          <p>
-            {SITE.address.region} {SITE.address.pincode}
-          </p>
-          <p>
-            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
-              Get directions ↗
-            </a>
-          </p>
-        </div>
-        <div>
-          <p className="p-eyebrow">Call or WhatsApp</p>
-          <p className="phone">{SITE.phone}</p>
-          <p>
-            <a href={whatsapp(WA.general)} target="_blank" rel="noopener noreferrer">
-              Message us on WhatsApp ↗
-            </a>
-          </p>
-        </div>
-      </section>
     </div>
   );
 }
