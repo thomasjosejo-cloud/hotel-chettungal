@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { canRunWebGL, whenIdleAfterLoad } from "@/lib/motion";
+import { canRunWebGL, wantsHeroPhotoPlane, whenIdleAfterLoad } from "@/lib/motion";
 
 const HeroScene = dynamic(() => import("@/components/three/HeroScene"), { ssr: false });
 
@@ -19,6 +19,7 @@ export default function HeroFx({ position, wave = false }: { position: [number, 
   const box = useRef<HTMLDivElement>(null);
   const hero = useRef<HTMLElement | null>(null);
   const [poster, setPoster] = useState<HTMLImageElement | null>(null);
+  const [photo, setPhoto] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
 
@@ -28,11 +29,17 @@ export default function HeroFx({ position, wave = false }: { position: [number, 
         hero.current = box.current?.closest("section") ?? null;
         const img = box.current?.parentElement?.querySelector<HTMLImageElement>("img");
         if (!img || !canRunWebGL()) return;
+        // No WebGL on phones at all. A wave-only pass was meant to keep the
+        // Fish Town glow, but the canvas cleared opaque and blacked the
+        // photograph out; a decorative glow is not worth that risk. The glow
+        // wants rebuilding as a CSS/2D overlay before it comes back here.
+        if (!wantsHeroPhotoPlane()) return;
+        setPhoto(true);
         // Eager poster: normally complete by now; if not, wait for it.
         if (img.complete && img.naturalWidth) setPoster(img);
         else img.addEventListener("load", () => setPoster(img), { once: true });
       }),
-    [],
+    [wave],
   );
 
   return (
@@ -40,6 +47,7 @@ export default function HeroFx({ position, wave = false }: { position: [number, 
       {poster && !failed && (
         <HeroScene
           poster={poster}
+          photo={photo}
           position={position}
           wave={wave}
           root={hero}

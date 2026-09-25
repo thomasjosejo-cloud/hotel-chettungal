@@ -12,6 +12,19 @@ export function isPhone(): boolean {
   return window.matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 768;
 }
 
+/**
+ * Whether to put a WebGL copy of the hero photo over the poster.
+ *
+ * Phones do not. The copy is resampled through the canvas at the device's
+ * pixel ratio and drawn over an <img> the browser is already displaying at
+ * full resolution, so on a phone it can only ever match the poster or, as it
+ * did, lose to it. Desktop keeps it for the tilt and the scroll bend.
+ */
+export function wantsHeroPhotoPlane(): boolean {
+  if (window.matchMedia("(pointer: coarse)").matches) return false;
+  return window.innerWidth > 760;
+}
+
 /** A real mouse or trackpad: the only case where pointer-driven effects run. */
 export function hasFinePointer(): boolean {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;

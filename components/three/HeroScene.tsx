@@ -23,6 +23,7 @@ const clamp1 = (v: number) => Math.max(-1, Math.min(1, v));
  */
 function Hero({
   poster,
+  photo,
   position,
   wave,
   root,
@@ -31,6 +32,8 @@ function Hero({
   onFail,
 }: {
   poster: HTMLImageElement;
+  /** False on phones: the glow renders, the photograph does not. */
+  photo: boolean;
   position: [number, number];
   wave: boolean;
   root: RefObject<HTMLElement | null>;
@@ -57,26 +60,73 @@ function Hero({
    * went black once this layer faded in over the poster. The canvas never
    * changes size, so the upload is always valid, and we still download once.
    */
-  const tex = useMemo(() => {
-    const w = poster.naturalWidth;
-    const h = poster.naturalHeight;
-    if (!w || !h) return null;
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return null;
-    try {
-      ctx.drawImage(poster, 0, 0, w, h);
-    } catch {
-      return null;
-    }
-    const t = new THREE.CanvasTexture(canvas);
-    t.minFilter = THREE.LinearFilter;
-    t.generateMipmaps = false;
-    t.needsUpdate = true;
-    return t;
-  }, [poster]);
+  const [tex, setTex] = useState<THREE.CanvasTexture | null>(null);
+
+  useEffect(() => {
+    if (!photo) return;
+    let cancelled = false;
+
+    /** Copy the decoded pixels into a canvas of exactly their size. */
+    const build = (pixels: ImageBitmap | HTMLImageElement, w: number, h: number) => {
+      if (cancelled || !w || !h) return false;
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return false;
+      try {
+        ctx.drawImage(pixels, 0, 0, w, h);
+      } catch {
+        return false;
+      }
+      // The texture must hold at least as many pixels as the screen will show,
+      // or the layer is blurrier than the poster it covers. Capped at the
+      // source: we cannot invent detail the file does not have.
+      const need = Math.min(w, Math.round(poster.getBoundingClientRect().width * devicePixelRatio));
+      if (w < need) {
+        console.error(`HeroScene: texture ${w}x${h} is narrower than the ${need}px it must cover; not showing the WebGL layer.`);
+        return false;
+      }
+      const t = new THREE.CanvasTexture(canvas);
+      t.minFilter = THREE.LinearFilter;
+      t.generateMipmaps = false;
+      t.needsUpdate = true;
+      setTex(t);
+      return true;
+    };
+
+    (async () => {
+      // createImageBitmap gives the image's REAL decoded pixels. poster
+      // .naturalWidth does not: inside a <picture>/srcset it is divided by the
+      // candidate's pixel density, so it reported ~249 for a 768px file and the
+      // texture came out a quarter of the size it needed to be.
+      try {
+        const bmp = await createImageBitmap(poster);
+        const ok = build(bmp, bmp.width, bmp.height);
+        bmp.close();
+        if (ok || cancelled) return;
+      } catch {
+        /* fall through to the <img> path */
+      }
+      // Fallback: a bare Image has no srcset, so its naturalWidth is the truth.
+      // poster.currentSrc is already cached, so this is not a second download.
+      const img = new Image();
+      img.crossOrigin = poster.crossOrigin;
+      img.src = poster.currentSrc || poster.src;
+      try {
+        await img.decode();
+      } catch {
+        if (!cancelled) onFail();
+        return;
+      }
+      if (!build(img, img.naturalWidth, img.naturalHeight) && !cancelled) onFail();
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [poster, onFail, photo]);
+
   useEffect(() => () => tex?.dispose(), [tex]);
   const imageAspect = tex ? tex.image.width / Math.max(1, tex.image.height) : 1.5;
   const sim = useRef({ mx: 0, my: 0, hasMouse: false, tiltX: 0, tiltY: 0, bend: 0, lastY: 0, frames: -1, top: 0, h: 1 }).current;
@@ -95,10 +145,13 @@ function Hero({
     // Fail safe: upload the texture now and check the driver accepted it. The
     // layer only becomes visible after this passes and a frame has rendered,
     // so any failure leaves the poster showing instead of a black hero.
-    if (!tex) {
-      onFail();
+    if (!photo) {
+      // Wave-only: nothing to upload, so let the glow show.
+      sim.frames = 0;
       return;
     }
+    // Still decoding: the loader calls onFail if it cannot produce a texture.
+    if (!tex) return;
     const ctx = gl.getContext();
     for (let i = 0; i < 8 && ctx.getError() !== ctx.NO_ERROR; i++) {
       /* drain errors from earlier work so ours is the only one we see */
@@ -118,7 +171,9 @@ function Hero({
     uniforms.uTex.value = tex;
     uniforms.uReady.value = 1;
     sim.frames = 0;
-  }, [tex, uniforms, W, H, imageAspect, position, sim, gl, onFail]);
+    // The size actually uploaded, so it can be inspected rather than assumed.
+    gl.domElement.dataset.tex = `${tex.image.width}x${tex.image.height}`;
+  }, [tex, uniforms, W, H, imageAspect, position, sim, gl, onFail, photo]);
   useEffect(() => () => (material.dispose(), waveMat?.dispose()), [material, waveMat]);
 
   // Hero geometry, measured on width changes only (the hero is 100svh).
@@ -192,11 +247,13 @@ function Hero({
 
   return (
     <>
-      <group ref={group}>
-        <mesh material={material}>
-          <planeGeometry args={[W, H, 24, 24]} />
-        </mesh>
-      </group>
+      {photo && (
+        <group ref={group}>
+          <mesh material={material}>
+            <planeGeometry args={[W, H, 24, 24]} />
+          </mesh>
+        </group>
+      )}
       {waveMat && (
         // The wave-wall glow: additive warm bands across the lower dining room.
         <mesh material={waveMat} position={[0, -H * 0.12, 0.5]}>
@@ -209,6 +266,7 @@ function Hero({
 
 export default function HeroScene({
   poster,
+  photo = true,
   position,
   wave = false,
   root,
@@ -216,6 +274,8 @@ export default function HeroScene({
   onFail,
 }: {
   poster: HTMLImageElement;
+  /** False on phones: the glow renders over the poster, the photo does not. */
+  photo?: boolean;
   position: [number, number];
   wave?: boolean;
   root: RefObject<HTMLElement | null>;
@@ -249,15 +309,16 @@ export default function HeroScene({
       linear
       frameloop="demand"
       dpr={[1, 2]}
-      gl={{ antialias: false, powerPreference: "high-performance" }}
+      gl={{ antialias: false, powerPreference: "high-performance", alpha: !photo }}
       // Size from the container only; scrolling never re-measures or re-renders.
       resize={{ scroll: false, debounce: { scroll: 0, resize: 100 } }}
       camera={{ fov: FOV, near: 0.1, far: 50, position: [0, 0, CAMERA_Z] }}
-      onCreated={({ gl }) => gl.setClearColor(0x0b0907, 1)}
+      // Wave-only clears to nothing, so the poster underneath stays visible.
+      onCreated={({ gl }) => gl.setClearColor(0x0b0907, photo ? 1 : 0)}
       style={{ pointerEvents: "none" }}
     >
       <FrameDriver active={active} />
-      <Hero poster={poster} position={position} wave={wave} root={root} phone={phone} onReady={onReady} onFail={onFail} />
+      <Hero poster={poster} photo={photo} position={position} wave={wave} root={root} phone={phone} onReady={onReady} onFail={onFail} />
     </Canvas>
   );
 }
