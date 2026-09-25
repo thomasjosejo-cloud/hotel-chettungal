@@ -868,3 +868,63 @@ html.frame-dragging * {
     ),
     linear-gradient(to right, rgb(11 9 7 / 0.62), rgb(11 9 7 / 0.4) 60%, rgb(11 9 7 / 0.22));
 }
+
+/* ==================================================================
+   Venue heroes on phones: the photograph first, the copy last.
+   ================================================================== */
+
+@media (max-width: 760px) {
+  /*
+   * The dock already carries Call, WhatsApp and Enquire in the same thumb
+   * reach, so the hero's own buttons were the same actions twice. Without
+   * them the copy falls to the bottom of the hero — it is bottom-aligned
+   * already — and the photograph keeps the top of the screen.
+   */
+  .hero-cta {
+    display: none;
+  }
+  /* The header carries the hotel's name, so the eyebrow need not repeat it. */
+  .hide-phone {
+    display: none;
+  }
+}
+
+@media (min-width: 761px) {
+  .only-phone {
+    display: none;
+  }
+}
+
+/*
+ * The phone scrim. On a tall screen the copy occupies the bottom third, so the
+ * depth belongs there and nowhere else: this reaches full strength behind the
+ * text and is gone by two thirds up, leaving the photograph at its own
+ * brightness. Stops set by measuring the lightest pixel behind each line.
+ */
+@media (max-width: 760px) {
+  .page-hero-scrim {
+    background: linear-gradient(
+      to top,
+      var(--color-night) 0%,
+      rgb(11 9 7 / 0.95) 18%,
+      rgb(11 9 7 / 0.88) 34%,
+      rgb(11 9 7 / 0.7) 48%,
+      rgb(11 9 7 / 0.35) 60%,
+      rgb(11 9 7 / 0.08) 72%,
+      rgb(11 9 7 / 0) 82%
+    );
+  }
+  /* Fish Town's lit wave wall and CasaBay's ember deck run brighter. */
+  .page-hero-scrim-deep {
+    background: linear-gradient(
+      to top,
+      var(--color-night) 0%,
+      rgb(11 9 7 / 0.96) 20%,
+      rgb(11 9 7 / 0.92) 38%,
+      rgb(11 9 7 / 0.8) 52%,
+      rgb(11 9 7 / 0.45) 64%,
+      rgb(11 9 7 / 0.14) 76%,
+      rgb(11 9 7 / 0) 86%
+    );
+  }
+}

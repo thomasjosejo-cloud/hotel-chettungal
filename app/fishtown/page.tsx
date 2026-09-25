@@ -32,7 +32,9 @@ export default function FishTownPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt} fx="wave" scrim="deep" posterPriority={false}>
-        <Eyebrow className="text-brass-light">Multi-cuisine restaurant · Chettungal New Town</Eyebrow>
+        <Eyebrow className="text-brass-light">
+          Multi-cuisine restaurant<span className="hide-phone"> · Chettungal New Town</span>
+        </Eyebrow>
         <h1 className="mt-8">
           <span className="sr-only">Fish Town</span>
           <Image
@@ -49,7 +51,7 @@ export default function FishTownPage() {
         <p className="mt-8 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Fresh catch. Local soul.
         </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="hero-cta mt-10 flex flex-col gap-3 sm:flex-row">
           <Button href={whatsapp(WA.fishtown)}>
             <WhatsAppIcon /> Reserve a table
           </Button>
