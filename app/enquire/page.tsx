@@ -13,8 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default function EnquirePage() {
-  // The facade, not the reception: the home hero already leads on reception.
-  const hero = byFile(PHOTOS.location, "facade");
+  /*
+   * The entrance, not the facade: the facade is a dense 1131x942 photograph
+   * that re-encodes badly and was this page's LCP element at 2.6s. The
+   * entrance crop is 49KB against the facade's 83KB on a phone.
+   */
+  const hero = byFile(PHOTOS.location, "reception-entrance");
   return (
     <div className="bg-night text-ivory">
       <PageHero image={hero.src} alt={hero.alt} height="medium">
