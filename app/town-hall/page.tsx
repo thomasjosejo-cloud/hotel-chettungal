@@ -33,12 +33,14 @@ export default function TownHallPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt}>
-        <Eyebrow className="text-brass-light">Banquet hall · Chettungal New Town</Eyebrow>
+        <Eyebrow className="text-brass-light">
+          Banquet hall<span className="hide-phone"> · Chettungal New Town</span>
+        </Eyebrow>
         <h1 className="display mt-6">Town Hall</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Where the whole guest list fits.
         </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="hero-cta mt-10 flex flex-col gap-3 sm:flex-row">
           <Button href="#enquire">Check a date</Button>
           <Button href={whatsapp(WA.townhall)} tone="outline-light">
             <WhatsAppIcon /> WhatsApp the team

@@ -32,13 +32,17 @@ export default function BoardRoomPage() {
     <div className="bg-night text-ivory">
       <PageHero image={p[0].src} alt={p[0].alt} position="50% 65%">
         <Eyebrow className="text-brass-light">
-          Private meeting room · {SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : SITE.shortName}
+          Private meeting room
+          <span className="hide-phone">
+            {" · "}
+            {SITE.boardRoomSeats ? `Seats ${SITE.boardRoomSeats}` : SITE.shortName}
+          </span>
         </Eyebrow>
         <h1 className="display mt-6">The Board Room</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           A room built for focus.
         </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="hero-cta mt-10 flex flex-col gap-3 sm:flex-row">
           <Button href="#enquire">Check availability</Button>
           <Button href={whatsapp(WA.boardroom)} tone="outline-light">
             <WhatsAppIcon /> WhatsApp

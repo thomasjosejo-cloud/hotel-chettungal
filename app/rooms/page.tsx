@@ -36,12 +36,14 @@ export default function RoomsPage() {
   return (
     <div className="bg-night text-ivory">
       <PageHero image={HERO.src} alt={HERO.alt}>
-        <Eyebrow className="text-brass-light">Stay · Chettungal New Town</Eyebrow>
+        <Eyebrow className="text-brass-light">
+          Stay<span className="hide-phone"> · Chettungal New Town</span>
+        </Eyebrow>
         <h1 className="display mt-6">Ten rooms.</h1>
         <p className="mt-4 font-serif text-[clamp(1.75rem,1.4rem+1.5vw,2.75rem)] italic leading-tight">
           Each built for a proper night&apos;s rest.
         </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <div className="hero-cta mt-10 flex flex-col gap-3 sm:flex-row">
           <Button href={whatsapp(WA.rooms)}>
             <WhatsAppIcon /> Check availability
           </Button>
