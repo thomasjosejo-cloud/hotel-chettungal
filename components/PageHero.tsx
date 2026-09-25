@@ -1,9 +1,25 @@
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import type { ReactNode } from "react";
 import HeroFx from "@/components/HeroFx";
 import HeroEmbers from "@/components/motion/HeroEmbers";
 import HeroParallax from "@/components/motion/HeroParallax";
 import { blurFor } from "@/content/blur";
+
+const PHONE = "(max-width: 760px)";
+const WIDE = "(min-width: 761px)";
+
+/** Next's blur placeholder, as plain style so it works on a bare <img>. */
+const BLUR_STYLE = (blur: string, position: string) => ({
+  backgroundImage: `url("${blur}")`,
+  backgroundSize: "cover",
+  backgroundPosition: position,
+  backgroundRepeat: "no-repeat",
+});
+
+/** The portrait crop a phone gets instead of the landscape original. */
+function phoneCrop(image: string): string {
+  return `/images/hero-phone/${image.split("/").pop()}`;
+}
 
 /** "50% 60%" / "center" -> [0.5, 0.6] for the WebGL plane's object-position. */
 function toXY(position: string): [number, number] {
@@ -49,6 +65,14 @@ export default function PageHero({
   children: ReactNode;
 }) {
   const blur = blurFor(image);
+  const common = { alt, sizes: "100vw", quality: 75 } as const;
+  const { props: phone } = getImageProps({ ...common, src: phoneCrop(image), width: 768, height: 1024 });
+  const { props: wide } = getImageProps({ ...common, src: image, width: 1536, height: 1024 });
+  // The <img> keeps the wide candidate as its fallback src.
+  // The <img> is only the fallback for a browser that matches no <source>, so
+  // it carries neither srcSet nor sizes: with both present but no candidates to
+  // choose from, Chrome fetched the fallback as well as the chosen source.
+  const { srcSet: _wideSrcSet, sizes: _wideSizes, ...img } = wide;
 
   return (
     <section
@@ -59,24 +83,29 @@ export default function PageHero({
       <div className="absolute inset-0 -z-10">
         {/* Poster (the LCP image) and its WebGL copy share the parallax wrapper. */}
         <div className="hero-bg absolute inset-0">
-          <Image
-            src={image}
-            alt={alt}
-            fill
-            preload={posterPriority}
-            loading={posterPriority ? undefined : "eager"}
-            fetchPriority={posterPriority ? "high" : undefined}
-            // Caps the poster at ~750px on phones instead of the 1080px a 2.6x
-            // DPR would request: it is a full-bleed photo under a heavy scrim,
-            // and it is both the bytes and the decode on the critical path.
-            // (sizes is in CSS pixels, so this is 286 x DPR, not 286 device px.)
-            sizes="(max-width: 760px) 286px, 100vw"
-            quality={50}
-            placeholder={blur ? "blur" : "empty"}
-            blurDataURL={blur}
-            className="object-cover"
-            style={{ objectPosition: position }}
-          />
+          <picture>
+            {/*
+              Art direction, not just resizing. Through `cover` in a tall
+              viewport a 3:2 photo loses about two thirds of its width, so a
+              phone was being sent mostly pixels it would crop away and then
+              stretching what was left. Phones get a portrait crop of the same
+              photograph instead: the right pixels, at a third of the bytes.
+
+              The preload scanner finds the <source> it will actually use, so
+              there is still one download per device; a <link rel="preload">
+              would be emitted for only one of the two and cause a second.
+            */}
+            <source media={PHONE} srcSet={phone.srcSet} sizes="100vw" />
+            <source media={WIDE} srcSet={wide.srcSet} sizes="100vw" />
+            <img
+              {...img}
+              alt={alt}
+              loading="eager"
+              fetchPriority={posterPriority ? "high" : undefined}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: position, ...(blur ? BLUR_STYLE(blur, position) : null) }}
+            />
+          </picture>
           <HeroFx position={toXY(position)} wave={fx === "wave"} />
         </div>
         {/* Embers sit UNDER the scrim. Over it, a drifting spark crossing the
