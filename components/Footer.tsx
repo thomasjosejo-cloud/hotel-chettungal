@@ -53,7 +53,9 @@ export default function Footer() {
               <br />
               {SITE.address.region} {SITE.address.pincode}
             </address>
-            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className={`${LINK} mt-2 lg:mt-4`}>
+            {/* inline-flex makes each child a flex item, which eats the space in the
+                markup, so the gap has to be a real one. */}
+            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className={`${LINK} mt-2 gap-1.5 lg:mt-4`}>
               Directions <span aria-hidden>↗</span>
             </a>
           </div>
