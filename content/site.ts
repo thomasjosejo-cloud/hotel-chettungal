@@ -37,7 +37,7 @@ export const SITE = {
     casabay: "3 pm – 11 pm" as string | null,
     fishtown: "7 am – 11 pm" as string | null,
   },
-  // The same hours in 24-hour form, for schema.org openingHoursSpecification.
+  // Not emitted in JSON-LD until the property confirms open days (schema requires dayOfWeek).
   openingHours: {
     casabay: { opens: "15:00", closes: "23:00" },
     fishtown: { opens: "07:00", closes: "23:00" },

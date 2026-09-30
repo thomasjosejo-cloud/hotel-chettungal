@@ -42,13 +42,11 @@ const jsonLd = {
       "@type": "BarOrPub",
       name: "CasaBay",
       url: `${SITE.url}/casabay`,
-      openingHoursSpecification: { "@type": "OpeningHoursSpecification", ...SITE.openingHours.casabay },
     },
     {
       "@type": "Restaurant",
       name: "Fish Town",
       url: `${SITE.url}/fishtown`,
-      openingHoursSpecification: { "@type": "OpeningHoursSpecification", ...SITE.openingHours.fishtown },
     },
     { "@type": "EventVenue", name: "Town Hall", maximumAttendeeCapacity: 120, url: `${SITE.url}/town-hall` },
   ],
