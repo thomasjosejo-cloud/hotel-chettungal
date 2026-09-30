@@ -1,5 +1,6 @@
 "use client";
 
+import { sendGAEvent } from "@next/third-parties/google";
 import { useId, useState } from "react";
 import { whatsapp } from "@/content/site";
 import { WhatsAppIcon } from "@/components/ui";
@@ -67,6 +68,9 @@ export default function EnquiryForm({
       guests && `${GUEST_LABEL[purpose]}: ${guests}`,
       note.trim() && `\n${note.trim()}`,
     ].filter(Boolean);
+    // The click listener cannot see a window.open, so this one fires here.
+    // Only the path: never a name, a phone number, a date or the note.
+    sendGAEvent("event", "enquiry_submit", { page_path: window.location.pathname });
     window.open(whatsapp(lines.join("\n")), "_blank", "noopener,noreferrer");
   }
 
