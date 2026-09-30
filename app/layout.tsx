@@ -69,6 +69,9 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     images: [{ url: "/images/casabay/casa-ambience-2.webp", width: 1536, height: 1024, alt: "CasaBay rooftop at night" }],
   },
+  // Belt and braces with robots.ts: a preview that is linked to directly
+  // still carries noindex in its own HTML.
+  robots: isProd ? { index: true, follow: true } : { index: false, follow: false },
   twitter: { card: "summary_large_image" },
   icons: { icon: "/branding/chettungal_crest_gold.png", apple: "/branding/chettungal_crest_gold.png" },
 };
