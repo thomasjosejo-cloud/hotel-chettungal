@@ -43,6 +43,8 @@ export const SITE = {
     fishtown: { opens: "07:00", closes: "23:00" },
   },
   boardRoomSeats: 12 as number | null,
+  // GA4 web stream "Website" (property: Chettungal New Town Hotel). Not a secret.
+  gaId: "G-F1JZLQ87KT",
   /**
    * Confirmed by the property: breakfast is NOT included. It comes only with
    * the CP and MAP plans, so it is never listed as a facility or an amenity —

@@ -5,8 +5,19 @@ import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
 import RevealObserver from "@/components/RevealObserver";
 import SiteMotion from "@/components/motion/SiteMotion";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import TrackClicks from "@/components/TrackClicks";
 import { SITE } from "@/content/site";
 import "./globals.css";
+
+/*
+ * Each Vercel deployment is built with its own VERCEL_ENV, so reading it at
+ * build time is correct: previews and local runs never load GA and are never
+ * indexed, which keeps the property's numbers to real visitors.
+ */
+const isProd = process.env.VERCEL_ENV === "production";
 
 /* The page's own type, unchanged: everything outside the header and footer. */
 const cormorant = Cormorant_Garamond({
@@ -89,7 +100,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MobileDock />
         <RevealObserver />
         <SiteMotion />
+        <TrackClicks />
+        <Analytics />
+        <SpeedInsights />
       </body>
+      {/* @next/third-parties expects this as a sibling of <body>. */}
+      {isProd && <GoogleAnalytics gaId={SITE.gaId} />}
     </html>
   );
 }
