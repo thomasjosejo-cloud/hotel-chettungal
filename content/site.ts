@@ -37,12 +37,14 @@ export const SITE = {
     casabay: "3 pm – 11 pm" as string | null,
     fishtown: "7 am – 11 pm" as string | null,
   },
-  // The same hours in 24-hour form, for schema.org openingHoursSpecification.
+  // Not emitted in JSON-LD until the property confirms open days (schema requires dayOfWeek).
   openingHours: {
     casabay: { opens: "15:00", closes: "23:00" },
     fishtown: { opens: "07:00", closes: "23:00" },
   },
   boardRoomSeats: 12 as number | null,
+  // GA4 web stream "Website" (property: Chettungal New Town Hotel). Not a secret.
+  gaId: "G-F1JZLQ87KT",
   /**
    * Confirmed by the property: breakfast is NOT included. It comes only with
    * the CP and MAP plans, so it is never listed as a facility or an amenity —
@@ -61,6 +63,21 @@ export const FACILITIES = {
   hotel: ["High-speed Wi-Fi", "On-site parking", "100% DG power backup"],
   rooms: ["Attached bathroom with 24-hour hot water", "In-room dining from Fish Town"],
 } as const;
+
+/**
+ * Last meaningful content change per page, for the sitemap.
+ * Update the date by hand when a page's content actually changes. Never use the build date.
+ */
+export const PAGE_UPDATED: Record<string, string> = {
+  "/": "2026-09-25",
+  "/casabay": "2026-09-25",
+  "/fishtown": "2026-09-25",
+  "/town-hall": "2026-09-25",
+  "/board-room": "2026-09-25",
+  "/rooms": "2026-09-25",
+  "/about": "2026-09-24",
+  "/enquire": "2026-09-25",
+};
 
 /** WhatsApp deep link with a message written in the guest's own voice. */
 export function whatsapp(message: string): string {
