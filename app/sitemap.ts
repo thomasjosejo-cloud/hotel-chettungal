@@ -1,57 +1,27 @@
 import type { MetadataRoute } from "next";
+import { PAGE_UPDATED, SITE } from "@/content/site";
 
+/**
+ * Fixed per-page dates, not the build date: `new Date()` told search engines
+ * all eight pages had changed on every deploy, which makes lastModified
+ * worthless as a signal.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://hotelchettungal.com";
-  const currentDate = new Date();
+  const page = (path: string, changeFrequency: "weekly" | "monthly", priority: number) => ({
+    url: path === "/" ? SITE.url : `${SITE.url}${path}`,
+    lastModified: PAGE_UPDATED[path],
+    changeFrequency,
+    priority,
+  });
 
   return [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/casabay`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/fishtown`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/town-hall`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/board-room`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/rooms`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/enquire`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    page("/", "weekly", 1.0),
+    page("/casabay", "weekly", 0.9),
+    page("/fishtown", "weekly", 0.85),
+    page("/town-hall", "monthly", 0.8),
+    page("/board-room", "monthly", 0.75),
+    page("/rooms", "weekly", 0.8),
+    page("/about", "monthly", 0.7),
+    page("/enquire", "monthly", 0.8),
   ];
 }

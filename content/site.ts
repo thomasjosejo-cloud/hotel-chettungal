@@ -64,6 +64,21 @@ export const FACILITIES = {
   rooms: ["Attached bathroom with 24-hour hot water", "In-room dining from Fish Town"],
 } as const;
 
+/**
+ * Last meaningful content change per page, for the sitemap.
+ * Update the date by hand when a page's content actually changes. Never use the build date.
+ */
+export const PAGE_UPDATED: Record<string, string> = {
+  "/": "2026-09-25",
+  "/casabay": "2026-09-25",
+  "/fishtown": "2026-09-25",
+  "/town-hall": "2026-09-25",
+  "/board-room": "2026-09-25",
+  "/rooms": "2026-09-25",
+  "/about": "2026-09-24",
+  "/enquire": "2026-09-25",
+};
+
 /** WhatsApp deep link with a message written in the guest's own voice. */
 export function whatsapp(message: string): string {
   return `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(message)}`;
